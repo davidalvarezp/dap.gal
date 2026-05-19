@@ -1,6 +1,5 @@
-site_name: Linux Docs
-
-site_url: /docs/
+site_name: Mi Homelab
+site_url: https://dap.gal/homelab/
 
 theme:
   name: material

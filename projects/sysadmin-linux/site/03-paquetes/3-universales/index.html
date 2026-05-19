@@ -15,21 +15,28 @@
         <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/03-paquetes/3-universales/">
       
       
+        <link rel="prev" href="../2-compilacion/">
+      
+      
+        <link rel="next" href="../../04-almacenamiento/1-discos/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/linux.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>3.3 Paquetes Universales: Snap, Flatpak y AppImage - Manual SysAdmin Linux</title>
+        <title>Paquetes Universales - Manual SysAdmin Linux</title>
       
     
     
       <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -57,7 +64,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -84,8 +98,7 @@
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,12 +115,38 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.3 Paquetes Universales: Snap, Flatpak y AppImage
+              Paquetes Universales
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -162,6 +201,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+      </div>
+    
   </nav>
   
     
@@ -186,6 +237,250 @@
 
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01-fundamentos/1-introduccion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Fundamentos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02-usuarios/1-usuarios/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Usuarios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-gestion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Paquetes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04-almacenamiento/1-discos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Almacenamiento
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05-procesos/1-procesos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Procesos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06-redes/1-configuracion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Redes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07-seguridad/1-firewalls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Seguridad
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08-servicios/1-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Servicios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09-automatizacion/1-bash/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Automatización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10-virtualizacion/1-kvm/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Virtualización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11-monitorizacion/1-rendimiento/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Monitorización
+
+        </a>
+      </li>
+    
   
 
       
@@ -219,12 +514,23 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     Manual SysAdmin Linux
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -251,6 +557,2025 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/2-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/3-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La terminal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/4-documentacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usuarios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usuarios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Usuarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/2-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permisos de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/3-acls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACLs Avanzadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/4-sudo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escalada de Privilegios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Paquetes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-gestion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    APT y DNF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-compilacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compilación desde Fuente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes Universales
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes Universales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-el-cambio-de-paradigma-compartido-vs-autocontenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. El Cambio de Paradigma: Compartido vs. Autocontenido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-los-tres-grandes-formatos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Los Tres Grandes Formatos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabla-comparativa-de-produccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla Comparativa de Producción
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-despliegue-e-interrogacion-de-formatos-universales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Despliegue e Interrogación de Formatos Universales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Despliegue e Interrogación de Formatos Universales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-gestion-de-servicios-con-snap-enfoque-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Gestión de Servicios con Snap (Enfoque Servidor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-gestion-de-aplicaciones-de-escritorio-con-flatpak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Gestión de Aplicaciones de Escritorio con Flatpak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-ejecucion-de-un-appimage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Ejecución de un AppImage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-modulo-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Módulo 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/1-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discos y Particiones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/2-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sistemas de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/3-lvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVM Avanzado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/4-montaje/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje y FSTAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Procesos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/1-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/2-systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive en Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/3-cron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tareas Programadas (Cron)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Redes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/1-configuracion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/2-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resolución de Nombres (DNS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/3-ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH Profesional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/4-diagnostico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnóstico de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Seguridad
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/1-firewalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewalls (UFW/NFTables)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/2-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auditoría y Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/3-selinux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SELinux y AppArmor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servicios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Servicios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/1-web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servidores Web (Nginx/Apache)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/2-db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/3-transferencia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transferencia de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automatización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automatización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/1-bash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash Scripting Pro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/2-ansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible (IaC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/3-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git para Sysadmins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/1-kvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KVM/QEMU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/2-containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker y Podman
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/3-k8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes (Conceptos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/1-rendimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Análisis de Rendimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/2-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prometheus y Grafana
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/3-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodología Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -334,45 +2659,6 @@
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="2. Los Tres Grandes Formatos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-snap-desarrollado-por-canonical" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. Snap (Desarrollado por Canonical)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-flatpak-desarrollado-por-la-comunidad-independiente-red-hat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. Flatpak (Desarrollado por la comunidad independiente / Red Hat)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-appimage-filosofia-portable" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. AppImage (Filosofía Portable)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -504,21 +2790,64 @@
   
 
 
+  <nav class="md-path" aria-label="Navegación" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../1-gestion/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Paquetes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
               
               <article class="md-content__inner md-typeset">
                 
                   
 
 
+  
+  
 
-<h1 id="33-paquetes-universales-snap-flatpak-y-appimage">3.3 Paquetes Universales: Snap, Flatpak y AppImage</h1>
+
+<h1 id="33-paquetes-universales-snap-flatpak-y-appimage">3.3 Paquetes Universales: Snap, Flatpak y AppImage<a class="headerlink" href="#33-paquetes-universales-snap-flatpak-y-appimage" title="Permanent link">&para;</a></h1>
 <p>El modelo tradicional de paquetes (APT, DNF) es excelente para el núcleo del sistema operativo, pero presenta fricciones insolubles en el desarrollo moderno: obliga a los desarrolladores a empaquetar su software de docenas de formas distintas para cada distribución y congela las versiones de las librerías, obligando al usuario a elegir entre la estabilidad del sistema o la novedad de sus aplicaciones. </p>
 <p>Para romper este cuello de botella, la industria adoptó los <strong>Paquetes Universales</strong>, formatos autocontenidos que aíslan la aplicación y sus dependencias del resto del sistema operativo.</p>
 <hr />
-<h2 id="introduccion">Introducción</h2>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>Los paquetes universales cambian las reglas del juego. Ya no importa si corres Ubuntu, Rocky Linux, Arch o Alpine; un paquete universal se ejecutará exactamente igual en cualquiera de ellos. Como Sysadmin, entender su arquitectura, su consumo de recursos y sus mecanismos de aislamiento (sandboxing) es fundamental para gestionar entornos de escritorio profesionales y despliegues específicos en servidores de vanguardia.</p>
 <hr />
-<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje<a class="headerlink" href="#objetivos-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Comprender la filosofía de diseño y aislamiento detrás de los formatos universales.</li>
 <li>Comparar y contrastar las arquitecturas de <strong>Snap</strong>, <strong>Flatpak</strong> y <strong>AppImage</strong>.</li>
@@ -526,30 +2855,30 @@
 <li>Resolver problemas de almacenamiento y permisos derivados del aislamiento (<em>sandboxing</em>).</li>
 </ul>
 <hr />
-<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
-<h3 id="1-el-cambio-de-paradigma-compartido-vs-autocontenido">1. El Cambio de Paradigma: Compartido vs. Autocontenido</h3>
+<h2 id="conceptos-teoricos">Conceptos Teóricos<a class="headerlink" href="#conceptos-teoricos" title="Permanent link">&para;</a></h2>
+<h3 id="1-el-cambio-de-paradigma-compartido-vs-autocontenido">1. El Cambio de Paradigma: Compartido vs. Autocontenido<a class="headerlink" href="#1-el-cambio-de-paradigma-compartido-vs-autocontenido" title="Permanent link">&para;</a></h3>
 <p>A diferencia de los paquetes <code>.deb</code> o <code>.rpm</code>, que dependen de las librerías compartidas en <code>/usr/lib</code>, los formatos universales empaquetan la aplicación junto con absolutamente todas las dependencias que necesita para funcionar.</p>
-<h3 id="2-los-tres-grandes-formatos">2. Los Tres Grandes Formatos</h3>
+<h3 id="2-los-tres-grandes-formatos">2. Los Tres Grandes Formatos<a class="headerlink" href="#2-los-tres-grandes-formatos" title="Permanent link">&para;</a></h3>
 <p>Aunque comparten el objetivo de ser "universales", sus filosofías y arquitecturas internas difieren radicalmente:</p>
-<h4 id="a-snap-desarrollado-por-canonical">A. Snap (Desarrollado por Canonical)</h4>
+<h4 id="a-snap-desarrollado-por-canonical">A. Snap (Desarrollado por Canonical)<a class="headerlink" href="#a-snap-desarrollado-por-canonical" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Enfoque:</strong> Diseñado tanto para aplicaciones de escritorio (GUI) como para servidores (daemons, herramientas de CLI y bases de datos) e Internet de las Cosas (IoT).</li>
 <li><strong>Mecanismo:</strong> Los snaps son imágenes de sistemas de archivos comprimidos (<code>SquashFS</code>) que el Kernel monta dinámicamente como dispositivos de bucle (<code>/dev/loopX</code>). </li>
 <li><strong>Seguridad:</strong> Utiliza <code>AppArmor</code> y <code>cgroups</code> para aislar la aplicación del sistema. Su tienda de aplicaciones (Snap Store) es centralizada y controlada por Canonical.</li>
 </ul>
-<h4 id="b-flatpak-desarrollado-por-la-comunidad-independiente-red-hat">B. Flatpak (Desarrollado por la comunidad independiente / Red Hat)</h4>
+<h4 id="b-flatpak-desarrollado-por-la-comunidad-independiente-red-hat">B. Flatpak (Desarrollado por la comunidad independiente / Red Hat)<a class="headerlink" href="#b-flatpak-desarrollado-por-la-comunidad-independiente-red-hat" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Enfoque:</strong> Diseñado exclusivamente para aplicaciones de <strong>escritorio gráfico (GUI)</strong>. Está prohibido su uso para servicios de fondo de servidor o herramientas CLI pures.</li>
 <li><strong>Mecanismo:</strong> Utiliza tiempos de ejecución compartidos (<em>Runtimes</em>) para evitar duplicar librerías comunes (como GNOME o KDE). Las aplicaciones se ejecutan dentro de contenedores ligeros mediante <code>Bubblewrap</code>.</li>
 <li><strong>Seguridad:</strong> Altamente descentralizado (cualquiera puede montar su tienda), aunque <strong>Flathub</strong> actúa como el repositorio <em>de facto</em> de la industria.</li>
 </ul>
-<h4 id="c-appimage-filosofia-portable">C. AppImage (Filosofía Portable)</h4>
+<h4 id="c-appimage-filosofia-portable">C. AppImage (Filosofía Portable)<a class="headerlink" href="#c-appimage-filosofia-portable" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Enfoque:</strong> El equivalente al formato <code>.exe</code> portable de Windows o <code>.dmg</code> de macOS.</li>
 <li><strong>Mecanismo:</strong> Todo el programa es un <strong>único archivo ejecutable</strong>. Al lanzarlo, se monta a sí mismo temporalmente en memoria mediante FUSE (Filesystem in Userspace) y se ejecuta.</li>
 <li><strong>Seguridad:</strong> No implementa <em>sandboxing</em> ni aislamiento por defecto de forma nativa; corre con los mismos privilegios exactos del usuario que lo ejecuta.</li>
 </ul>
-<h3 id="tabla-comparativa-de-produccion">Tabla Comparativa de Producción</h3>
+<h3 id="tabla-comparativa-de-produccion">Tabla Comparativa de Producción<a class="headerlink" href="#tabla-comparativa-de-produccion" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -593,45 +2922,45 @@
 </tbody>
 </table>
 <hr />
-<h2 id="laboratorio-practico-despliegue-e-interrogacion-de-formatos-universales">Laboratorio Práctico: Despliegue e Interrogación de Formatos Universales</h2>
-<h3 id="escenario">Escenario</h3>
+<h2 id="laboratorio-practico-despliegue-e-interrogacion-de-formatos-universales">Laboratorio Práctico: Despliegue e Interrogación de Formatos Universales<a class="headerlink" href="#laboratorio-practico-despliegue-e-interrogacion-de-formatos-universales" title="Permanent link">&para;</a></h2>
+<h3 id="escenario">Escenario<a class="headerlink" href="#escenario" title="Permanent link">&para;</a></h3>
 <p>En una estación de trabajo de ingeniería, necesitas instalar la herramienta de diseño <code>Blender</code> usando Flatpak, desplegar un entorno Nextcloud de pruebas en un servidor usando Snap, y ejecutar una utilidad portable AppImage sin alterar el sistema operativo.</p>
-<h3 id="paso-1-gestion-de-servicios-con-snap-enfoque-servidor">Paso 1: Gestión de Servicios con Snap (Enfoque Servidor)</h3>
+<h3 id="paso-1-gestion-de-servicios-con-snap-enfoque-servidor">Paso 1: Gestión de Servicios con Snap (Enfoque Servidor)<a class="headerlink" href="#paso-1-gestion-de-servicios-con-snap-enfoque-servidor" title="Permanent link">&para;</a></h3>
 <p>Instalaremos un servicio completo de almacenamiento en la nube en cuestión de segundos.</p>
-<pre><code class="language-bash"># 1. Instalar el snap de Nextcloud
-sudo snap install nextcloud
-
-# 2. Verificar los servicios en segundo plano que ha levantado el snap
-snap services
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. Instalar el snap de Nextcloud</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>nextcloud
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 2. Verificar los servicios en segundo plano que ha levantado el snap</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>snap<span class="w"> </span>services
+</span></code></pre></div>
 <p><em>Output esperado:</em> Verás subservicios como nextcloud.apache, nextcloud.mysql, etc., corriendo de forma aislada sin haber instalado Apache o MySQL en tu sistema operativo anfitrión.</p>
-<pre><code class="language-bash"># 3. Listar los snaps instalados y ver qué versión de revisión de disco usan
-snap list
-</code></pre>
-<h3 id="paso-2-gestion-de-aplicaciones-de-escritorio-con-flatpak">Paso 2: Gestión de Aplicaciones de Escritorio con Flatpak</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 3. Listar los snaps instalados y ver qué versión de revisión de disco usan</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>snap<span class="w"> </span>list
+</span></code></pre></div>
+<h3 id="paso-2-gestion-de-aplicaciones-de-escritorio-con-flatpak">Paso 2: Gestión de Aplicaciones de Escritorio con Flatpak<a class="headerlink" href="#paso-2-gestion-de-aplicaciones-de-escritorio-con-flatpak" title="Permanent link">&para;</a></h3>
 <p>Configuraremos el repositorio Flathub e instalaremos una aplicación gráfica.</p>
-<pre><code class="language-bash"># 1. Añadir el repositorio Flathub de forma global
-flatpak remote-add --if-not-exists flathub [https://dl.flathub.org/repo/flathub.flatpakrepo](https://dl.flathub.org/repo/flathub.flatpakrepo)
-
-# 2. Buscar una aplicación en la red descentralizada
-flatpak search blender
-
-# 3. Instalar la aplicación de forma no interactiva (-y)
-flatpak install flathub org.blender.Blender -y
-</code></pre>
-<h3 id="paso-3-ejecucion-de-un-appimage">Paso 3: Ejecución de un AppImage</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 1. Añadir el repositorio Flathub de forma global</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>flatpak<span class="w"> </span>remote-add<span class="w"> </span>--if-not-exists<span class="w"> </span>flathub<span class="w"> </span><span class="o">[</span>https://dl.flathub.org/repo/flathub.flatpakrepo<span class="o">](</span>https://dl.flathub.org/repo/flathub.flatpakrepo<span class="o">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 2. Buscar una aplicación en la red descentralizada</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>flatpak<span class="w"> </span>search<span class="w"> </span>blender
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># 3. Instalar la aplicación de forma no interactiva (-y)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>flatpak<span class="w"> </span>install<span class="w"> </span>flathub<span class="w"> </span>org.blender.Blender<span class="w"> </span>-y
+</span></code></pre></div>
+<h3 id="paso-3-ejecucion-de-un-appimage">Paso 3: Ejecución de un AppImage<a class="headerlink" href="#paso-3-ejecucion-de-un-appimage" title="Permanent link">&para;</a></h3>
 <p>Para herramientas portables, el flujo no requiere privilegios de root ni gestores de paquetes.</p>
-<pre><code class="language-bash"># 1. Descargar el archivo portable (Ejemplo: herramienta de diseño vectorial Inkscape)
-wget [https://inkscape.org/gallery/item/44652/Inkscape-e1a0bda-x86_64.AppImage](https://inkscape.org/gallery/item/44652/Inkscape-e1a0bda-x86_64.AppImage)
-
-# 2. Otorgar permisos de ejecución al archivo descargado
-chmod +x Inkscape-e1a0bda-x86_64.AppImage
-
-# 3. Ejecutar la aplicación directamente desde el directorio actual
-./Inkscape-e1a0bda-x86_64.AppImage
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Descargar el archivo portable (Ejemplo: herramienta de diseño vectorial Inkscape)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>wget<span class="w"> </span><span class="o">[</span>https://inkscape.org/gallery/item/44652/Inkscape-e1a0bda-x86_64.AppImage<span class="o">](</span>https://inkscape.org/gallery/item/44652/Inkscape-e1a0bda-x86_64.AppImage<span class="o">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 2. Otorgar permisos de ejecución al archivo descargado</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>chmod<span class="w"> </span>+x<span class="w"> </span>Inkscape-e1a0bda-x86_64.AppImage
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># 3. Ejecutar la aplicación directamente desde el directorio actual</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>./Inkscape-e1a0bda-x86_64.AppImage
+</span></code></pre></div>
 <hr />
-<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting<a class="headerlink" href="#errores-comunes-y-troubleshooting" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Saturación del disco por culpa de /dev/loop (En Snap):</strong> Al ejecutar df -h, notas que tu consola se llena de docenas de dispositivos /dev/loop al 100% de uso, y el espacio en disco disminuye drásticamente.</li>
 </ol>
@@ -639,8 +2968,8 @@ chmod +x Inkscape-e1a0bda-x86_64.AppImage
 <p><strong>El motivo:</strong> Por defecto, Snap guarda hasta 3 versiones antiguas de cada aplicación para permitir <em>rollbacks</em>. Como cada versión es una imagen de disco SquashFS completa, el consumo se dispara.</p>
 <p><strong>Solución:</strong> Modifica la retención del sistema para que guarde el mínimo posible (2 versiones):</p>
 </blockquote>
-<pre><code class="language-bash">sudo snap set system refresh.retain=2    
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>system<span class="w"> </span>refresh.retain<span class="o">=</span><span class="m">2</span><span class="w">    </span>
+</span></code></pre></div>
 <ol>
 <li><strong>"Permission Denied" dentro de Flatpak al intentar leer /mnt/data:</strong> Instalas un reproductor de vídeo o editor de código vía Flatpak, pero al intentar abrir un archivo ubicado en un disco duro secundario montado en /mnt, la aplicación no ve el archivo o da error.</li>
 </ol>
@@ -648,19 +2977,19 @@ chmod +x Inkscape-e1a0bda-x86_64.AppImage
 <p><strong>El motivo:</strong> El aislamiento (<em>sandboxing</em>) bloquea por defecto el acceso al sistema de archivos del anfitrión para proteger el sistema.</p>
 <p><strong>Solución:</strong> Otorga permisos explícitos a la aplicación usando la CLI de Flatpak, o utiliza la herramienta gráfica <strong>Flatseal</strong>:</p>
 </blockquote>
-<pre><code class="language-bash">flatpak override org.blender.Blender --filesystem=/mnt/data 
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>flatpak<span class="w"> </span>override<span class="w"> </span>org.blender.Blender<span class="w"> </span>--filesystem<span class="o">=</span>/mnt/data<span class="w"> </span>
+</span></code></pre></div>
 <hr />
-<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<h2 id="buenas-practicas">Buenas Prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Evita Snaps/Flatpaks para herramientas CLI troncales:</strong> Instalar herramientas como curl, git o docker a través de Snap puede provocar dolores de cabeza sistemáticos en tus scripts de automatización debido al aislamiento de rutas y entornos de ejecución restringidos. Para estas herramientas, prioriza siempre los repositorios nativos (apt/dnf).</li>
 <li><strong>Monitorea el tiempo de arranque de los Snaps:</strong> Debido a que las aplicaciones Snap tienen que montar su sistema de archivos comprimido al vuelo la primera vez que se ejecutan tras encender la máquina, sufren de una penalización de tiempo de carga (<em>cold start</em>). Si el rendimiento inicial es crítico, evita este formato.</li>
 <li><strong>Limpia los runtimes huérfanos:</strong> Al desinstalar aplicaciones Flatpak, las librerías compartidas pesadas (<em>runtimes</em>) suelen quedarse olvidadas en el disco duro. Ejecuta periódicamente el comando de purga para liberar gigabytes de espacio:</li>
 </ul>
-<p><code>bash
-  flatpak uninstall --unused</code></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>flatpak<span class="w"> </span>uninstall<span class="w"> </span>--unused<span class="w">  </span>
+</span></code></pre></div>
 <hr />
-<h2 id="resumen-del-modulo-3">Resumen del Módulo 3</h2>
+<h2 id="resumen-del-modulo-3">Resumen del Módulo 3<a class="headerlink" href="#resumen-del-modulo-3" title="Permanent link">&para;</a></h2>
 <p>Has terminado el <strong>Módulo 3: Gestión de Software y Compilación</strong>. Ahora tienes la capacidad senior de aprovisionar software bajo cualquier escenario: controlas el ecosistema tradicional de distribución y sus dependencias con APT/DNF, sabes compilar código nativo a bajo nivel optimizándolo para la CPU, y dominas el despliegue moderno y aislado mediante paquetes universales.</p>
 
 
@@ -693,6 +3022,44 @@ chmod +x Inkscape-e1a0bda-x86_64.AppImage
         <footer class="md-footer">
   
     
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../2-compilacion/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Compilación desde Fuente">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Compilación desde Fuente
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../04-almacenamiento/1-discos/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Discos y Particiones">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Discos y Particiones
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -702,11 +3069,6 @@ chmod +x Inkscape-e1a0bda-x86_64.AppImage
       Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
     </div>
   
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
   
 </div>
       

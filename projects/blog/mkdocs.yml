@@ -1,6 +1,6 @@
 site_name: Blog
 
-site_url: /blog/
+site_url: https://dap.gal/blog/
 
 theme:
   name: material

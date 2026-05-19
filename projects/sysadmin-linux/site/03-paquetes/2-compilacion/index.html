@@ -15,21 +15,28 @@
         <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/03-paquetes/2-compilacion/">
       
       
+        <link rel="prev" href="../1-gestion/">
+      
+      
+        <link rel="next" href="../3-universales/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/linux.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>3.2 Compilación desde Fuente: make, gcc y Gestión de Dependencias - Manual SysAdmin Linux</title>
+        <title>Compilación desde Fuente - Manual SysAdmin Linux</title>
       
     
     
       <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -57,7 +64,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -84,8 +98,7 @@
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,12 +115,38 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3.2 Compilación desde Fuente: make, gcc y Gestión de Dependencias
+              Compilación desde Fuente
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -162,6 +201,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+      </div>
+    
   </nav>
   
     
@@ -186,6 +237,250 @@
 
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01-fundamentos/1-introduccion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Fundamentos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02-usuarios/1-usuarios/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Usuarios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-gestion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Paquetes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04-almacenamiento/1-discos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Almacenamiento
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05-procesos/1-procesos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Procesos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06-redes/1-configuracion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Redes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07-seguridad/1-firewalls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Seguridad
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08-servicios/1-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Servicios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09-automatizacion/1-bash/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Automatización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10-virtualizacion/1-kvm/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Virtualización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11-monitorizacion/1-rendimiento/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Monitorización
+
+        </a>
+      </li>
+    
   
 
       
@@ -219,12 +514,23 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     Manual SysAdmin Linux
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -251,6 +557,2036 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/2-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/3-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La terminal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/4-documentacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usuarios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usuarios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Usuarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/2-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permisos de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/3-acls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACLs Avanzadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-usuarios/4-sudo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escalada de Privilegios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Paquetes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-gestion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    APT y DNF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compilación desde Fuente
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compilación desde Fuente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-las-tres-fases-del-flujo-tradicional-the-gnu-build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Las Tres Fases del Flujo Tradicional (The GNU Build System)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-el-secreto-de-las-librerias-de-desarrollo-dev-o-devel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. El Secreto de las Librerías de Desarrollo (-dev o -devel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-compilacion-de-nginx-con-modulos-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Compilación de Nginx con Módulos Personalizados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Compilación de Nginx con Módulos Personalizados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-instalar-el-toolchain-de-compilacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Instalar el Toolchain de Compilación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-descargar-el-codigo-fuente-oficial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Descargar el Código Fuente Oficial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-resolver-dependencias-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Resolver Dependencias de Desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-configurar-y-compilar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Configurar y Compilar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-5-instalacion-limpia-con-checkinstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5: Instalación Limpia con checkinstall
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-universales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes Universales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/1-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discos y Particiones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/2-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sistemas de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/3-lvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVM Avanzado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/4-montaje/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje y FSTAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Procesos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/1-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/2-systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive en Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/3-cron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tareas Programadas (Cron)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Redes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/1-configuracion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/2-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resolución de Nombres (DNS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/3-ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH Profesional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/4-diagnostico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnóstico de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Seguridad
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/1-firewalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewalls (UFW/NFTables)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/2-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auditoría y Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/3-selinux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SELinux y AppArmor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servicios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Servicios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/1-web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servidores Web (Nginx/Apache)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/2-db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/3-transferencia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transferencia de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automatización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automatización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/1-bash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash Scripting Pro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/2-ansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible (IaC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/3-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git para Sysadmins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/1-kvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KVM/QEMU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/2-containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker y Podman
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/3-k8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes (Conceptos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/1-rendimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Análisis de Rendimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/2-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prometheus y Grafana
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/3-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodología Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -323,45 +2659,6 @@
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="1. Las Tres Fases del Flujo Tradicional (The GNU Build System)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-configure-fase-de-inspeccion" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A. ./configure (Fase de Inspección)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-make-fase-de-compilacion" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B. make (Fase de Compilación)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-make-install-fase-de-despliegue" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C. make install (Fase de Despliegue)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -515,20 +2812,63 @@
   
 
 
+  <nav class="md-path" aria-label="Navegación" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../1-gestion/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Paquetes
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
               
               <article class="md-content__inner md-typeset">
                 
                   
 
 
+  
+  
 
-<h1 id="32-compilacion-desde-fuente-make-gcc-y-gestion-de-dependencias">3.2 Compilación desde Fuente: make, gcc y Gestión de Dependencias</h1>
+
+<h1 id="32-compilacion-desde-fuente-make-gcc-y-gestion-de-dependencias">3.2 Compilación desde Fuente: make, gcc y Gestión de Dependencias<a class="headerlink" href="#32-compilacion-desde-fuente-make-gcc-y-gestion-de-dependencias" title="Permanent link">&para;</a></h1>
 <p>Aunque los gestores de paquetes como APT y DNF cubren el 95% de las necesidades de un servidor, existen escenarios de nivel senior donde es obligatorio <strong>compilar software desde su código fuente</strong>. Esto ocurre cuando necesitas una versión de vanguardia no disponible en los repositorios, cuando requieres un módulo opcional que el empaquetador oficial no incluyó, o cuando buscas exprimir el máximo rendimiento del procesador optimizando el binario para su arquitectura específica.</p>
 <hr />
-<h2 id="introduccion">Introducción</h2>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>Compilar implica traducir el código escrito por humanos (en lenguajes como C o C++) a instrucciones binarias legibles por la CPU. Este proceso, que a veces asusta a los administradores noveles por los crípticos errores que puede arrojar, sigue un flujo lógico y predecible. En este capítulo aprenderás a descifrar las etapas de compilación, a resolver dependencias a bajo nivel y a empaquetar el resultado sin ensuciar el sistema operativo.</p>
 <hr />
-<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje<a class="headerlink" href="#objetivos-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Comprender las fases del ciclo de compilación: Configuración, Compilación e Instalación.</li>
 <li>Instalar y dominar las herramientas del <em>toolchain</em> de desarrollo (gcc, make, automake).</li>
@@ -537,22 +2877,22 @@
 <li>Utilizar checkinstall para mantener limpio el gestor de paquetes nativo.</li>
 </ul>
 <hr />
-<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
-<h3 id="1-las-tres-fases-del-flujo-tradicional-the-gnu-build-system">1. Las Tres Fases del Flujo Tradicional (The GNU Build System)</h3>
+<h2 id="conceptos-teoricos">Conceptos Teóricos<a class="headerlink" href="#conceptos-teoricos" title="Permanent link">&para;</a></h2>
+<h3 id="1-las-tres-fases-del-flujo-tradicional-the-gnu-build-system">1. Las Tres Fases del Flujo Tradicional (The GNU Build System)<a class="headerlink" href="#1-las-tres-fases-del-flujo-tradicional-the-gnu-build-system" title="Permanent link">&para;</a></h3>
 <p>La inmensa mayoría del código fuente abierto en C utiliza el estándar autotools y se compila siguiendo tres comandos secuenciales:</p>
-<h4 id="a-configure-fase-de-inspeccion">A. ./configure (Fase de Inspección)</h4>
+<h4 id="a-configure-fase-de-inspeccion">A. ./configure (Fase de Inspección)<a class="headerlink" href="#a-configure-fase-de-inspeccion" title="Permanent link">&para;</a></h4>
 <p>Es un script empaquetado junto al código que se encarga de interrogar a tu sistema operativo. Comprueba si tienes el compilador adecuado, si las librerías necesarias están instaladas y dónde se ubicarán los archivos finales. Además, permite pasarle flags para activar o desactivar características (ej. --with-http_ssl_module).</p>
 <ul>
 <li><em>Resultado:</em> Si todo es correcto, genera un archivo dinámico llamado Makefile.</li>
 </ul>
-<h4 id="b-make-fase-de-compilacion">B. make (Fase de Compilación)</h4>
+<h4 id="b-make-fase-de-compilacion">B. make (Fase de Compilación)<a class="headerlink" href="#b-make-fase-de-compilacion" title="Permanent link">&para;</a></h4>
 <p>Lee las instrucciones del Makefile generado en el paso anterior y分支 invoca al compilador (como gcc) para transformar cada archivo de código fuente (.c) en un archivo objeto binario (.o). Finalmente, el <em>linker</em> los une todos en un único binario ejecutable.</p>
 <ul>
 <li><em>Resultado:</em> El programa ya está compilado y listo en la carpeta temporal, pero aún no está instalado en el sistema.</li>
 </ul>
-<h4 id="c-make-install-fase-de-despliegue">C. make install (Fase de Despliegue)</h4>
+<h4 id="c-make-install-fase-de-despliegue">C. make install (Fase de Despliegue)<a class="headerlink" href="#c-make-install-fase-de-despliegue" title="Permanent link">&para;</a></h4>
 <p>Copia los binarios compilados, las librerías y las páginas de manual desde la carpeta temporal hacia las rutas definitivas del sistema operativo (usualmente bajo /usr/local/ para no machacar el software del sistema).</p>
-<h3 id="2-el-secreto-de-las-librerias-de-desarrollo-dev-o-devel">2. El Secreto de las Librerías de Desarrollo (-dev o -devel)</h3>
+<h3 id="2-el-secreto-de-las-librerias-de-desarrollo-dev-o-devel">2. El Secreto de las Librerías de Desarrollo (-dev o -devel)<a class="headerlink" href="#2-el-secreto-de-las-librerias-de-desarrollo-dev-o-devel" title="Permanent link">&para;</a></h3>
 <p>El error más común al compilar es que el script ./configure falle diciendo que falta una librería, por ejemplo libssl, a pesar de que tú sabes que tienes OpenSSL instalado en el servidor.</p>
 <ul>
 <li><em>El motivo:</em> Los usuarios normales solo necesitan los binarios de ejecución (.so). Pero para compilar software que interactúe con esa librería, necesitas las <strong>cabeceras de desarrollo</strong> (archivos .h).</li>
@@ -560,56 +2900,56 @@
 <li>En la familia RHEL/AlmaLinux, se empaquetan con el sufijo <strong>-devel</strong> (ej. openssl-devel).</li>
 </ul>
 <hr />
-<h2 id="laboratorio-practico-compilacion-de-nginx-con-modulos-personalizados">Laboratorio Práctico: Compilación de Nginx con Módulos Personalizados</h2>
-<h3 id="escenario">Escenario</h3>
+<h2 id="laboratorio-practico-compilacion-de-nginx-con-modulos-personalizados">Laboratorio Práctico: Compilación de Nginx con Módulos Personalizados<a class="headerlink" href="#laboratorio-practico-compilacion-de-nginx-con-modulos-personalizados" title="Permanent link">&para;</a></h2>
+<h3 id="escenario">Escenario<a class="headerlink" href="#escenario" title="Permanent link">&para;</a></h3>
 <p>Necesitamos desplegar una versión específica del servidor web Nginx compilada desde la fuente, optimizada para nuestro procesador y habilitando exclusivamente los módulos de rendimiento que nos interesan.</p>
-<h3 id="paso-1-instalar-el-toolchain-de-compilacion">Paso 1: Instalar el Toolchain de Compilación</h3>
+<h3 id="paso-1-instalar-el-toolchain-de-compilacion">Paso 1: Instalar el Toolchain de Compilación<a class="headerlink" href="#paso-1-instalar-el-toolchain-de-compilacion" title="Permanent link">&para;</a></h3>
 <p>Antes de descargar código, necesitamos las herramientas de desarrollo básicas. Las distribuciones agrupan estos paquetes para facilitar su instalación.</p>
-<pre><code class="language-bash"># En entornos Debian/Ubuntu:
-sudo apt update &amp;&amp; sudo apt install -y build-essential wget
-
-# En entornos RHEL/AlmaLinux:
-sudo dnf groupinstall -y &quot;Development Tools&quot; &amp;&amp; sudo dnf install -y wget
-</code></pre>
-<h3 id="paso-2-descargar-el-codigo-fuente-oficial">Paso 2: Descargar el Código Fuente Oficial</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># En entornos Debian/Ubuntu:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>wget
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># En entornos RHEL/AlmaLinux:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>groupinstall<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>wget
+</span></code></pre></div>
+<h3 id="paso-2-descargar-el-codigo-fuente-oficial">Paso 2: Descargar el Código Fuente Oficial<a class="headerlink" href="#paso-2-descargar-el-codigo-fuente-oficial" title="Permanent link">&para;</a></h3>
 <p>Descargamos el <em>tarball</em> del código fuente directamente desde el sitio oficial de Nginx y lo extraemos en un directorio de trabajo seguro (usualmente /usr/local/src).</p>
-<pre><code class="language-bash">cd /usr/local/src
-sudo wget https://nginx.org/download/nginx-1.26.0.tar.gz
-sudo tar -xzf nginx-1.26.0.tar.gz
-cd nginx-1.26.0
-</code></pre>
-<h3 id="paso-3-resolver-dependencias-de-desarrollo">Paso 3: Resolver Dependencias de Desarrollo</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/local/src
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>wget<span class="w"> </span>https://nginx.org/download/nginx-1.26.0.tar.gz
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>nginx-1.26.0.tar.gz
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">cd</span><span class="w"> </span>nginx-1.26.0
+</span></code></pre></div>
+<h3 id="paso-3-resolver-dependencias-de-desarrollo">Paso 3: Resolver Dependencias de Desarrollo<a class="headerlink" href="#paso-3-resolver-dependencias-de-desarrollo" title="Permanent link">&para;</a></h3>
 <p>Nginx requiere tres librerías críticas para compilar: PCRE (expresiones regulares), OpenSSL (criptografía) y Zlib (compresión). Instalamos sus cabeceras:</p>
-<pre><code class="language-bash"># En Debian/Ubuntu:
-sudo apt install -y libpcre3-dev libssl-dev zlib1g-dev
-
-# En RHEL/AlmaLinux:
-sudo dnf install -y pcre-devel openssl-devel zlib-devel
-</code></pre>
-<h3 id="paso-4-configurar-y-compilar">Paso 4: Configurar y Compilar</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># En Debian/Ubuntu:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libpcre3-dev<span class="w"> </span>libssl-dev<span class="w"> </span>zlib1g-dev
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># En RHEL/AlmaLinux:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>pcre-devel<span class="w"> </span>openssl-devel<span class="w"> </span>zlib-devel
+</span></code></pre></div>
+<h3 id="paso-4-configurar-y-compilar">Paso 4: Configurar y Compilar<a class="headerlink" href="#paso-4-configurar-y-compilar" title="Permanent link">&para;</a></h3>
 <p>Lanzamos ./configure especificando las rutas profesionales de producción y optimizaciones de CPU (--with-cc-opt).</p>
-<pre><code class="language-bash">sudo ./configure \
-   --prefix=/etc/nginx \
-   --sbin-path=/usr/sbin/nginx \
-   --conf-path=/etc/nginx/nginx.conf \
-   --with-http_ssl_module \
-   --with-cc-opt='-O3 -march=native'
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>./configure<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">   </span>--prefix<span class="o">=</span>/etc/nginx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">   </span>--sbin-path<span class="o">=</span>/usr/sbin/nginx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">   </span>--conf-path<span class="o">=</span>/etc/nginx/nginx.conf<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">   </span>--with-http_ssl_module<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">   </span>--with-cc-opt<span class="o">=</span><span class="s1">&#39;-O3 -march=native&#39;</span>
+</span></code></pre></div>
 <p><em>Nota: -O3 le dice a GCC que aplique la máxima optimización de código, y -march=native le ordena compilar usando las instrucciones específicas exactas de tu modelo de CPU actual.</em></p>
 <p>Si el script termina sin errores, procedemos a compilar usando el comando make. Para acelerar el proceso en servidores con múltiples cores, podemos usar el flag -j:</p>
-<pre><code class="language-bash"># Compilar usando todos los cores disponibles en la máquina
-sudo make -j$(nproc)
-</code></pre>
-<h3 id="paso-5-instalacion-limpia-con-checkinstall">Paso 5: Instalación Limpia con checkinstall</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Compilar usando todos los cores disponibles en la máquina</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></code></pre></div>
+<h3 id="paso-5-instalacion-limpia-con-checkinstall">Paso 5: Instalación Limpia con checkinstall<a class="headerlink" href="#paso-5-instalacion-limpia-con-checkinstall" title="Permanent link">&para;</a></h3>
 <p>Hacer un sudo make install a secas es una mala práctica senior, ya que esparce archivos por el disco y el gestor de paquetes (APT/DNF) no sabrá que existen, lo que provocará conflictos en el futuro. En su lugar, usaremos checkinstall, una herramienta que intercepta la instalación y genera automáticamente un paquete .deb o .rpm nativo.</p>
-<pre><code class="language-bash"># Instalar checkinstall (En Ubuntu/Debian)
-sudo apt install -y checkinstall
-
-# Lanzar la instalación encapsulada
-sudo checkinstall --pkgname=nginx-custom --pkgversion=1.26.0 --backup=no
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Instalar checkinstall (En Ubuntu/Debian)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>checkinstall
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Lanzar la instalación encapsulada</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>sudo<span class="w"> </span>checkinstall<span class="w"> </span>--pkgname<span class="o">=</span>nginx-custom<span class="w"> </span>--pkgversion<span class="o">=</span><span class="m">1</span>.26.0<span class="w"> </span>--backup<span class="o">=</span>no
+</span></code></pre></div>
 <p><em>Resultado:</em> checkinstall creará el paquete, lo registrará de forma limpia en la base de datos de tu sistema operativo y podrás desinstalarlo en el futuro con un simple sudo apt remove nginx-custom.</p>
-<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting<a class="headerlink" href="#errores-comunes-y-troubleshooting" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>"configure: error: C compiler cannot create executables":</strong> Este error asusta mucho, pero suele significar simplemente que no tienes instalado el paquete build-essential o gcc, o que estás intentando compilar sin permisos en un directorio protegido.</li>
 </ol>
@@ -623,13 +2963,13 @@ sudo checkinstall --pkgname=nginx-custom --pkgversion=1.26.0 --backup=no
 <p><strong>Solución:</strong> Vuelve atrás, lee las últimas líneas del output de ./configure, instala la librería de desarrollo que te esté pidiendo y asegúrate de que el archivo llamado Makefile aparezca en la carpeta.</p>
 </blockquote>
 <hr />
-<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<h2 id="buenas-practicas">Buenas Prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Limpia el directorio si reintentas una compilación:</strong> Si ./configure o make fallan, instalas la dependencia que faltaba y vuelves a lanzar el comando inmediatamente, la caché vieja puede corromper el binario. Ejecuta siempre sudo make clean o sudo make distclean antes de reiniciar el flujo.</li>
 <li><strong>Aísla los entornos de compilación:</strong> Compilar software requiere instalar decenas de paquetes de desarrollo (-dev) que no tienen ninguna utilidad en un servidor de producción y aumentan la superficie de ataque. Los Sysadmins Senior compilan el software en máquinas de desarrollo idénticas, generan el paquete con checkinstall o contenedores, y luego solo envían el binario resultante al servidor de producción.</li>
 <li><strong>Respeta el FHS:</strong> Si compilas software de manera manual y decides usar make install a secas, asegúrate de que el prefijo (--prefix) apunte a /usr/local o /opt. Nunca mezcles binarios compilados a mano dentro de /usr/bin/ o /bin/, ya que esas carpetas están reservadas exclusivamente para el control de tu gestor de paquetes oficial.</li>
 </ul>
-<h2 id="resumen">Resumen</h2>
+<h2 id="resumen">Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
 <p>Has alcanzado un hito clave: eres capaz de tomar código fuente nativo, domar al compilador, inyectar flags de optimización y empaquetar el resultado de forma profesional. Con el software del sistema totalmente bajo control, es hora de dar el salto hacia una de las arquitecturas más modernas e indispensables de la administración de servidores actual: la instalación delegada y el aislamiento mediante paquetes universales.</p>
 
 
@@ -662,6 +3002,44 @@ sudo checkinstall --pkgname=nginx-custom --pkgversion=1.26.0 --backup=no
         <footer class="md-footer">
   
     
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../1-gestion/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: APT y DNF">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                APT y DNF
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../3-universales/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Paquetes Universales">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Paquetes Universales
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -671,11 +3049,6 @@ sudo checkinstall --pkgname=nginx-custom --pkgversion=1.26.0 --backup=no
       Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
     </div>
   
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
   
 </div>
       

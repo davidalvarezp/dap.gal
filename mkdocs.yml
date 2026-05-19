@@ -1,113 +1,79 @@
-site_name: Manual SysAdmin Linux
-site_description: De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.
-site_author: dap
+site_name: dap.gal | SysAdmin & DevOps
+site_description: Administrador de sistemas especializado en ciberseguridade, virtualización e infraestrutura Linux.
+site_author: David Álvarez Pampillón
 site_url: https://dap.gal/
-docs_dir: main
-copyright: Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+docs_dir: root
+copyright: >-
+  &copy; 2020 - $(now) <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
 
-# Configuración del Repositorio (Opcional)
 repo_name: davidalvarezp/dap.gal
 repo_url: https://github.com/davidalvarezp/dap.gal
 edit_uri: edit/main/docs/
 
-# Configuración del Tema
 theme:
  name: material
  language: es
- logo: assets/img/linux.png
- favicon: assets/img/linux.png
+ logo: assets/img/logo.webp
+ favicon: assets/img/favicon.ico
  #font:
  # text: JetBrains Mono
  features:
-   - navigation.tabs
-   - navigation.tabs.sticky
-   - navigation.sections
-   - navigation.expand
-   - navigation.path
-   - navigation.top
-   - navigation.indexes
-   - navigation.tracking
-   - navigation.footer
-   - search.suggest
-   - search.highlight
-   - search.share
-   - content.code.copy
-   - content.code.annotate
-   - content.tooltips
-   - header.autohide
-   - toc.follow
-
+  - navigation.instant
+  - navigation.instant.progress
+  - navigation.tabs
+  - navigation.top
+  - navigation.sections
+  - search.suggest
+  - search.highlight
+  - content.code.copy
+  - content.code.annotate
  palette:
-   # Selector de paleta para modo claro
    - media: "(prefers-color-scheme: light)"
      scheme: default
-     primary: green
-     accent: blue
+     primary: black
+     accent: green
      toggle:
        icon: material/toggle-switch
        name: Cambiar a modo oscuro
-   # Selector de paleta para modo oscuro
    - media: "(prefers-color-scheme: dark)"
      scheme: slate
-     primary: green
-     accent: blue
+     primary: black
+     accent: green
      toggle:
        icon: material/toggle-switch-off-outline
        name: Cambiar a modo claro
 
-# Extensiones Markdown
 markdown_extensions:
- - admonition
- - attr_list
- - def_list
- - footnotes
- - md_in_html
- - toc:
-     permalink: true
-     toc_depth: 3
- - pymdownx.arithmatex:
-     generic: true
- - pymdownx.betterem:
-     smart_enable: all
- - pymdownx.caret
- - pymdownx.details
- - pymdownx.emoji:
-     emoji_index: !!python/name:material.extensions.emoji.twemoji
-     emoji_generator: !!python/name:material.extensions.emoji.to_svg
- - pymdownx.highlight:
-     anchor_linenums: true
-     line_spans: __span
-     pygments_lang_class: true
- - pymdownx.inlinehilite
- - pymdownx.keys
- - pymdownx.magiclink:
-     repo_url_shorthand: true
- - pymdownx.mark
- - pymdownx.smartsymbols
- - pymdownx.superfences:
-     custom_fences:
-       - name: mermaid
-         class: mermaid
-         format: !!python/name:pymdownx.superfences.fence_code_format
- - pymdownx.tabbed:
-     alternate_style: true
- - pymdownx.tasklist:
-     custom_checkbox: true
- - pymdownx.tilde
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
 
 # Plugins
 plugins:
   - search
   - tags
   - projects
-
+  - optimize:
+      optimize: false
+  - privacy
 
 # Extra
 extra:
   scope: /
+  generator: false
   social:
     - icon: simple/youtube
-      link: https://x.com/davidalvarezp
+      link: https://youtube.com/@davidalvarezp
     - icon: simple/twitch
       link: https://twitch.tv/sudodap
     - icon: simple/telegram
@@ -117,21 +83,36 @@ extra:
     - icon: simple/instagram
       link: https://instagram.com/davidalvarezzp
     - icon: simple/discord
-      link: https://discord.gg/soon
+      link: https://discord.gg/x7JFKT2n4X
 
-  generator: false
   analytics:
     provider: google
-    property: G-XXXXXXXXXX
+    property: G-MXJTP7C62L
+    feedback:
+      title: Fue útil esta página?
+      ratings:
+        - icon: material/thumb-up-outline
+          name: Si
+          data: 1
+          note: Gracias por el feedback!
+        - icon: material/thumb-down-outline
+          name: Non
+          data: 0
+          note: Gracias, seguiré mejorando.
   consent:
-    title: Cookies
+    #title: Uso de Cookies
     description: >- 
-      Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. 
-      Al continuar navegando, aceptas su uso.
+      Utilizamos cookies para mejorar tu experiencia en nuestro sitio web y analizar el tráfico de forma anónima. 
+      Al continuar navegando, aceptas su uso. Puedes cambiar tus preferencias en cualquier momento.
+    actions:
+      - accept
+      - manage
  
-#extra_css:
-#  - assets/css/extra.css
+extra_css:
+  - assets/css/extra.css
 
 # Navegación
 nav:
- - Inicio: index.md
+  - Inicio: index.md
+  - LinuxMan: /sysadmin-linux/
+  - Contacto: /contacto/

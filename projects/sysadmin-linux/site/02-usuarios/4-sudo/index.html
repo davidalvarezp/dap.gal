@@ -15,21 +15,28 @@
         <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/02-usuarios/4-sudo/">
       
       
+        <link rel="prev" href="../3-acls/">
+      
+      
+        <link rel="next" href="../../03-paquetes/1-gestion/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/linux.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers - Manual SysAdmin Linux</title>
+        <title>Escalada de Privilegios - Manual SysAdmin Linux</title>
       
     
     
       <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -57,7 +64,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -84,8 +98,7 @@
   <nav class="md-header__inner md-grid" aria-label="Cabecera">
     <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -102,12 +115,38 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers
+              Escalada de Privilegios
             
           </span>
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="blue"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -162,6 +201,18 @@
       
     
     
+      <div class="md-header__source">
+        <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+      </div>
+    
   </nav>
   
     
@@ -186,6 +237,250 @@
 
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01-fundamentos/1-introduccion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Fundamentos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-usuarios/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Usuarios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03-paquetes/1-gestion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Paquetes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04-almacenamiento/1-discos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Almacenamiento
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05-procesos/1-procesos/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Procesos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06-redes/1-configuracion/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Redes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07-seguridad/1-firewalls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Seguridad
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08-servicios/1-web/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Servicios
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../09-automatizacion/1-bash/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Automatización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../10-virtualizacion/1-kvm/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Virtualización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11-monitorizacion/1-rendimiento/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Monitorización
+
+        </a>
+      </li>
+    
   
 
       
@@ -219,12 +514,23 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/linux.png" alt="logo">
 
     </a>
     Manual SysAdmin Linux
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/davidalvarezp/dap.gal/tree/main/projects/sysadmin-linux" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dap.gal/guia-sysadmin
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -251,6 +557,2036 @@
   
 
       </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/1-introduccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/2-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/3-terminal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La terminal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-fundamentos/4-documentacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usuarios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Usuarios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-usuarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Usuarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2-permisos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permisos de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-acls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACLs Avanzadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escalada de Privilegios
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escalada de Privilegios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-la-batalla-del-control-su-vs-sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. La batalla del control: su vs. sudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-anatomia-de-una-directiva-en-etcsudoers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Anatomía de una Directiva en /etc/sudoers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-el-poder-de-los-alias-organizacion-corporativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. El Poder de los Alias (Organización Corporativa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-crear-el-entorno-de-pruebas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Crear el entorno de pruebas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-editar-de-forma-segura-con-visudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Editar de forma segura con visudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-implementar-la-logica-de-alias-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Implementar la lógica de Alias y Permisos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-validar-el-entorno-como-el-usuario-delegado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Validar el entorno como el usuario delegado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting (Vulnerabilidades de Escalada Inversa)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-modulo-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Módulo 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Paquetes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-paquetes/1-gestion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    APT y DNF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-paquetes/2-compilacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compilación desde Fuente
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-paquetes/3-universales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paquetes Universales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Almacenamiento
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Almacenamiento
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/1-discos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discos y Particiones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/2-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sistemas de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/3-lvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVM Avanzado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-almacenamiento/4-montaje/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Montaje y FSTAB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Procesos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/1-procesos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestión de Procesos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/2-systemd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dive en Systemd
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-procesos/3-cron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tareas Programadas (Cron)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Redes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Redes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/1-configuracion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuración de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/2-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resolución de Nombres (DNS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/3-ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH Profesional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-redes/4-diagnostico/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnóstico de Red
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Seguridad
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Seguridad
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/1-firewalls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firewalls (UFW/NFTables)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/2-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Auditoría y Logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-seguridad/3-selinux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SELinux y AppArmor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servicios
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Servicios
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/1-web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servidores Web (Nginx/Apache)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/2-db/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bases de Datos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08-servicios/3-transferencia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transferencia de Archivos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automatización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Automatización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/1-bash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash Scripting Pro
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/2-ansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible (IaC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09-automatizacion/3-git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git para Sysadmins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/1-kvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KVM/QEMU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/2-containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker y Podman
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10-virtualizacion/3-k8s/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes (Conceptos)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitorización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Monitorización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/1-rendimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Análisis de Rendimiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/2-monitoreo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prometheus y Grafana
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11-monitorizacion/3-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metodología Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -476,20 +2812,63 @@
   
 
 
+  <nav class="md-path" aria-label="Navegación" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../1-usuarios/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Usuarios
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
               
               <article class="md-content__inner md-typeset">
                 
                   
 
 
+  
+  
 
-<h1 id="24-escalada-de-privilegios-configuracion-segura-de-sudo-y-el-fichero-etcsudoers">2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers</h1>
+
+<h1 id="24-escalada-de-privilegios-configuracion-segura-de-sudo-y-el-fichero-etcsudoers">2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers<a class="headerlink" href="#24-escalada-de-privilegios-configuracion-segura-de-sudo-y-el-fichero-etcsudoers" title="Permanent link">&para;</a></h1>
 <p>En un entorno corporativo, compartir la contraseña del superusuario <code>root</code> es un pecado capital contra la seguridad y la trazabilidad. La herramienta <strong><code>sudo</code> (superuser do)</strong> es el mecanismo estándar en Linux para delegar privilegios administrativos de forma controlada, granular y totalmente auditable.</p>
 <hr />
-<h2 id="introduccion">Introducción</h2>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>El principio de menor privilegio dicta que ningún usuario o proceso debe tener más poder del estrictamente necesario para realizar su función. Si un técnico de soporte solo necesita reiniciar el servidor web, darle acceso completo como <code>root</code> es un riesgo inaceptable. <code>sudo</code> permite al Sysadmin definir con precisión quirúrgica qué comandos específicos puede ejecutar un usuario (o grupo de usuarios), en qué máquinas y bajo la identidad de qué otra cuenta, registrando cada acción en los logs del sistema.</p>
 <hr />
-<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje<a class="headerlink" href="#objetivos-de-aprendizaje" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Comprender la diferencia arquitectónica entre <code>su</code> y <code>sudo</code>.</li>
 <li>Operar de forma segura sobre el fichero de configuración utilizando <code>visudo</code>.</li>
@@ -499,16 +2878,16 @@
 <li>Evitar vulnerabilidades de escalada inversa provocadas por malas configuraciones.</li>
 </ul>
 <hr />
-<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
-<h3 id="1-la-batalla-del-control-su-vs-sudo">1. La batalla del control: <code>su</code> vs. <code>sudo</code></h3>
+<h2 id="conceptos-teoricos">Conceptos Teóricos<a class="headerlink" href="#conceptos-teoricos" title="Permanent link">&para;</a></h2>
+<h3 id="1-la-batalla-del-control-su-vs-sudo">1. La batalla del control: <code>su</code> vs. <code>sudo</code><a class="headerlink" href="#1-la-batalla-del-control-su-vs-sudo" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>su</code> (Switch User):</strong> Cambia la identidad de la shell actual. Si se ejecuta a secas (<code>su -</code>), solicita la <strong>contraseña de root</strong>. Si se comparte, no hay forma de saber qué persona física ejecutó un comando destructivo, ya que en los logs solo aparecerá el usuario <code>root</code>.</li>
 <li><strong><code>sudo</code> (Superuser Do):</strong> Ejecuta un único comando con privilegios elevados utilizando la <strong>contraseña del propio usuario</strong>. Esto garantiza el "no repudio": sabemos exactamente qué usuario del sistema solicitó la elevación.</li>
 </ul>
-<h3 id="2-anatomia-de-una-directiva-en-etcsudoers">2. Anatomía de una Directiva en <code>/etc/sudoers</code></h3>
-<p>La sintaxis de este fichero es famosa por parecer críptica al principio, pero sigue una estructura lógica estricta. Analicemos la línea predeterminada por excelencia:</p>
-<pre><code class="language-text">root    ALL=(ALL:ALL) ALL
-</code></pre>
+<h3 id="2-anatomia-de-una-directiva-en-etcsudoers">2. Anatomía de una Directiva en <code>/etc/sudoers</code><a class="headerlink" href="#2-anatomia-de-una-directiva-en-etcsudoers" title="Permanent link">&para;</a></h3>
+<p>La sintaxis de este fichero es famosa por parecer críptica al principio, pero sigue una estructura lógica estricta. Analicemos la línea predeterminada por excelencia:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>root    ALL=(ALL:ALL) ALL
+</span></code></pre></div></p>
 <p>La regla se lee de izquierda a derecha siguiendo este esquema:</p>
 <ol>
 <li><strong>User:</strong> root \rightarrow ¿Quién solicita la elevación? (Puede ser un usuario o un %grupo).</li>
@@ -516,64 +2895,66 @@
 <li><strong>RunAs (User:Group):</strong> (ALL:ALL) \rightarrow ¿Bajo la identidad de quién se ejecutará el comando? El primer ALL es el usuario (usualmente root) y el segundo el grupo.</li>
 <li><strong>Command:</strong> ALL \rightarrow ¿Qué binarios o scripts específicos se le permite ejecutar? (Debe especificarse con la <strong>ruta absoluta</strong>).</li>
 </ol>
-<h3 id="3-el-poder-de-los-alias-organizacion-corporativa">3. El Poder de los Alias (Organización Corporativa)</h3>
+<h3 id="3-el-poder-de-los-alias-organizacion-corporativa">3. El Poder de los Alias (Organización Corporativa)<a class="headerlink" href="#3-el-poder-de-los-alias-organizacion-corporativa" title="Permanent link">&para;</a></h3>
 <p>Para evitar que el fichero /etc/sudoers se vuelva ilegible, se agrupan los elementos mediante alias:</p>
 <ul>
 <li>User_Alias: Agrupa cuentas de usuarios humanos (ej: User_Alias SOPORTE = juan, maria).</li>
 <li>Cmnd_Alias: Agrupa rutas absolutas de comandos prohibidos o permitidos (ej: Cmnd_Alias RED = /usr/sbin/ip, /usr/sbin/nftables).</li>
 </ul>
 <hr />
-<h2 id="laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones">Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones</h2>
-<h3 id="escenario">Escenario</h3>
+<h2 id="laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones">Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones<a class="headerlink" href="#laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones" title="Permanent link">&para;</a></h2>
+<h3 id="escenario">Escenario<a class="headerlink" href="#escenario" title="Permanent link">&para;</a></h3>
 <p>Disponemos de un grupo en el sistema llamado %net_operators. Necesitamos configurar el servidor para que cualquier miembro de este grupo pueda:</p>
 <ol>
 <li>Ver y reiniciar el servicio de red (NetworkManager) usando systemctl.</li>
 <li>Ejecutar el sniffer de red tcpdump para diagnosticar tráfico, pero <strong>sin que el sistema les pida su contraseña</strong> (requerido para scripts de monitorización rápidos).</li>
 <li>No deben poder ejecutar ningún otro comando como root.</li>
 </ol>
-<h3 id="paso-1-crear-el-entorno-de-pruebas">Paso 1: Crear el entorno de pruebas</h3>
+<h3 id="paso-1-crear-el-entorno-de-pruebas">Paso 1: Crear el entorno de pruebas<a class="headerlink" href="#paso-1-crear-el-entorno-de-pruebas" title="Permanent link">&para;</a></h3>
 <p>Aseguramos la existencia del grupo y añadimos a un técnico de pruebas.</p>
-<pre><code class="language-bash">sudo groupadd net_operators
-sudo useradd -m -s /bin/bash -G net_operators tecnico_redes
-sudo passwd tecnico_redes
-</code></pre>
-<h3 id="paso-2-editar-de-forma-segura-con-visudo">Paso 2: Editar de forma segura con visudo</h3>
-<p>!!! danger "Regla de oro del Sysadmin"
-    <strong>NUNCA</strong> abras /etc/sudoers directamente con nano o vim. Si cometes un error sintáctico, el comando sudo se romperá por completo y te quedarás fuera del sistema sin privilegios. Usa siempre sudo visudo. Este comando abre un editor temporal y, al guardar, valida la sintaxis. Si hay un error, te avisará y te impedirá guardar.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo<span class="w"> </span>groupadd<span class="w"> </span>net_operators
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-G<span class="w"> </span>net_operators<span class="w"> </span>tecnico_redes
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sudo<span class="w"> </span>passwd<span class="w"> </span>tecnico_redes
+</span></code></pre></div>
+<h3 id="paso-2-editar-de-forma-segura-con-visudo">Paso 2: Editar de forma segura con visudo<a class="headerlink" href="#paso-2-editar-de-forma-segura-con-visudo" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">Regla de oro del Sysadmin</p>
+<p><strong>NUNCA</strong> abras /etc/sudoers directamente con nano o vim. Si cometes un error sintáctico, el comando sudo se romperá por completo y te quedarás fuera del sistema sin privilegios. Usa siempre sudo visudo. Este comando abre un editor temporal y, al guardar, valida la sintaxis. Si hay un error, te avisará y te impedirá guardar.</p>
+</div>
 <p>Lanzamos el editor seguro:</p>
-<pre><code class="language-bash">sudo visudo
-</code></pre>
-<h3 id="paso-3-implementar-la-logica-de-alias-y-permisos">Paso 3: Implementar la lógica de Alias y Permisos</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>visudo
+</span></code></pre></div>
+<h3 id="paso-3-implementar-la-logica-de-alias-y-permisos">Paso 3: Implementar la lógica de Alias y Permisos<a class="headerlink" href="#paso-3-implementar-la-logica-de-alias-y-permisos" title="Permanent link">&para;</a></h3>
 <p>Desplázate hasta el final del archivo y añade las siguientes líneas limpias:</p>
-<pre><code class="language-text"># 1. Definición de Alias de Comandos
-Cmnd_Alias NET_SERVICES = /usr/bin/systemctl restart NetworkManager, /usr/bin/systemctl status NetworkManager
-Cmnd_Alias NET_TOOLS = /usr/sbin/tcpdump
-
-# 2. Asignación de permisos al grupo (Mantenemos contraseña para los servicios)
-%net_operators ALL=(root) NET_SERVICES
-
-# 3. Asignación con exención de contraseña para herramientas de diagnóstico
-%net_operators ALL=(root) NOPASSWD: NET_TOOLS
-</code></pre>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># 1. Definición de Alias de Comandos
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Cmnd_Alias NET_SERVICES = /usr/bin/systemctl restart NetworkManager, /usr/bin/systemctl status NetworkManager
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Cmnd_Alias NET_TOOLS = /usr/sbin/tcpdump
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># 2. Asignación de permisos al grupo (Mantenemos contraseña para los servicios)
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>%net_operators ALL=(root) NET_SERVICES
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a># 3. Asignación con exención de contraseña para herramientas de diagnóstico
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>%net_operators ALL=(root) NOPASSWD: NET_TOOLS
+</span></code></pre></div>
 <p>Guarda y cierra el editor (si usas el visudo por defecto de Ubuntu/Debian que abre nano, guarda con Ctrl+O y sal con Ctrl+X).</p>
-<h3 id="paso-4-validar-el-entorno-como-el-usuario-delegado">Paso 4: Validar el entorno como el usuario delegado</h3>
+<h3 id="paso-4-validar-el-entorno-como-el-usuario-delegado">Paso 4: Validar el entorno como el usuario delegado<a class="headerlink" href="#paso-4-validar-el-entorno-como-el-usuario-delegado" title="Permanent link">&para;</a></h3>
 <p>Cambiamos de sesión a nuestro técnico para comprobar que la seguridad funciona:</p>
-<pre><code class="language-bash"># Cambiar al usuario de pruebas
-su - tecnico_redes
-
-# Comprobar qué poderes de sudo tenemos asignados
-sudo -l
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Cambiar al usuario de pruebas</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>su<span class="w"> </span>-<span class="w"> </span>tecnico_redes
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Comprobar qué poderes de sudo tenemos asignados</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>sudo<span class="w"> </span>-l
+</span></code></pre></div>
 <p><em>El flag sudo -l (list) es la herramienta de auditoría que muestra al usuario sus privilegios efectivos reales.</em></p>
 <p>Prueba ahora a ejecutar un comando con contraseña y el otro sin ella:</p>
-<pre><code class="language-bash"># Solicitará la contraseña de tecnico_redes
-sudo systemctl restart NetworkManager
-
-# Se ejecutará instantáneamente sin pedir credenciales
-sudo tcpdump -i eth0 -c 5
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Solicitará la contraseña de tecnico_redes</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>NetworkManager
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Se ejecutará instantáneamente sin pedir credenciales</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>sudo<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>eth0<span class="w"> </span>-c<span class="w"> </span><span class="m">5</span>
+</span></code></pre></div>
 <hr />
-<h2 id="errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa">Errores Comunes y Troubleshooting (Vulnerabilidades de Escalada Inversa)</h2>
+<h2 id="errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa">Errores Comunes y Troubleshooting (Vulnerabilidades de Escalada Inversa)<a class="headerlink" href="#errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>La trampa de dar sudo a binarios interactivos:</strong> Si configuras una línea en sudoers que permite a un usuario ejecutar sudo vim /etc/exports o sudo less /var/log/syslog, has comprometido el servidor por completo.</li>
 </ol>
@@ -587,13 +2968,13 @@ sudo tcpdump -i eth0 -c 5
 <blockquote>
 <p><strong>Solución:</strong> No entres en pánico. Si tienes acceso físico o mediante hipervisor, puedes resolverlo si la herramienta pkexec (PolicyKit) está instalada ejecutando:</p>
 </blockquote>
-<pre><code class="language-bash">pkexec visudo 
-</code></pre>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pkexec<span class="w"> </span>visudo<span class="w"> </span>
+</span></code></pre></div>
 <blockquote>
 <p>Si esto falla, tendrás que reiniciar el servidor, entrar en <strong>Modo Single User (Grub single)</strong> modificando los parámetros de arranque del Kernel para montar el sistema de archivos en lectura/escritura (rw init=/bin/bash) y reparar el fichero a mano.</p>
 </blockquote>
 <hr />
-<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<h2 id="buenas-practicas">Buenas Prácticas<a class="headerlink" href="#buenas-practicas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Utiliza el directorio /etc/sudoers.d/:</strong> En lugar de engrosar el archivo principal /etc/sudoers, las distribuciones modernas permiten crear archivos independientes dentro de la carpeta sudoers.d/. Crea un archivo por cada necesidad corporativa (ej: /etc/sudoers.d/developers o /etc/sudoers.d/monitoring). Esto mantiene el sistema modular y limpio.</li>
 <li><strong>Mantén las directivas NOPASSWD al mínimo absoluto:</strong> Solo debes usar NOPASSWD para scripts automatizados específicos (como agentes de monitorización Zabbix/Prometheus o playbooks de Ansible) que requieran ejecutar un binario muy concreto. Nunca lo uses para bloques genéricos de comandos.</li>
@@ -602,7 +2983,7 @@ sudo tcpdump -i eth0 -c 5
 <li>En familias RHEL/AlmaLinux: <strong>/var/log/secure</strong></li>
 </ul>
 <hr />
-<h2 id="resumen-del-modulo-2">Resumen del Módulo 2</h2>
+<h2 id="resumen-del-modulo-2">Resumen del Módulo 2<a class="headerlink" href="#resumen-del-modulo-2" title="Permanent link">&para;</a></h2>
 <p>Has finalizado por completo el <strong>Módulo 2: Administración de Usuarios y Permisos</strong>. Ahora posees un conocimiento profundo y profesional sobre cómo gestionar el ciclo de vida de las identidades locales, proteger los recursos del almacenamiento mediante la matriz tradicional POSIX y las listas de control de acceso extendidas (ACLs), y delegar la autoridad del sistema de forma segura mediante sudo.</p>
 
 
@@ -635,6 +3016,44 @@ sudo tcpdump -i eth0 -c 5
         <footer class="md-footer">
   
     
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../3-acls/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: ACLs Avanzadas">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                ACLs Avanzadas
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../03-paquetes/1-gestion/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: APT y DNF">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                APT y DNF
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -644,11 +3063,6 @@ sudo tcpdump -i eth0 -c 5
       Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
     </div>
   
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
   
 </div>
       

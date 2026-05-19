@@ -63,4 +63,4 @@ Cada artículo está estructurado para maximizar el aprendizaje técnico:
 ---
 
 !!! info "Créditos y Herramientas"
-   Esta documentación ha sido redactada con el apoyo de un LLM local que he entrenado expresamente para esta documentación, garantizando un flujo de trabajo privado, rápido y altamente técnico.
+    Esta documentación ha sido redactada con el apoyo de un LLM local que he entrenado expresamente para esta documentación, garantizando un flujo de trabajo privado, rápido y altamente técnico.
