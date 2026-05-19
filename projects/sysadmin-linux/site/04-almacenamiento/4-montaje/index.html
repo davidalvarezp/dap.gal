@@ -1,0 +1,681 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/04-almacenamiento/4-montaje/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>4.4 Montaje de Discos y Automatización con fstab - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#44-montaje-de-discos-y-automatizacion-con-fstab" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4.4 Montaje de Discos y Automatización con fstab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-el-arbol-de-directorios-unificado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. El Árbol de Directorios Unificado
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-anatomia-de-etcfstab-file-system-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Anatomía de /etc/fstab (File System Table)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Anatomía de /etc/fstab (File System Table)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desglose-de-las-6-columnas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desglose de las 6 Columnas:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-montaje-seguro-y-automatizacion-de-un-volumen-logico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Montaje Seguro y Automatización de un Volumen Lógico
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Montaje Seguro y Automatización de un Volumen Lógico">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-obtener-el-uuid-del-dispositivo-con-blkid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Obtener el UUID del Dispositivo con blkid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-crear-el-directorio-de-destino" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Crear el Directorio de Destino
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-edicion-quirurgica-de-etcfstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Edición Quirúrgica de /etc/fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-la-prueba-de-fuego-mount-a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: La Prueba de Fuego (mount -a)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-5-confirmar-el-exito-de-la-operacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5: Confirmar el Éxito de la Operación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-modulo-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Módulo 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="44-montaje-de-discos-y-automatizacion-con-fstab">4.4 Montaje de Discos y Automatización con fstab</h1>
+<p>Has aprendido a particionar un disco, a inyectarle un sistema de archivos y a flexibilizarlo mediante LVM. Sin embargo, en el ecosistema Unix, un disco con un sistema de archivos sigue siendo inaccesible hasta que se realiza la operación de <strong>Montaje (Mounting)</strong>.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>El montaje es el proceso por el cual un dispositivo de almacenamiento se acopla de forma orgánica a un punto específico del árbol de directorios global de Linux (conocido como <em>Punto de Montaje</em>). Como Sysadmin, dominar el montaje manual, entender las opciones de seguridad del sistema de archivos y automatizar este proceso de forma indestructible a través del archivo /etc/fstab es una competencia crítica para garantizar que los servicios sobrevivan a un reinicio del servidor.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Asociar de forma manual sistemas de archivos a directorios mediante el comando mount.</li>
+<li>Utilizar identificadores únicos universales (<strong>UUID</strong>) para referenciar almacenamiento de forma persistente.</li>
+<li>Dominar la sintaxis y las directrices de configuración del archivo crítico /etc/fstab.</li>
+<li>Implementar flags de seguridad (noexec, nosuid, nodev) para securizar particiones.</li>
+<li>Recuperar un servidor que ha entrado en pánico o bucle de arranque por un error en la configuración de montaje.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-el-arbol-de-directorios-unificado">1. El Árbol de Directorios Unificado</h3>
+<p>A diferencia de otros sistemas operativos que asignan letras independientes a cada disco (como C:, D: o E:), Linux unifica absolutamente todo el almacenamiento bajo una única raíz: el directorio / (root).
+Cuando montas la partición de un disco en un directorio como /var/www/, el Kernel intercepta de forma transparente cualquier escritura o lectura en esa ruta y la redirige físicamente hacia las celdas de memoria o platos magnéticos de ese disco específico.</p>
+<h3 id="2-anatomia-de-etcfstab-file-system-table">2. Anatomía de /etc/fstab (File System Table)</h3>
+<p>El comando mount es volátil: si reinicias la máquina, el montaje desaparece. Para que el sistema operativo monte tus discos automáticamente durante el proceso de arranque, debes registrarlos en el archivo de configuración /etc/fstab.
+Este archivo se compone de líneas estructuradas estrictamente en <strong>6 columnas</strong> separadas por espacios o tabuladores:</p>
+<pre><code class="language-text"># &lt;Dispositivo&gt;         &lt;Punto Montaje&gt;    &lt;Tipo FS&gt;    &lt;Opciones&gt;             &lt;Dump&gt;  &lt;Pass&gt;
+UUID=b3a2...-43af       /data/produccion   ext4         defaults,noatime       0       2
+</code></pre>
+<h4 id="desglose-de-las-6-columnas">Desglose de las 6 Columnas:</h4>
+<ol>
+<li><strong>Dispositivo:</strong> El bloque físico o lógico que se va a montar. <strong>Regla de oro senior:</strong> Nunca uses el nombre de archivo directo (/dev/sdb1), ya que puede cambiar tras un reinicio. Usa siempre el <strong>UUID</strong> (identificador único del sistema de archivos) o la ruta de mapeo persistente de LVM.</li>
+<li><strong>Punto de Montaje:</strong> El directorio existente donde se acoplará el disco (ej. /mnt/respaldos).</li>
+<li><strong>Tipo de Sistema de Archivos:</strong> La tecnología con la que se formateó (ext4, xfs, vfat, ntfs-3g, btrfs).</li>
+<li><strong>Opciones de Montaje:</strong> Flags que modifican el comportamiento y la seguridad del disco:</li>
+<li>defaults: Aplica un conjunto estándar (rw, suid, dev, exec, auto, nouser, async).</li>
+<li>noatime: Desactiva la actualización de la marca de tiempo de último acceso cada vez que se lee un archivo. <strong>Eleva drásticamente el rendimiento de E/S del disco</strong>.</li>
+<li>ro: Monta el disco en modo <em>Solo Lectura</em> (útil para backups o auditorías forenses).</li>
+<li>noexec: Prohíbe la ejecución de binarios dentro de esa partición (ideal para securizar /tmp o directorios de subida de usuarios).</li>
+<li><strong>Dump (Respaldo):</strong> Un valor binario (0 o 1). Indica si la herramienta obsoleta dump debe hacer copia de seguridad de la partición. En la actualidad, <strong>siempre se configura en 0</strong>.</li>
+<li><strong>Pass (Revisión fsck):</strong> Determina el orden en que el sistema operativo escaneará el disco en busca de errores durante el arranque:</li>
+<li>1: Reservado exclusivamente para la partición raíz /.</li>
+<li>2: Para el resto de tus particiones de datos o discos secundarios.</li>
+<li>0: Desactiva por completo el escaneo automático para ese disco.</li>
+</ol>
+<hr />
+<h2 id="laboratorio-practico-montaje-seguro-y-automatizacion-de-un-volumen-logico">Laboratorio Práctico: Montaje Seguro y Automatización de un Volumen Lógico</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Tienes el volumen lógico elástico /dev/vg_infra/lv_app que creamos y expandimos en el capítulo anterior. Tu objetivo es obtener su identificador UUID, crear un punto de montaje dedicado, configurarlo en /etc/fstab con flags de rendimiento y verificar la persistencia de forma segura.</p>
+<h3 id="paso-1-obtener-el-uuid-del-dispositivo-con-blkid">Paso 1: Obtener el UUID del Dispositivo con blkid</h3>
+<p>El comando blkid (Block ID) interroga las cabeceras de los discos para extraer sus atributos únicos de bajo nivel.</p>
+<pre><code class="language-bash">sudo blkid /dev/vg_infra/lv_app
+</code></pre>
+<p><em>Copia de forma exacta la cadena de texto larga dentro de las comillas de UUID="..." (ej. UUID="a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6").</em></p>
+<h3 id="paso-2-crear-el-directorio-de-destino">Paso 2: Crear el Directorio de Destino</h3>
+<p>El punto de montaje debe existir en el sistema antes de ejecutar la acción.</p>
+<pre><code class="language-bash">sudo mkdir -p /srv/app_data
+</code></pre>
+<h3 id="paso-3-edicion-quirurgica-de-etcfstab">Paso 3: Edición Quirúrgica de /etc/fstab</h3>
+<p>Abre el archivo con privilegios de superusuario:</p>
+<pre><code class="language-bash">sudo nano /etc/fstab
+</code></pre>
+<p>Ve al final del archivo y añade una nueva línea estructurada utilizando el UUID que copiaste en el Paso 1 (reemplaza el ejemplo con tu UUID real) y aplicando la directiva de rendimiento noatime:</p>
+<pre><code class="language-text">UUID=a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6  /srv/app_data  ext4  defaults,noatime  0  2
+</code></pre>
+<p><em>Guarda el archivo y sal del editor.</em></p>
+<h3 id="paso-4-la-prueba-de-fuego-mount-a">Paso 4: La Prueba de Fuego (mount -a)</h3>
+<p>!!! warning "NUNCA reinicies un servidor inmediatamente después de editar /etc/fstab"
+    Si cometiste una errata tipográfica o pusiste un UUID incorrecto, el servidor fallará en el próximo arranque, tirando los servicios abajo y obligándote a resolverlo mediante una consola de rescate física.</p>
+<pre><code class="language-bash"># Ordenar al Kernel que monte TODO lo que esté registrado en /etc/fstab
+sudo mount -a
+</code></pre>
+<p><em>Si este comando no devuelve ningún mensaje de error en la consola, tu configuración es perfecta e indestructible. El disco se ha montado correctamente y sobrevivirá a futuros reinicios.</em></p>
+<h3 id="paso-5-confirmar-el-exito-de-la-operacion">Paso 5: Confirmar el Éxito de la Operación</h3>
+<p>Verifica que el almacenamiento está acoplado en la ruta correcta:</p>
+<pre><code class="language-bash">df -h | grep /srv/app_data
+</code></pre>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>El servidor no arranca y entra en "Emergency Mode":</strong> Editaste /etc/fstab, no pasaste el control de calidad con mount -a y reiniciaste. El servidor se queda colgado en una pantalla negra pidiendo la contraseña de root.</li>
+</ol>
+<blockquote>
+<p><strong>El motivo:</strong> El Kernel ha intentado buscar un UUID o una ruta inexistente durante el boot y, al ser una partición obligatoria (pass 2), detiene todo el sistema por seguridad.</p>
+<p><strong>Solución:</strong> Introduce la contraseña de root para acceder a la CLI de emergencia. El sistema de archivos raíz estará probablemente montado como <em>Solo Lectura</em>, por lo que no te dejará corregir el archivo. Ejecuta el siguiente comando para remontar la raíz en modo escritura:</p>
+</blockquote>
+<pre><code class="language-bash">mount -o remount,rw /
+</code></pre>
+<blockquote>
+<p>Abre /etc/fstab, comenta la línea errónea añadiendo un # al principio, guarda y reinicia con reboot. El servidor volverá a la vida.</p>
+</blockquote>
+<ol>
+<li><strong>Uso de la opción nofail para discos externos o de red:</strong> Si configuras en /etc/fstab un disco duro USB externo o un montaje de red NFS, y por alguna razón el cable se desconecta o la red no está disponible en el arranque, el servidor fallará y no encenderá.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Añade la opción nofail en la cuarta columna de opciones. Esto le indica al Kernel: <em>"Intenta montar este disco; si no está presente, ignora el error y continúa arrancando el sistema operativo normalmente"</em>.</p>
+</blockquote>
+<pre><code class="language-text">UUID=1234-ABCD  /mnt/disco_usb  ext4  defaults,nofail  0  0    
+</code></pre>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Securiza las particiones públicas:</strong> Si configuras un disco separado para que los usuarios suban archivos (como un servidor FTP o un directorio temporal /tmp), bloquéales la capacidad de subir scripts maliciosos ejecutables combinando las opciones noexec,nosuid,nodev.</li>
+<li><strong>Desmontaje Forzado:</strong> Si intentas desmontar un disco con sudo umount /srv/app_data y el sistema te devuelve el error target is busy, significa que hay un proceso o un usuario con una terminal abierta leyendo ese directorio. Encuentra al culpable usando lsof o fuser:
+  ```bash
+  # Ver qué procesos retienen el disco
+  sudo fuser -vm /srv/app_data</li>
+</ul>
+<p># Terminar de forma segura los procesos que bloquean el punto de montaje
+  sudo fuser -km /srv/app_data 
+  ```</p>
+<hr />
+<h2 id="resumen-del-modulo-4">Resumen del Módulo 4</h2>
+<p>Has terminado el <strong>Módulo 4: Almacenamiento Estructural y Persistencia</strong>. Has recorrido todo el camino del flujo de datos en Linux: desde entender cómo el Kernel interactúa con bloques de hardware crudos, particionar bajo esquemas modernos GPT, inyectar e interrogar sistemas de archivos ext4/XFS, virtualizar discos elásticos mediante LVM, hasta anclarlos de forma automatizada y segura en el corazón del sistema operativo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

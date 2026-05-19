@@ -1,0 +1,685 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/04-almacenamiento/3-lvm/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>4.3 Gestión de Volúmenes Lógicos: LVM (PV, VG y LV) - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#43-gestion-de-volumenes-logicos-lvm-pv-vg-y-lv" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4.3 Gestión de Volúmenes Lógicos: LVM (PV, VG y LV)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-la-arquitectura-de-tres-capas-de-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. La Arquitectura de Tres Capas de LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. La Arquitectura de Tres Capas de LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-pv-physical-volume-volumen-fisico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. PV (Physical Volume - Volumen Físico)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-vg-volume-group-grupo-de-volumenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. VG (Volume Group - Grupo de Volúmenes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-lv-logical-volume-volumen-logico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. LV (Logical Volume - Volumen Lógico)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-por-que-lvm-es-indispensable-en-produccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. ¿Por qué LVM es indispensable en producción?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-construccion-y-expansion-estructural-con-lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Construcción y Expansión Estructural con LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Construcción y Expansión Estructural con LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-inicializar-los-volumenes-fisicos-pv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Inicializar los Volúmenes Físicos (PV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-crear-el-grupo-de-volumenes-vg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Crear el Grupo de Volúmenes (VG)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-desplegar-el-volumen-logico-lv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Desplegar el Volumen Lógico (LV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-formatear-el-volumen-logico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Formatear el Volumen Lógico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-5-expansion-quirurgica-en-caliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 5: Expansión Quirúrgica en Caliente
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="43-gestion-de-volumenes-logicos-lvm-pv-vg-y-lv">4.3 Gestión de Volúmenes Lógicos: LVM (PV, VG y LV)</h1>
+<p>Trabajar con particiones rígidas tradicionales (/dev/sda1, /dev/sdb1) es una receta para el desastre en entornos empresariales. Si un servicio se queda sin espacio, ampliar una partición clásica suele requerir desmontar el disco, alterar la tabla de particiones y rezar para no corromper los datos. Para solucionar esta rigidez, Linux utiliza <strong>LVM (Logical Volume Manager)</strong>, una capa de abstracción entre el hardware físico y el sistema de archivos.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>LVM agrupa tus discos físicos en un "pool" o fondo común de almacenamiento virtualizado. A partir de ese gran fondo, el Sysadmin puede moldear "particiones virtuales" (Volúmenes Lógicos) que se pueden expandir en caliente en cuestión de milisegundos, fusionar múltiples discos físicos como si fueran uno solo, o incluso tomar capturas de estado (<em>snapshots</em>) para realizar copias de seguridad consistentes.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Comprender la arquitectura de tres capas de LVM: <strong>PV</strong>, <strong>VG</strong> y <strong>LV</strong>.</li>
+<li>Inicializar discos físicos y agregarlos a grupos de almacenamiento global.</li>
+<li>Crear, formatear y aprovisionar Volúmenes Lógicos desde la CLI.</li>
+<li>Expandir de forma segura y en caliente un volumen lógico y su sistema de archivos.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-la-arquitectura-de-tres-capas-de-lvm">1. La Arquitectura de Tres Capas de LVM</h3>
+<p>Para dominar LVM, debes entender cómo se transforma el almacenamiento a través de sus tres niveles conceptuales:</p>
+<h4 id="a-pv-physical-volume-volumen-fisico">A. PV (Physical Volume - Volumen Físico)</h4>
+<p>Es la base de la pirámide. Es el hardware real en bruto. Puede ser un disco entero (/dev/sdb), una partición estándar (/dev/sda2) o un disco virtual en la nube. LVM escribe una cabecera especial en este dispositivo para tomar el control de sus bloques.</p>
+<h4 id="b-vg-volume-group-grupo-de-volumenes">B. VG (Volume Group - Grupo de Volúmenes)</h4>
+<p>Es la capa intermedia. Imagina el VG como una "bolsa" o un enorme disco virtual que fusiona todos tus PVs. Si metes un disco de 10 GB y otro de 20 GB en el mismo VG, tendrás un fondo común de 30 GB libres. El VG divide este espacio en pequeños bloques idénticos llamados <strong>PE (Physical Extents)</strong>, que por defecto miden 4 MB.</p>
+<h4 id="c-lv-logical-volume-volumen-logico">C. LV (Logical Volume - Volumen Lógico)</h4>
+<p>Es la capa superior y lo que el sistema operativo realmente ve como un "disco". Tú le pides al VG que te asigne una cantidad de <em>Extents</em> para crear un LV (por ejemplo, un LV de 15 GB). Sobre este LV es donde inyectas el sistema de archivos (ext4 o XFS) y lo montas 
+en tu árbol de directorios.</p>
+<h3 id="2-por-que-lvm-es-indispensable-en-produccion">2. ¿Por qué LVM es indispensable en producción?</h3>
+<ul>
+<li><strong>Flexibilidad absoluta:</strong> Si el VG se queda sin espacio, compras otro disco duro, lo inicializas como PV, lo metes al VG y listo: el fondo común crece al instante.</li>
+<li><strong>Ampliación en caliente:</strong> Puedes añadir gigabytes a un LV de producción mientras los usuarios escriben en la base de datos, sin cortes de servicio.</li>
+<li><strong>Abstracción de nombres:</strong> Tus discos ya no dependen de si son /dev/sda o /dev/nvme0n1. Los volúmenes lógicos adquieren nombres persistentes y profesionales bajo la ruta /dev/mapper/ (ej. /dev/mapper/vg_datos-lv_mysql).</li>
+</ul>
+<hr />
+<h2 id="laboratorio-practico-construccion-y-expansion-estructural-con-lvm">Laboratorio Práctico: Construcción y Expansión Estructural con LVM</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Dispones de dos discos nuevos en el servidor: /dev/sdb (10 GB) y /dev/sdc (10 GB). Vas a fusionar ambos discos en un único gran grupo de almacenamiento corporativo. Crearas un volumen lógico de 12 GB para una aplicación, lo formatearas, y posteriormente simularás que te quedas sin espacio para expandirlo a 18 GB <strong>en caliente (sin desmontar nada)</strong>.</p>
+<h3 id="paso-1-inicializar-los-volumenes-fisicos-pv">Paso 1: Inicializar los Volúmenes Físicos (PV)</h3>
+<p>Preparamos los dos discos para que LVM pueda administrarlos de forma nativa.</p>
+<pre><code class="language-bash"># Inicializar ambos dispositivos como PV
+sudo pvcreate /dev/sdb /dev/sdc
+
+# Verificar que el Kernel los reconoce como bloques LVM
+sudo pvdisplay -c
+</code></pre>
+<h3 id="paso-2-crear-el-grupo-de-volumenes-vg">Paso 2: Crear el Grupo de Volúmenes (VG)</h3>
+<p>Fusionamos la capacidad de ambos discos creando un grupo llamado vg_infra.</p>
+<pre><code class="language-bash"># Crear el VG metiendo ambos discos dentro
+sudo vgcreate vg_infra /dev/sdb /dev/sdc
+
+# Comprobar el tamaño total combinado del pool
+sudo vgdisplay vg_infra | grep &quot;VG Size&quot;
+</code></pre>
+<p><em>Output esperado:</em> Verás que el tamaño del grupo roza los 20 GB lógicos disponibles.</p>
+<h3 id="paso-3-desplegar-el-volumen-logico-lv">Paso 3: Desplegar el Volumen Lógico (LV)</h3>
+<p>Cortaremos una porción de 12 GB de nuestra bolsa virtual para asignársela a la aplicación.</p>
+<pre><code class="language-bash"># Crear un LV llamado lv_app de 12 Gigabytes extraídos de vg_infra
+sudo lvcreate -L 12G -n lv_app vg_infra
+
+# Verificar la creación y su ruta persistente en el sistema
+sudo lvdisplay /dev/vg_infra/lv_app
+</code></pre>
+<h3 id="paso-4-formatear-el-volumen-logico">Paso 4: Formatear el Volumen Lógico</h3>
+<p>A partir de este momento, tratamos al LV como si fuera una partición normal. Lo formatearemos con ext4.</p>
+<pre><code class="language-bash">sudo mkfs.ext4 /dev/vg_infra/lv_app
+</code></pre>
+<h3 id="paso-5-expansion-quirurgica-en-caliente">Paso 5: Expansión Quirúrgica en Caliente</h3>
+<p>Imagina que la aplicación se ha llenado y necesitas estirar el espacio a 18 GB inmediatamente. Gracias a LVM, no necesitas detener el servidor ni desmontar el disco. Usaremos el comando lvextend con el flag -r (el cual es crítico, ya que le ordena a LVM que amplíe el Volumen Lógico y <strong>automáticamente redimensione el sistema de archivos interno</strong> en un solo paso).</p>
+<pre><code class="language-bash"># Expandir el LV a 18G exactos y redimensionar el sistema de archivos al vuelo
+sudo lvextend -r -L 18G /dev/vg_infra/lv_app
+</code></pre>
+<p>Si ejecutas un df -h, comprobarás con asombro que el almacenamiento ha crecido en tiempo real a 18 GB sin alterar los archivos existentes ni detener procesos.</p>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>Olvidar redimensionar el Filesystem:</strong> Ejecutas lvextend -L +5G /dev/vg_infra/lv_app (sin el flag -r). LVM te dice que la operación fue un éxito. Sin embargo, entras con df -h y sigues viendo el espacio antiguo.</li>
+<li><strong>El motivo:</strong> Has ampliado el contenedor virtual (el LV), pero no has estirado la estructura lógica interna (el sistema de archivos).</li>
+<li><strong>Solución:</strong> Ejecuta el comando manual de expansión de sistema de archivos según tu tecnología:<ul>
+<li>Si es <strong>ext4</strong>: sudo resize2fs /dev/vg_infra/lv_app</li>
+<li>Si es <strong>XFS</strong>: sudo xfs_growfs /dev/vg_infra/lv_app (Nota: XFS requiere pasarle el punto de montaje en lugar del archivo de bloque).</li>
+</ul>
+</li>
+<li><strong>Intentar encoger un volumen XFS:</strong> Tu jefe te pide reducir un volumen lógico formateado en XFS para recuperar espacio para otro servicio. Ejecutas un comando de reducción y el sistema arroja un error crítico.</li>
+<li><strong>El motivo:</strong> Como aprendimos en el capítulo anterior, el sistema de archivos <strong>XFS no soporta la reducción bajo ninguna circunstancia</strong>.</li>
+<li><strong>Solución:</strong> Con XFS, la única opción es hacer un backup de los datos, destruir el LV, crearlo más pequeño y restaurar los datos. Si vas a necesitar encoger volúmenes habitualmente, utiliza siempre <strong>ext4</strong>.</li>
+</ol>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Nunca llenes el VG al 100% desde el primer día:</strong> Si tus discos suman 100 GB, no crees un LV de 100 GB. Crea volúmenes ajustados a la necesidad real actual (ej: 20 GB). Dejar espacio libre en el VG te permite reaccionar ante crisis ampliando el volumen que se sature en segundos o crear <em>snapshots</em> temporales de seguridad antes de actualizaciones críticas de software.</li>
+<li><strong>Nomenclatura Estandarizada:</strong> Utiliza prefijos claros siempre. Nombra tus grupos como vg_[nombre] (ej: vg_sistema, vg_datos) y tus volúmenes lógicos como lv_[servicio] (ej: lv_root, lv_backups). Esto evitará confusiones cuando herede tu infraestructura otro administrador.</li>
+</ul>
+<hr />
+<h2 id="resumen">Resumen</h2>
+<p>Has alcanzado el cenit de la flexibilidad en el almacenamiento: sabes unificar discos físicos y crear volúmenes elásticos capaces de crecer en caliente. No obstante, para que los usuarios y el propio sistema operativo puedan empezar a escribir archivos en /dev/vg_infra/lv_app, necesitas anclar de forma permanente este dispositivo dentro del árbol de directorios de Linux.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

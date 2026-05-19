@@ -1,0 +1,655 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/01-fundamentos/2-arquitectura/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>1.2 Arquitectura del Sistema: El Kernel y el FHS - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12-arquitectura-del-sistema-el-kernel-y-el-fhs" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.2 Arquitectura del Sistema: El Kernel y el FHS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-el-kernel-y-la-proteccion-por-anillos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. El Kernel y la Protección por Anillos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-el-estandar-de-jerarquia-del-sistema-de-archivos-fhs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. El Estándar de Jerarquía del Sistema de Archivos (FHS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-explorando-las-entranas-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Explorando las entrañas del Sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Explorando las entrañas del Sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-consultar-el-hardware-desde-proc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Consultar el hardware desde /proc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-analizar-dispositivos-con-sys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Analizar dispositivos con /sys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-la-importancia-de-etc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: La importancia de /etc
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="12-arquitectura-del-sistema-el-kernel-y-el-fhs">1.2 Arquitectura del Sistema: El Kernel y el FHS</h1>
+<p>Entender cómo se organiza Linux "bajo el capó" es lo que diferencia a un usuario que copia comandos de un <strong>SysAdmin</strong> capaz de diagnosticar problemas complejos. 
+En esta sección analizaremos la jerarquía del sistema de archivos y cómo el Kernel interactúa con el hardware.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>La arquitectura de Linux se basa en la separación de privilegios y en una estructura de archivos predecible. 
+Mientras que el <strong>Kernel</strong> actúa como el director de orquesta gestionando los recursos, el <strong>FHS (Filesystem Hierarchy Standard)</strong> asegura 
+que cualquier administrador sepa dónde encontrar una configuración o un log, independientemente de la distribución que esté utilizando.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Diferenciar entre <strong>Kernel Space</strong> y <strong>User Space</strong>.</li>
+<li>Comprender el flujo de una <strong>System Call</strong> (Llamada al sistema).</li>
+<li>Memorizar la jerarquía del <strong>FHS</strong> y el propósito de cada directorio raíz.</li>
+<li>Explorar los sistemas de archivos virtuales /proc y /sys.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-el-kernel-y-la-proteccion-por-anillos">1. El Kernel y la Protección por Anillos</h3>
+<p>El Kernel de Linux opera en el nivel más privilegiado del hardware (denominado <strong>Ring 0</strong>). El software de usuario (navegadores, bases de datos, editores) corre en el <strong>Ring 3</strong>.</p>
+<ul>
+<li><strong>User Space:</strong> Donde residen tus aplicaciones. No tienen acceso directo al hardware por razones de seguridad y estabilidad.</li>
+<li><strong>Kernel Space:</strong> Donde reside el núcleo. Gestiona la memoria, el tiempo de CPU para cada proceso y los controladores de dispositivos (drivers).</li>
+<li><strong>System Calls:</strong> Es el puente. Cuando una aplicación necesita escribir un archivo en el disco, "llama" al Kernel mediante una SysCall para que este realice la operación en su nombre.</li>
+</ul>
+<h3 id="2-el-estandar-de-jerarquia-del-sistema-de-archivos-fhs">2. El Estándar de Jerarquía del Sistema de Archivos (FHS)</h3>
+<p>En Linux, <strong>"todo es un archivo"</strong>. Esta filosofía se organiza bajo una estructura de árbol que cuelga de la raíz (/).</p>
+<table>
+<thead>
+<tr>
+<th>Directorio</th>
+<th>Propósito Profesional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>/bin</strong> y <strong>/sbin</strong></td>
+<td>Binarios esenciales del sistema. sbin contiene comandos para el administrador (root).</td>
+</tr>
+<tr>
+<td><strong>/etc</strong></td>
+<td>El "centro de control". Aquí residen todos los archivos de configuración del sistema y servicios.</td>
+</tr>
+<tr>
+<td><strong>/var</strong></td>
+<td>Datos variables. Aquí encontrarás los <strong>logs</strong> (/var/log) y colas de impresión o correo.</td>
+</tr>
+<tr>
+<td><strong>/home</strong></td>
+<td>Directorios personales de los usuarios.</td>
+</tr>
+<tr>
+<td><strong>/root</strong></td>
+<td>El hogar del superusuario (separado de /home por seguridad).</td>
+</tr>
+<tr>
+<td><strong>/tmp</strong></td>
+<td>Archivos temporales (se suelen borrar al reiniciar).</td>
+</tr>
+<tr>
+<td><strong>/usr</strong></td>
+<td>Contiene la mayoría de las utilidades y aplicaciones de usuario (solo lectura en entornos endurecidos).</td>
+</tr>
+<tr>
+<td><strong>/boot</strong></td>
+<td>Archivos necesarios para el arranque (Kernel, Grub, Initrd).</td>
+</tr>
+<tr>
+<td><strong>/proc</strong> y <strong>/sys</strong></td>
+<td><strong>Sistemas de archivos virtuales</strong>. No ocupan espacio en disco; son ventanas directas al Kernel y al hardware.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="laboratorio-practico-explorando-las-entranas-del-sistema">Laboratorio Práctico: Explorando las entrañas del Sistema</h2>
+<p>Como administrador, utilizarás los directorios virtuales para obtener información en tiempo real sin necesidad de herramientas externas.</p>
+<h3 id="escenario">Escenario</h3>
+<p>Necesitas verificar cuánta memoria RAM tiene el servidor y qué procesador está utilizando sin instalar paquetes adicionales.</p>
+<h3 id="paso-1-consultar-el-hardware-desde-proc">Paso 1: Consultar el hardware desde /proc</h3>
+<p>El directorio /proc contiene archivos de texto que representan el estado del Kernel.</p>
+<pre><code class="language-bash"># Ver información detallada del procesador
+cat /proc/cpuinfo
+
+# Ver estadísticas de memoria en tiempo real
+cat /proc/meminfo
+</code></pre>
+<h3 id="paso-2-analizar-dispositivos-con-sys">Paso 2: Analizar dispositivos con /sys</h3>
+<p>A diferencia de /proc, el directorio /sys está más enfocado a la estructura del hardware físico (buses, drivers).</p>
+<pre><code class="language-bash"># Listar las clases de dispositivos detectadas
+ls /sys/class/
+</code></pre>
+<h3 id="paso-3-la-importancia-de-etc">Paso 3: La importancia de /etc</h3>
+<p>Casi cualquier problema de un servicio (como Nginx o SSH) se resuelve editando un archivo aquí.</p>
+<pre><code class="language-bash"># Listar archivos de configuración (busca extensiones .conf)
+ls /etc/*.conf | head -n 5
+</code></pre>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>Llenar la partición /var:</strong> Si los logs crecen descontroladamente, el sistema puede dejar de arrancar o bloquear servicios críticos.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Implementar logrotate (lo veremos en el Módulo 7) y tener /var en una partición separada.</p>
+</blockquote>
+<ol>
+<li><strong>Modificar archivos en /proc o /sys manualmente:</strong> Algunos archivos permiten escritura para cambiar parámetros del Kernel en caliente, pero un valor erróneo puede causar un <em>Kernel Panic</em>.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Usar la herramienta sysctl para cambios persistentes y seguros.</p>
+</blockquote>
+<ol>
+<li><strong>Confundir /bin con /usr/bin:</strong> En distros modernas, suele haber un enlace simbólico que los une (Usr-merge), pero en sistemas antiguos son distintos.</li>
+</ol>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Particionado Inteligente:</strong> En servidores de producción, nunca instales todo en una sola partición /. Separa al menos /var, /home y /boot. Esto evita que un usuario llenando su "home" tumbe el sistema entero.</li>
+<li><strong>Principio de Inmutabilidad:</strong> En entornos de alta seguridad, se monta /usr como <strong>Read-Only</strong> para evitar que un atacante modifique binarios esenciales.</li>
+<li><strong>Limpieza de /tmp:</strong> No asumas que el sistema limpia /tmp automáticamente. Configura tareas de limpieza o usa tmpfs (RAM) para este directorio para mejorar la velocidad.</li>
+</ul>
+<hr />
+<h2 id="resumen">Resumen</h2>
+<p>Entender el FHS y la separación entre User y Kernel Space es fundamental para el troubleshooting. Ahora sabes dónde reside cada pieza del puzzle.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

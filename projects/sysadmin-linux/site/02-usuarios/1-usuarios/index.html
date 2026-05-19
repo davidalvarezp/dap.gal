@@ -1,0 +1,714 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/02-usuarios/1-usuarios/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.1 Gestión de Usuarios, Grupos y Ficheros Críticos de Cuentas - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-gestion-de-usuarios-grupos-y-ficheros-criticos-de-cuentas" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1 Gestión de Usuarios, Grupos y Ficheros Críticos de Cuentas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-los-ficheros-criticos-de-identidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Los Ficheros Críticos de Identidad
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Los Ficheros Críticos de Identidad">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-etcpasswd-fichero-de-cuentas-de-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. /etc/passwd (Fichero de cuentas de usuario)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-etcshadow-fichero-de-contrasenas-seguras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. /etc/shadow (Fichero de contraseñas seguras)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-etcgroup-fichero-de-definicion-de-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. /etc/group (Fichero de definición de grupos)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-clasificacion-y-rangos-de-uids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Clasificación y Rangos de UIDs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-provision-y-bloqueo-corporativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Provisión y Bloqueo Corporativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Provisión y Bloqueo Corporativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-creacion-del-grupo-y-el-usuario-humano" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Creación del Grupo y el Usuario Humano
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-forzar-directivas-de-seguridad-password-aging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Forzar Directivas de Seguridad (Password Aging)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-crear-un-usuario-de-sistema-service-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Crear un Usuario de Sistema (Service Account)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-auditoria-rapida-de-la-cuenta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Auditoría rápida de la cuenta
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="21-gestion-de-usuarios-grupos-y-ficheros-criticos-de-cuentas">2.1 Gestión de Usuarios, Grupos y Ficheros Críticos de Cuentas</h1>
+<p>En Linux, la seguridad y el aislamiento de procesos se basan en la identidad. El sistema no ve nombres de personas o aplicaciones; ve identificadores numéricos. 
+Como Sysadmin, gestionar estas identidades de forma segura es el primer paso para proteger la integridad de cualquier infraestructura corporativa.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>Linux es un sistema operativo multiusuario y multitarea desde su concepción. Esto significa que múltiples usuarios y servicios de fondo (daemons) se ejecutan simultáneamente compartiendo hardware. 
+Para evitar que un usuario interfiera con otro, o que un servicio comprometido (como un servidor web) tome el control de la máquina, el sistema implementa fronteras estrictas basadas en usuarios y grupos.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Analizar la estructura interna de los ficheros críticos <code>/etc/passwd</code>, <code>/etc/shadow</code> y <code>/etc/group</code>.</li>
+<li>Comprender la asignación de <strong>UID (User ID)</strong> y <strong>GID (Group ID)</strong> y sus rangos profesionales.</li>
+<li>Gestionar identidades mediante comandos nativos en modo lote (low-level y high-level).</li>
+<li>Implementar políticas básicas de caducidad y bloqueo de cuentas.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-los-ficheros-criticos-de-identidad">1. Los Ficheros Críticos de Identidad</h3>
+<p>Toda la gestión de usuarios locales se apoya en tres ficheros de texto plano. Si estos ficheros se corrompen o tienen permisos laxos, el sistema entero queda expuesto.</p>
+<h4 id="a-etcpasswd-fichero-de-cuentas-de-usuario">A. <code>/etc/passwd</code> (Fichero de cuentas de usuario)</h4>
+<p>A pesar de su nombre, <strong>no contiene contraseñas</strong> (por motivos de seguridad). Contiene la configuración básica de cada cuenta. 
+Cada línea representa a un usuario y está dividida en 7 campos separados por dos puntos (<code>:</code>):</p>
+<pre><code class="language-text">root:x:0:0:root:/root:/bin/bash
+</code></pre>
+<ol>
+<li><strong>Nombre de usuario:</strong> root (Identificador único de texto).</li>
+<li><strong>Contraseña:</strong> x (Indica que la contraseña real está cifrada dentro de /etc/shadow).</li>
+<li><strong>UID (User ID):</strong> 0 (El número que el Kernel usa para asignar privilegios).</li>
+<li><strong>GID (Group ID):</strong> 0 (El grupo principal al que pertenece el usuario).</li>
+<li><strong>GECOS / Comentarios:</strong> root (Información del usuario, nombre completo, etc.).</li>
+<li><strong>Home Directory:</strong> /root (El directorio personal del usuario al iniciar sesión).</li>
+<li><strong>Shell predeterminado:</strong> /bin/bash (El entorno de comandos que se le asigna).</li>
+</ol>
+<h4 id="b-etcshadow-fichero-de-contrasenas-seguras">B. /etc/shadow (Fichero de contraseñas seguras)</h4>
+<p>Solo es legible por el superusuario root. Contiene los hashes cifrados de las contraseñas y las políticas de caducidad. Campos clave:</p>
+<pre><code class="language-text">sysadmin:$6$rounds=4096$...:19842:0:90:7:::
+</code></pre>
+<ul>
+<li><strong>Hash de contraseña:</strong> El segundo campo contiene el método de cifrado (ej: $6$ indica SHA-512) y el hash con su sal (<em>salt</em>). Si empieza por ! o *, la cuenta está bloqueada.</li>
+<li><strong>Parámetros temporales:</strong> Días transcurridos desde 1970 hasta el último cambio, días mínimos/máximos de validez de la contraseña y días de aviso antes de que expire.</li>
+</ul>
+<h4 id="c-etcgroup-fichero-de-definicion-de-grupos">C. /etc/group (Fichero de definición de grupos)</h4>
+<p>Estructura los grupos del sistema para permitir la gestión colectiva de accesos:</p>
+<pre><code class="language-text">developers:x:1005:ana,pedro,sysadmin
+</code></pre>
+<p>Muestra el nombre del grupo, el GID y los usuarios que pertenecen a él como <strong>grupo secundario o suplementario</strong>.</p>
+<h3 id="2-clasificacion-y-rangos-de-uids">2. Clasificación y Rangos de UIDs</h3>
+<p>Al crear cuentas, el SysAdmin debe respetar los estándares de la industria para evitar solapamientos:</p>
+<table>
+<thead>
+<tr>
+<th>Rango de UID</th>
+<th>Tipo de Usuario</th>
+<th>Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>Root</strong></td>
+<td>Superusuario. Privilegios totales directos en el Kernel.</td>
+</tr>
+<tr>
+<td><strong>1 - 999</strong></td>
+<td><strong>System Users</strong></td>
+<td>Cuentas sin login usadas por servicios (ej: nginx, mysql, systemd).</td>
+</tr>
+<tr>
+<td><strong>1000+</strong></td>
+<td><strong>Regular Users</strong></td>
+<td>Usuarios humanos del sistema (empleados, administradores).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="laboratorio-practico-provision-y-bloqueo-corporativo">Laboratorio Práctico: Provisión y Bloqueo Corporativo</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Debes dar de alta a una nueva ingeniera de sistemas (identificada como developer_ana). Su cuenta debe pertenecer al grupo secundario developers, 
+usar la shell bash, y debes forzarla a cambiar su contraseña en su primer inicio de sesión. Además, daremos de alta un servicio automatizado sin acceso a login.</p>
+<h3 id="paso-1-creacion-del-grupo-y-el-usuario-humano">Paso 1: Creación del Grupo y el Usuario Humano</h3>
+<p>Usaremos los comandos estándar de administración (man 8).</p>
+<pre><code class="language-bash"># 1. Crear el grupo de trabajo secundario
+sudo groupadd developers
+
+# 2. Crear el usuario con su carpeta home, shell especificada y añadirlo al grupo
+sudo useradd -m -s /bin/bash -G developers developer_ana
+
+# 3. Asignar una contraseña temporal segura
+sudo passwd developer_ana
+</code></pre>
+<h3 id="paso-2-forzar-directivas-de-seguridad-password-aging">Paso 2: Forzar Directivas de Seguridad (Password Aging)</h3>
+<p>Queremos que cambie esa contraseña inmediatamente al loguearse por primera vez:</p>
+<pre><code class="language-bash">sudo chage -d 0 developer_ana
+</code></pre>
+<p><em>El parámetro -d 0 le dice al sistema que la contraseña cambió por última vez en 1970, por lo que expira de forma inmediata.</em></p>
+<h3 id="paso-3-crear-un-usuario-de-sistema-service-account">Paso 3: Crear un Usuario de Sistema (Service Account)</h3>
+<p>Si despliegas una aplicación propia, nunca debes ejecutarla como root. Necesita su propio usuario de sistema aislado.</p>
+<pre><code class="language-bash">sudo useradd -r -s /usr/sbin/nologin app_monitoreo
+</code></pre>
+<p><em>El flag -r le asigna automáticamente un UID en el rango de sistema (&lt; 1000) y /usr/sbin/nologin bloquea cualquier intento de inicio de sesión interactivo.</em></p>
+<h3 id="paso-4-auditoria-rapida-de-la-cuenta">Paso 4: Auditoría rápida de la cuenta</h3>
+<p>Verificamos las identidades y pertenencias a grupos con el comando id:</p>
+<pre><code class="language-bash">id developer_ana
+</code></pre>
+<p><em>Output esperado: Muestra el UID de Ana, su GID principal (que coincide con su nombre) y su GID secundario (developers).</em></p>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>Modificar /etc/passwd o /etc/shadow directamente con un editor:</strong> Si cometes una errata de sintaxis o de espacios usando vim, puedes bloquear el acceso de todos los usuarios al servidor, incluido root.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Usa siempre las herramientas de verificación específicas del sistema tras cualquier cambio manual:</p>
+</blockquote>
+<pre><code class="language-bash">sudo pwck   # Verifica la consistencia de passwd y shadow
+sudo grpck  # Verifica la consistencia de los grupos   
+</code></pre>
+<ol>
+<li><strong>Eliminar un usuario dejando sus archivos huérfanos:</strong> Si haces useradd y luego userdel usuario, sus archivos en el disco siguen existiendo pero ahora pertenecen a un UID numérico huérfano. Si en el futuro creas otro usuario que herede ese mismo UID, tendrá acceso automático a los archivos antiguos del anterior empleado.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Al eliminar un usuario de forma definitiva, usa el flag -r para borrar también su directorio home y sus colas de archivos: sudo userdel -r developer_ana.</p>
+</blockquote>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Entornos Sin Login:</strong> Asegúrate de que todas las cuentas de servicios tengan asignado /usr/sbin/nologin o /bin/false como shell. Esto mitiga de forma drástica los ataques de ejecución remota de código (RCE).</li>
+<li><strong>Centralización:</strong> Para infraestructuras de más de 5 servidores, la gestión de usuarios locales (/etc/passwd) se vuelve insostenible. Automatiza esto mediante <strong>Ansible</strong> (Módulo 9) o centraliza las identidades usando soluciones empresariales como <strong>LDAP</strong>, <strong>FreeIPA</strong> o <strong>Active Directory</strong>.</li>
+<li><strong>Políticas Globales Predeterminadas:</strong> Configura el archivo <strong>/etc/login.defs</strong> para establecer que, por defecto, todas las contraseñas nuevas expiren a los 90 días y requieran una longitud mínima segura.</li>
+</ul>
+<hr />
+<h2 id="resumen">Resumen</h2>
+<p>Has dominado el funcionamiento interno de las cuentas y la creación controlada de identidades en Linux. El sistema ya sabe quién es quién. El siguiente paso lógico es definir qué puede hacer cada uno de esos usuarios en el disco duro.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

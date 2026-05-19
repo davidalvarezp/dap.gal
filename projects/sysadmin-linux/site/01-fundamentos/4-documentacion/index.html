@@ -1,0 +1,671 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/01-fundamentos/4-documentacion/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>1.4 Ayuda y Documentación: Uso Profundo de man, info y tldr - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14-ayuda-y-documentacion-uso-profundo-de-man-info-y-tldr" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.4 Ayuda y Documentación: Uso Profundo de man, info y tldr
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-la-estructura-de-las-paginas-de-manual-man" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. La Estructura de las Páginas de Manual (man)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-el-sistema-gnu-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. El sistema GNU info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-tldr-too-long-didnt-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. tldr (Too Long; Didn't Read)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-navegacion-de-documentacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Navegación de Documentación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Navegación de Documentación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-descubrir-comandos-con-apropos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Descubrir comandos con apropos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-forzar-la-lectura-de-una-seccion-especifica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Forzar la lectura de una sección específica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-sintaxis-instantanea-con-tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Sintaxis instantánea con tldr
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-modulo-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Módulo 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="14-ayuda-y-documentacion-uso-profundo-de-man-info-y-tldr">1.4 Ayuda y Documentación: Uso Profundo de man, info y tldr</h1>
+<p>Un falso mito en la administración de sistemas es que un Sysadmin Senior lo sabe todo de memoria. La realidad es que un buen profesional no destaca por memorizar cientos de flags de comandos, sino por su <strong>capacidad para interrogar al sistema</strong> y encontrar la documentación exacta en segundos, incluso en entornos aislados sin conexión a internet.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>Linux es un sistema operativo autodocumentado. Toda la información necesaria para levantar un servicio, entender un archivo de configuración o diagnosticar un error ya está instalada en el disco duro. 
+En este capítulo aprenderás a moverte por las páginas de manual (man), a entender sus secciones, a exprimir el sistema info y a usar herramientas modernas como tldr para acelerar tu flujo de trabajo diario.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Comprender y navegar por las 8 secciones estructuradas de las páginas man.</li>
+<li>Buscar comandos mediante palabras clave utilizando apropos.</li>
+<li>Utilizar info para documentación detallada de herramientas GNU.</li>
+<li>Instalar y beneficiarse de tldr para consultas de sintaxis rápidas.</li>
+<li>Localizar documentación y ejemplos oficiales en /usr/share/doc.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-la-estructura-de-las-paginas-de-manual-man">1. La Estructura de las Páginas de Manual (man)</h3>
+<p>El manual de Linux está dividido en <strong>secciones numeradas</strong>. Esto es vital porque existen comandos que comparten el mismo nombre que un archivo de configuración o una llamada al sistema.</p>
+<table>
+<thead>
+<tr>
+<th>Sección</th>
+<th>Contenido</th>
+<th>Ejemplo Práctico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Comandos de usuario general</td>
+<td>man 1 passwd (Modificar la contraseña)</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Llamadas al sistema (System Calls)</td>
+<td>man 2 fork (Funciones del Kernel)</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Funciones de librerías de C</td>
+<td>man 3 malloc (Gestión de memoria)</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Archivos especiales y dispositivos</td>
+<td>man 4 null (El dispositivo /dev/null)</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Formatos de archivos de configuración</td>
+<td>man 5 passwd (Estructura de /etc/passwd)</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Juegos y salvapantallas</td>
+<td>man 6 fortune</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Miscelánea (Protocolos, convenios)</td>
+<td>man 7 ip (Estructura del protocolo IP)</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>Comandos de administración del sistema</td>
+<td>man 8 useradd (Comandos exclusivos de root)</td>
+</tr>
+</tbody>
+</table>
+<p>Si ejecutas simplemente man passwd, el sistema te devolverá la primera coincidencia que encuentre (la sección 1). 
+Si lo que buscas es entender cómo se estructura el archivo por dentro, debes especificar la sección 5: man 5 passwd.</p>
+<h3 id="2-el-sistema-gnu-info">2. El sistema GNU info</h3>
+<p>Mientras que man ofrece una referencia rápida y estática, las páginas info fueron diseñadas por el proyecto GNU como un sistema de <strong>hipertexto en terminal</strong> (similar a una web con enlaces). 
+Es la documentación oficial y más profunda para herramientas troncales como tar, grep, coreutils o el compilador gcc.</p>
+<h3 id="3-tldr-too-long-didnt-read">3. tldr (Too Long; Didn't Read)</h3>
+<p>Las páginas man pueden ser abrumadoras debido a su extensión. En el día a día moderno, la comunidad utiliza <strong>tldr</strong>, un cliente que resume cualquier manual en apenas 5 o 6 ejemplos prácticos con los casos de uso más comunes.</p>
+<hr />
+<h2 id="laboratorio-practico-navegacion-de-documentacion">Laboratorio Práctico: Navegación de Documentación</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Necesitas configurar las cuotas de disco en un servidor. No recuerdas qué comandos gestionan esto, necesitas ver cómo se estructura un archivo de configuración específico y ver un ejemplo rápido de cómo comprimir una carpeta con tar sin leerte 4.000 líneas de manual.</p>
+<h3 id="paso-1-descubrir-comandos-con-apropos">Paso 1: Descubrir comandos con apropos</h3>
+<p>Cuando no sabes el nombre exacto de un comando, puedes buscar en las descripciones del manual usando apropos (o su equivalente man -k).</p>
+<pre><code class="language-bash"># Buscar cualquier comando relacionado con &quot;quota&quot;
+apropos quota
+</code></pre>
+<p><em>El sistema te listará todos los comandos y la sección a la que pertenecen.</em></p>
+<h3 id="paso-2-forzar-la-lectura-de-una-seccion-especifica">Paso 2: Forzar la lectura de una sección específica</h3>
+<p>Queremos entender la estructura del archivo /etc/fstab (el encargado de montar los discos). Si hacemos man fstab, nos llevará a su documentación, pero para asegurarnos de que leemos el formato de archivo de la sección 5:</p>
+<pre><code class="language-bash">man 5 fstab
+</code></pre>
+<p>??? tip "Atajos indispensables dentro de man"
+    El comando man utiliza el paginador less por defecto. Muévete como un profesional con estos atajos:
+    - /palabra : Busca "palabra" hacia adelante.
+    - n : Va a la siguiente coincidencia de la búsqueda.
+    - N : Va a la coincidencia anterior.
+    - g : Va al principio del documento.
+    - G : Va al final del documento.
+    - q : Sale del manual inmediatamente.</p>
+<h3 id="paso-3-sintaxis-instantanea-con-tldr">Paso 3: Sintaxis instantánea con tldr</h3>
+<p>Si necesitas usar tar para extraer un archivo .tar.gz y no recuerdas si las flags eran -xf o -czf:</p>
+<pre><code class="language-bash"># Instalar tldr (requiere node/npm o usar versiones nativas en Go/Rust)
+# En distribuciones basadas en Debian/Ubuntu: sudo apt install tldr
+tldr tar
+</code></pre>
+<p><em>Output esperado:</em> Una lista limpia con los 5 comandos tar más usados en el mundo real.</p>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>"No manual entry for..." en contenedores Docker o entornos mínimos:</strong> Para ahorrar espacio, las imágenes base de Docker (Ubuntu, Alpine, Debian) eliminan las páginas man.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> En sistemas Ubuntu/Debian, puedes restaurarlas ejecutando el comando unminimize. En RHEL/AlmaLinux, asegúrate de no tener configurado tsflags=nodocs en /etc/dnf/dnf.conf.</p>
+</blockquote>
+<ol>
+<li><strong>Confundir la sección del manual:</strong> Buscar la sintaxis de un comando de administración y frustrarse porque man 1 no muestra las opciones de configuración avanzada del demonio.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Recuerda siempre usar man 8 para servicios/daemons y man 5 para los ficheros .conf.</p>
+</blockquote>
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Explora /usr/share/doc:</strong> Cuando configures servicios complejos (como un servidor web Nginx, un servidor de correo Postfix o un firewall), ve a /usr/share/doc/nombre-paquete/. Casi todos los desarrolladores incluyen ahí archivos de configuración de ejemplo llamados configuration.example.gz que puedes copiar y adaptar. Te ahorrarán horas de búsqueda en Google.</li>
+<li><strong>Mantén tldr actualizado:</strong> Los comandos evolucionan. Si usas tldr, acostúmbrate a lanzar tldr --update en tu script de mantenimiento mensual para bajarte los últimos esquemas de la comunidad.</li>
+<li><strong>Genera tus propios manuales:</strong> En infraestructuras grandes, los Sysadmins Senior escriben scripts y crean pequeños archivos de manual en /usr/local/share/man/man1/ para que los técnicos juniors puedan consultar las herramientas internas de la empresa usando el comando man nativo.</li>
+</ul>
+<h2 id="resumen-del-modulo-1">Resumen del Módulo 1</h2>
+<p>Has completado el <strong>Módulo 1: Fundamentos y Supervivencia en la CLI</strong>. Ahora sabes qué es Linux, entiendes cómo se organiza su arquitectura y el FHS, eres capaz de manipular y buscar archivos con precisión quirúrgica, y sabes cómo extraer documentación del sistema sin depender de una conexión externa. Estás listo para empezar a gestionar sistemas reales.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

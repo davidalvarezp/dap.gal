@@ -1,0 +1,726 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/02-usuarios/2-permisos/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.2 Permisos de Archivos: chmod, chown y Modos Especiales (SUID, SGID, Sticky Bit) - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#22-permisos-de-archivos-chmod-chown-y-modos-especiales-suid-sgid-sticky-bit" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.2 Permisos de Archivos: chmod, chown y Modos Especiales (SUID, SGID, Sticky Bit)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-la-matriz-de-permisos-basicos-ugo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. La Matriz de Permisos Básicos (UGO)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. La Matriz de Permisos Básicos (UGO)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diferencia-crucial-archivos-vs-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diferencia crucial: Archivos vs. Directorios
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-permisos-especiales-nivel-avanzado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Permisos Especiales (Nivel Avanzado)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Permisos Especiales (Nivel Avanzado)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-suid-set-user-id-valor-4000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. SUID (Set User ID - Valor 4000)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-sgid-set-group-id-valor-2000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. SGID (Set Group ID - Valor 2000)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-sticky-bit-bit-de-permanencia-valor-1000" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Sticky Bit (Bit de Permanencia - Valor 1000)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-configuracion-de-un-directorio-compartido-profesional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Configuración de un Directorio Compartido Profesional
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Configuración de un Directorio Compartido Profesional">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-creacion-y-asignacion-de-propiedades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Creación y asignación de propiedades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-aplicacion-de-la-matriz-de-permisos-avanzada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Aplicación de la matriz de permisos avanzada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-verificacion-del-laboratorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Verificación del Laboratorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="22-permisos-de-archivos-chmod-chown-y-modos-especiales-suid-sgid-sticky-bit">2.2 Permisos de Archivos: chmod, chown y Modos Especiales (SUID, SGID, Sticky Bit)</h1>
+<p>Si la gestión de usuarios define <em>quién</em> es una identidad en el sistema, la matriz de permisos determina <em>qué</em> acciones exactas puede realizar esa identidad sobre los recursos del disco duro. En Linux, la seguridad a nivel de sistema de archivos es estricta, predecible y altamente eficiente.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>Cada archivo y directorio en Linux pertenece a un <strong>usuario propietario</strong> y a un <strong>grupo propietario</strong>. A partir de ahí, el Kernel evalúa los accesos basándose en una estructura de tres capas: Dueño, Grupo y Otros (el resto del mundo). Como Sysadmin, dominar esta lógica y sus modos avanzados es crítico para evitar fugas de información o escaladas de privilegios no autorizadas.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Descifrar la salida de <code>ls -l</code> y entender la representación simbólica y octal de los permisos.</li>
+<li>Comprender el impacto diferencial de los permisos <code>rwx</code> en archivos frente a directorios.</li>
+<li>Cambiar propiedades y accesos con <code>chown</code>, <code>chgrp</code> y <code>chmod</code>.</li>
+<li>Dominar e implementar los permisos especiales: <strong>SUID</strong>, <strong>SGID</strong> y <strong>Sticky Bit</strong>.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-la-matriz-de-permisos-basicos-ugo">1. La Matriz de Permisos Básicos (UGO)</h3>
+<p>Los permisos se dividen en tres tripletas asignadas a: <strong>U</strong>ser (Dueño), <strong>G</strong>roup (Grupo) y <strong>O</strong>thers (Otros). Cada tripleta puede combinar tres derechos fundamentales:</p>
+<ul>
+<li><strong>r (Read / Lectura):</strong> Valor numérico <strong>4</strong>.</li>
+<li><strong>w (Write / Escritura):</strong> Valor numérico <strong>2</strong>.</li>
+<li><strong>x (Execute / Ejecución):</strong> Valor numérico <strong>1</strong>.</li>
+</ul>
+<p>La suma de estos valores define el acceso en <strong>modo octal</strong>. Por ejemplo, un permiso <code>rwx</code> suma $4+2+1 = 7$.</p>
+<h4 id="diferencia-crucial-archivos-vs-directorios">Diferencia crucial: Archivos vs. Directorios</h4>
+<p>Un error muy común de nivel junior es pensar que un permiso significa lo mismo para un archivo que para una carpeta:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Permiso</th>
+<th style="text-align: left;">En un Archivo</th>
+<th style="text-align: left;">En un Directorio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>r (Lectura)</strong></td>
+<td style="text-align: left;">Ver el contenido del archivo (ej. con <code>cat</code>).</td>
+<td style="text-align: left;">Listar los archivos que contiene (ej. con <code>ls</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>w (Escritura)</strong></td>
+<td style="text-align: left;">Modificar el contenido del archivo.</td>
+<td style="text-align: left;">Crear, renombrar o <strong>borrar</strong> archivos dentro de él.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>x (Ejecución)</strong></td>
+<td style="text-align: left;">Ejecutar el archivo como un programa/script.</td>
+<td style="text-align: left;"><strong>Entrar</strong> al directorio (ej. con <code>cd</code>) y acceder a sus metadatos.</td>
+</tr>
+</tbody>
+</table>
+<p>!!! warning "¡Peligro con la escritura en directorios!"
+    Si un usuario tiene permiso de escritura (<code>w</code>) en un directorio, <strong>puede borrar cualquier archivo dentro de él</strong>, incluso si no es el dueño de ese archivo y no tiene permisos sobre el archivo en sí.</p>
+<h3 id="2-permisos-especiales-nivel-avanzado">2. Permisos Especiales (Nivel Avanzado)</h3>
+<p>Para escenarios corporativos complejos, los permisos estándar se quedan cortos. Linux introduce tres bits adicionales:</p>
+<h4 id="a-suid-set-user-id-valor-4000">A. SUID (Set User ID - Valor 4000)</h4>
+<p>Aplicado a <strong>archivos ejecutables</strong>. Cuando un usuario ejecuta este archivo, el proceso no se ejecuta con los privilegios del usuario, sino con los del <strong>dueño del archivo</strong> (habitualmente <code>root</code>).</p>
+<ul>
+<li><em>Ejemplo real:</em> El comando <code>passwd</code> (para cambiar contraseñas) tiene el bit SUID activo porque necesita modificar el archivo <code>/etc/shadow</code>, el cual solo es accesible por root.</li>
+<li><em>Representación:</em> Aparece como una <code>s</code> en la posición de ejecución del dueño (ej: <code>-rwsr-xr-x</code>).</li>
+</ul>
+<h4 id="b-sgid-set-group-id-valor-2000">B. SGID (Set Group ID - Valor 2000)</h4>
+<ul>
+<li><strong>En ejecutables:</strong> El proceso se ejecuta con los privilegios del grupo propietario del archivo.</li>
+<li><strong>En directorios (Muy usado):</strong> Cualquier archivo o carpeta que se cree dentro de este directorio <strong>heredará automáticamente el grupo propietario del directorio padre</strong>, ignorando el grupo principal del usuario que lo creó. Es vital para carpetas compartidas entre equipos de trabajo.</li>
+<li><em>Representación:</em> Aparece como una <code>s</code> en la posición de ejecución del grupo (ej: <code>drwxrwsr-x</code>).</li>
+</ul>
+<h4 id="c-sticky-bit-bit-de-permanencia-valor-1000">C. Sticky Bit (Bit de Permanencia - Valor 1000)</h4>
+<p>Aplicado a <strong>directorios</strong>. Garantiza que <strong>solo el propietario de un archivo pueda borrarlo o renombrarlo</strong>, a pesar de que otros usuarios tengan permisos de escritura en ese directorio.</p>
+<ul>
+<li><em>Ejemplo real:</em> El directorio temporal <code>/tmp</code> tiene este bit para evitar que un usuario borre los archivos temporales de otro.</li>
+<li><em>Representación:</em> Aparece como una <code>t</code> al final de la cadena de permisos (ej: <code>drwxrwxrwt</code>).</li>
+</ul>
+<hr />
+<h2 id="laboratorio-practico-configuracion-de-un-directorio-compartido-profesional">Laboratorio Práctico: Configuración de un Directorio Compartido Profesional</h2>
+<h3 id="escenario">Escenario</h3>
+<p>El equipo de desarrollo necesita un directorio común en <code>/srv/shared_dev</code>. Se requieren las siguientes directivas de producción:</p>
+<ol>
+<li>Todos los miembros del grupo <code>developers</code> deben poder crear y modificar archivos allí.</li>
+<li>Todo archivo nuevo debe pertenecer automáticamente al grupo <code>developers</code> (SGID).</li>
+<li>Ningún desarrollador debe poder borrar o modificar los archivos de un compañero (Sticky Bit).</li>
+</ol>
+<h3 id="paso-1-creacion-y-asignacion-de-propiedades">Paso 1: Creación y asignación de propiedades</h3>
+<p>Creamos la estructura y nos aseguramos de que pertenezca al grupo correcto.</p>
+<pre><code class="language-bash"># Crear el directorio
+sudo mkdir -p /srv/shared_dev
+
+# Cambiar el propietario a root y el grupo a developers
+sudo chown root:developers /srv/srv/shared_dev
+</code></pre>
+<h3 id="paso-2-aplicacion-de-la-matriz-de-permisos-avanzada">Paso 2: Aplicación de la matriz de permisos avanzada</h3>
+<p>Usaremos el modo octal combinando los permisos especiales (2000 \text{ (SGID)} + 1000 \text{ (Sticky Bit)} = 3000). Los accesos estándar serán 770 (Todo para root y el grupo, nada para el resto).</p>
+<pre><code class="language-bash"># Aplicar permisos: Especiales (3) + Dueño (7) + Grupo (7) + Otros (0)
+sudo chmod 3770 /srv/shared_dev
+</code></pre>
+<h3 id="paso-3-verificacion-del-laboratorio">Paso 3: Verificación del Laboratorio</h3>
+<p>Analizamos el resultado con un listado detallado:</p>
+<pre><code class="language-bash">ls -ld /srv/shared_dev
+</code></pre>
+<p><em>Output esperado:</em></p>
+<pre><code class="language-text">drwxrws--t 2 root developers 4096 may 18 08:30 /srv/shared_dev
+</code></pre>
+<p>Observemos la s en el grupo (SGID activo) y la t al final (Sticky Bit activo).</p>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>La falacia del chmod 777:</strong> Cuando algo no funciona (un script, un servidor web), la tentación junior es aplicar chmod -R 777. Esto es un fallo crítico de seguridad que permite a cualquier usuario o servicio local (incluso comprometido) inyectar código o destruir datos.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Identifica qué usuario corre el servicio (ej. www-data para Nginx) y cambia el propietario del archivo con chown en lugar de abrir los permisos a todo el mundo.</p>
+</blockquote>
+<ol>
+<li><strong>"Permission Denied" al entrar en una carpeta con permisos de lectura:</strong> Un usuario tiene permisos r-- en un directorio pero al hacer cd recibe un error.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Para poder entrar en una carpeta y leer sus archivos, el directorio necesita obligatoriamente el permiso de ejecución (x). Aplica chmod +x directorio.</p>
+</blockquote>
+<ol>
+<li><strong>SUID en scripts de Bash:</strong> Intentar poner el bit SUID a un script .sh no funcionará en la mayoría de distros modernas por motivos de seguridad del Kernel.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Si un script requiere privilegios de root, la vía correcta y segura es mapearlo en el archivo /etc/sudoers (lo veremos en el Módulo 2.4).</p>
+</blockquote>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Principio de Menor Privilegio:</strong> Los archivos deben tener la configuración más restrictiva posible que les permita funcionar. Por defecto, los archivos de configuración no deberían tener más de 640 o 600.</li>
+<li><strong>Usa el flag --reference para clonar permisos:</strong> Si tienes un archivo que funciona perfectamente en producción y quieres replicar exactamente sus propietarios y permisos en uno nuevo, usa:
+  <code>bash
+  sudo chmod --reference=archivo_ok.conf archivo_nuevo.conf
+  sudo chown --reference=archivo_ok.conf archivo_nuevo.conf</code></li>
+<li><strong>Audita los archivos SUID periódicamente:</strong> Un atacante que consiga acceso raíz temporal intentará dejar un binario con SUID activo para volver a escalar privilegios en el futuro. Búscalos con find:
+  <code>bash
+  find / -perm /4000 -type f 2&gt;/dev/null</code></li>
+</ul>
+<hr />
+<h2 id="resumen">Resumen</h2>
+<p>Has dominado el núcleo del sistema de permisos tradicional de Linux (POSIX). Sin embargo, este modelo de tres capas (Dueño-Grupo-Otros) a veces se queda corto si necesitas dar permisos a un segundo grupo o a un usuario específico sin cambiar el propietario.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

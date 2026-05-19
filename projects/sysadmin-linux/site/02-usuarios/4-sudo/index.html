@@ -1,0 +1,675 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/02-usuarios/4-sudo/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#24-escalada-de-privilegios-configuracion-segura-de-sudo-y-el-fichero-etcsudoers" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-la-batalla-del-control-su-vs-sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. La batalla del control: su vs. sudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-anatomia-de-una-directiva-en-etcsudoers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Anatomía de una Directiva en /etc/sudoers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-el-poder-de-los-alias-organizacion-corporativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. El Poder de los Alias (Organización Corporativa)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-crear-el-entorno-de-pruebas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Crear el entorno de pruebas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-editar-de-forma-segura-con-visudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Editar de forma segura con visudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-implementar-la-logica-de-alias-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Implementar la lógica de Alias y Permisos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-validar-el-entorno-como-el-usuario-delegado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Validar el entorno como el usuario delegado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting (Vulnerabilidades de Escalada Inversa)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-modulo-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del Módulo 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="24-escalada-de-privilegios-configuracion-segura-de-sudo-y-el-fichero-etcsudoers">2.4 Escalada de Privilegios: Configuración Segura de sudo y el Fichero /etc/sudoers</h1>
+<p>En un entorno corporativo, compartir la contraseña del superusuario <code>root</code> es un pecado capital contra la seguridad y la trazabilidad. La herramienta <strong><code>sudo</code> (superuser do)</strong> es el mecanismo estándar en Linux para delegar privilegios administrativos de forma controlada, granular y totalmente auditable.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>El principio de menor privilegio dicta que ningún usuario o proceso debe tener más poder del estrictamente necesario para realizar su función. Si un técnico de soporte solo necesita reiniciar el servidor web, darle acceso completo como <code>root</code> es un riesgo inaceptable. <code>sudo</code> permite al Sysadmin definir con precisión quirúrgica qué comandos específicos puede ejecutar un usuario (o grupo de usuarios), en qué máquinas y bajo la identidad de qué otra cuenta, registrando cada acción en los logs del sistema.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Comprender la diferencia arquitectónica entre <code>su</code> y <code>sudo</code>.</li>
+<li>Operar de forma segura sobre el fichero de configuración utilizando <code>visudo</code>.</li>
+<li>Desglosar y dominar la sintaxis de las directivas en <strong>/etc/sudoers</strong>.</li>
+<li>Diseñar políticas de escalada basadas en alias (User, Host, Runas y Cmnd).</li>
+<li>Configurar excepciones seguras de contraseña (<code>NOPASSWD</code>) para tareas de automatización.</li>
+<li>Evitar vulnerabilidades de escalada inversa provocadas por malas configuraciones.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-la-batalla-del-control-su-vs-sudo">1. La batalla del control: <code>su</code> vs. <code>sudo</code></h3>
+<ul>
+<li><strong><code>su</code> (Switch User):</strong> Cambia la identidad de la shell actual. Si se ejecuta a secas (<code>su -</code>), solicita la <strong>contraseña de root</strong>. Si se comparte, no hay forma de saber qué persona física ejecutó un comando destructivo, ya que en los logs solo aparecerá el usuario <code>root</code>.</li>
+<li><strong><code>sudo</code> (Superuser Do):</strong> Ejecuta un único comando con privilegios elevados utilizando la <strong>contraseña del propio usuario</strong>. Esto garantiza el "no repudio": sabemos exactamente qué usuario del sistema solicitó la elevación.</li>
+</ul>
+<h3 id="2-anatomia-de-una-directiva-en-etcsudoers">2. Anatomía de una Directiva en <code>/etc/sudoers</code></h3>
+<p>La sintaxis de este fichero es famosa por parecer críptica al principio, pero sigue una estructura lógica estricta. Analicemos la línea predeterminada por excelencia:</p>
+<pre><code class="language-text">root    ALL=(ALL:ALL) ALL
+</code></pre>
+<p>La regla se lee de izquierda a derecha siguiendo este esquema:</p>
+<ol>
+<li><strong>User:</strong> root \rightarrow ¿Quién solicita la elevación? (Puede ser un usuario o un %grupo).</li>
+<li><strong>Host:</strong> ALL \rightarrow ¿Desde qué máquina se permite? (Útil si el fichero se comparte por red mediante LDAP, en local siempre es ALL).</li>
+<li><strong>RunAs (User:Group):</strong> (ALL:ALL) \rightarrow ¿Bajo la identidad de quién se ejecutará el comando? El primer ALL es el usuario (usualmente root) y el segundo el grupo.</li>
+<li><strong>Command:</strong> ALL \rightarrow ¿Qué binarios o scripts específicos se le permite ejecutar? (Debe especificarse con la <strong>ruta absoluta</strong>).</li>
+</ol>
+<h3 id="3-el-poder-de-los-alias-organizacion-corporativa">3. El Poder de los Alias (Organización Corporativa)</h3>
+<p>Para evitar que el fichero /etc/sudoers se vuelva ilegible, se agrupan los elementos mediante alias:</p>
+<ul>
+<li>User_Alias: Agrupa cuentas de usuarios humanos (ej: User_Alias SOPORTE = juan, maria).</li>
+<li>Cmnd_Alias: Agrupa rutas absolutas de comandos prohibidos o permitidos (ej: Cmnd_Alias RED = /usr/sbin/ip, /usr/sbin/nftables).</li>
+</ul>
+<hr />
+<h2 id="laboratorio-practico-delegacion-de-privilegios-para-un-equipo-de-operaciones">Laboratorio Práctico: Delegación de Privilegios para un Equipo de Operaciones</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Disponemos de un grupo en el sistema llamado %net_operators. Necesitamos configurar el servidor para que cualquier miembro de este grupo pueda:</p>
+<ol>
+<li>Ver y reiniciar el servicio de red (NetworkManager) usando systemctl.</li>
+<li>Ejecutar el sniffer de red tcpdump para diagnosticar tráfico, pero <strong>sin que el sistema les pida su contraseña</strong> (requerido para scripts de monitorización rápidos).</li>
+<li>No deben poder ejecutar ningún otro comando como root.</li>
+</ol>
+<h3 id="paso-1-crear-el-entorno-de-pruebas">Paso 1: Crear el entorno de pruebas</h3>
+<p>Aseguramos la existencia del grupo y añadimos a un técnico de pruebas.</p>
+<pre><code class="language-bash">sudo groupadd net_operators
+sudo useradd -m -s /bin/bash -G net_operators tecnico_redes
+sudo passwd tecnico_redes
+</code></pre>
+<h3 id="paso-2-editar-de-forma-segura-con-visudo">Paso 2: Editar de forma segura con visudo</h3>
+<p>!!! danger "Regla de oro del Sysadmin"
+    <strong>NUNCA</strong> abras /etc/sudoers directamente con nano o vim. Si cometes un error sintáctico, el comando sudo se romperá por completo y te quedarás fuera del sistema sin privilegios. Usa siempre sudo visudo. Este comando abre un editor temporal y, al guardar, valida la sintaxis. Si hay un error, te avisará y te impedirá guardar.</p>
+<p>Lanzamos el editor seguro:</p>
+<pre><code class="language-bash">sudo visudo
+</code></pre>
+<h3 id="paso-3-implementar-la-logica-de-alias-y-permisos">Paso 3: Implementar la lógica de Alias y Permisos</h3>
+<p>Desplázate hasta el final del archivo y añade las siguientes líneas limpias:</p>
+<pre><code class="language-text"># 1. Definición de Alias de Comandos
+Cmnd_Alias NET_SERVICES = /usr/bin/systemctl restart NetworkManager, /usr/bin/systemctl status NetworkManager
+Cmnd_Alias NET_TOOLS = /usr/sbin/tcpdump
+
+# 2. Asignación de permisos al grupo (Mantenemos contraseña para los servicios)
+%net_operators ALL=(root) NET_SERVICES
+
+# 3. Asignación con exención de contraseña para herramientas de diagnóstico
+%net_operators ALL=(root) NOPASSWD: NET_TOOLS
+</code></pre>
+<p>Guarda y cierra el editor (si usas el visudo por defecto de Ubuntu/Debian que abre nano, guarda con Ctrl+O y sal con Ctrl+X).</p>
+<h3 id="paso-4-validar-el-entorno-como-el-usuario-delegado">Paso 4: Validar el entorno como el usuario delegado</h3>
+<p>Cambiamos de sesión a nuestro técnico para comprobar que la seguridad funciona:</p>
+<pre><code class="language-bash"># Cambiar al usuario de pruebas
+su - tecnico_redes
+
+# Comprobar qué poderes de sudo tenemos asignados
+sudo -l
+</code></pre>
+<p><em>El flag sudo -l (list) es la herramienta de auditoría que muestra al usuario sus privilegios efectivos reales.</em></p>
+<p>Prueba ahora a ejecutar un comando con contraseña y el otro sin ella:</p>
+<pre><code class="language-bash"># Solicitará la contraseña de tecnico_redes
+sudo systemctl restart NetworkManager
+
+# Se ejecutará instantáneamente sin pedir credenciales
+sudo tcpdump -i eth0 -c 5
+</code></pre>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting-vulnerabilidades-de-escalada-inversa">Errores Comunes y Troubleshooting (Vulnerabilidades de Escalada Inversa)</h2>
+<ol>
+<li><strong>La trampa de dar sudo a binarios interactivos:</strong> Si configuras una línea en sudoers que permite a un usuario ejecutar sudo vim /etc/exports o sudo less /var/log/syslog, has comprometido el servidor por completo.</li>
+</ol>
+<blockquote>
+<p><strong>El motivo:</strong> Tanto vim como less permiten abrir una shell interactiva desde su interior (ej: si pulsas : y luego escribes !bash dentro de vim, abrirá una consola). Como el programa padre corría como root, esa nueva consola será <strong>una terminal de root con acceso total</strong>.</p>
+<p><strong>Solución:</strong> Usa herramientas específicas de edición controlada como sudoedit en lugar de dar acceso directo al editor de texto.</p>
+</blockquote>
+<ol>
+<li><strong>Romper el archivo /etc/sudoers por saltarse visudo:</strong> Si el archivo se corrompe por una edición descuidada, cualquier intento de hacer sudo devolverá un error de sintaxis y bloqueará la elevación.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> No entres en pánico. Si tienes acceso físico o mediante hipervisor, puedes resolverlo si la herramienta pkexec (PolicyKit) está instalada ejecutando:</p>
+</blockquote>
+<pre><code class="language-bash">pkexec visudo 
+</code></pre>
+<blockquote>
+<p>Si esto falla, tendrás que reiniciar el servidor, entrar en <strong>Modo Single User (Grub single)</strong> modificando los parámetros de arranque del Kernel para montar el sistema de archivos en lectura/escritura (rw init=/bin/bash) y reparar el fichero a mano.</p>
+</blockquote>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>Utiliza el directorio /etc/sudoers.d/:</strong> En lugar de engrosar el archivo principal /etc/sudoers, las distribuciones modernas permiten crear archivos independientes dentro de la carpeta sudoers.d/. Crea un archivo por cada necesidad corporativa (ej: /etc/sudoers.d/developers o /etc/sudoers.d/monitoring). Esto mantiene el sistema modular y limpio.</li>
+<li><strong>Mantén las directivas NOPASSWD al mínimo absoluto:</strong> Solo debes usar NOPASSWD para scripts automatizados específicos (como agentes de monitorización Zabbix/Prometheus o playbooks de Ansible) que requieran ejecutar un binario muy concreto. Nunca lo uses para bloques genéricos de comandos.</li>
+<li><strong>Audita los logs de sudo:</strong> Cada vez que un usuario ejecuta algo mediante sudo, el evento queda registrado. Acostúmbrate a revisar periódicamente dónde se centralizan estos eventos para detectar intentos de uso no autorizados:</li>
+<li>En familias Debian/Ubuntu: <strong>/var/log/auth.log</strong></li>
+<li>En familias RHEL/AlmaLinux: <strong>/var/log/secure</strong></li>
+</ul>
+<hr />
+<h2 id="resumen-del-modulo-2">Resumen del Módulo 2</h2>
+<p>Has finalizado por completo el <strong>Módulo 2: Administración de Usuarios y Permisos</strong>. Ahora posees un conocimiento profundo y profesional sobre cómo gestionar el ciclo de vida de las identidades locales, proteger los recursos del almacenamiento mediante la matriz tradicional POSIX y las listas de control de acceso extendidas (ACLs), y delegar la autoridad del sistema de forma segura mediante sudo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

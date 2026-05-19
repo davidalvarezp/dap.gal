@@ -1,0 +1,679 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.">
+      
+      
+        <meta name="author" content="dap">
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/sysadmin-linux/02-usuarios/3-acls/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2.3 Listas de Control de Acceso (ACLs) - Manual SysAdmin Linux</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#23-listas-de-control-de-acceso-acls" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-header__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Manual SysAdmin Linux
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.3 Listas de Control de Acceso (ACLs)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Compartir" aria-label="Compartir" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Manual SysAdmin Linux" class="md-nav__button md-logo" aria-label="Manual SysAdmin Linux" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Manual SysAdmin Linux
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-aprendizaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos de aprendizaje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-teoricos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos Teóricos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conceptos Teóricos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-como-funcionan-las-acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. ¿Cómo funcionan las ACLs?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-comandos-troncales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Comandos Troncales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-el-concepto-de-la-mascara-mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. El Concepto de la Máscara (mask)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-acls-por-defecto-default-acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ACLs por Defecto (Default ACLs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laboratorio-practico-permisos-multi-rol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laboratorio Práctico: Permisos Multi-Rol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Laboratorio Práctico: Permisos Multi-Rol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-1-verificar-el-estado-inicial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 1: Verificar el estado inicial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-2-asignar-acls-especificas-a-usuarios-y-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 2: Asignar ACLs específicas a usuarios y grupos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-3-configurar-la-herencia-default-acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 3: Configurar la herencia (Default ACLs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#paso-4-auditar-el-resultado-extendido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paso 4: Auditar el resultado extendido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errores-comunes-y-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores Comunes y Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buenas-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Buenas Prácticas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="23-listas-de-control-de-acceso-acls">2.3 Listas de Control de Acceso (ACLs)</h1>
+<p>El modelo tradicional de permisos de Linux (Usuario, Grupo, Otros) es elegante y rápido, pero presenta una limitación crítica en entornos corporativos: solo permite asignar un único usuario dueño y un único grupo propietario a cada archivo o carpeta. Cuando las necesidades de la infraestructura exigen políticas de acceso más complejas, entran en juego las <strong>ACLs (Access Control Lists)</strong>.</p>
+<hr />
+<h2 id="introduccion">Introducción</h2>
+<p>Imagina que tienes un archivo de configuración que pertenece a <code>root:sysadmin</code>. El departamento de seguridad te pide que un auditor específico (y solo él) pueda leer el archivo, mientras que un equipo de desarrolladores externos necesita poder modificarlo. Bajo el modelo estándar, resolver esto implicaría crear grupos artificiales y complejos. Las ACLs rompen esta limitación permitiendo asociar una lista detallada de permisos para múltiples usuarios y grupos específicos de forma directa sobre un único recurso.</p>
+<hr />
+<h2 id="objetivos-de-aprendizaje">Objetivos de aprendizaje</h2>
+<ul>
+<li>Identificar cuándo el modelo tradicional UGO se queda corto y es necesario implementar ACLs.</li>
+<li>Auditar los permisos extendidos de un archivo utilizando <code>getfacl</code>.</li>
+<li>Modificar, añadir y eliminar reglas de acceso quirúrgicas con <code>setfacl</code>.</li>
+<li>Configurar <strong>ACLs por defecto (Default ACLs)</strong> en directorios para garantizar la herencia de permisos.</li>
+<li>Comprender el impacto de la <strong>Máscara (Mask)</strong> sobre los permisos efectivos.</li>
+</ul>
+<hr />
+<h2 id="conceptos-teoricos">Conceptos Teóricos</h2>
+<h3 id="1-como-funcionan-las-acls">1. ¿Cómo funcionan las ACLs?</h3>
+<p>Las ACLs extienden los metadatos del sistema de archivos (atributos extendidos) para añadir reglas adicionales. Cuando el Kernel evalúa si un usuario puede acceder a un archivo con ACLs, sigue este orden estricto de prioridades:</p>
+<ol>
+<li>¿Es el usuario dueño del archivo? Si sí, se aplican los permisos de dueño.</li>
+<li>¿Existe una ACL específica para este UID? Si sí, se aplica esa regla.</li>
+<li>¿Pertenece el usuario al grupo propietario o a alguno de los grupos con ACL específica? Si sí, se aplican esos derechos.</li>
+<li>Si nada se cumple, se aplican los permisos de "Otros" (Others).</li>
+</ol>
+<h3 id="2-comandos-troncales">2. Comandos Troncales</h3>
+<ul>
+<li><strong><code>getfacl</code>:</strong> Lee los metadatos del archivo y despliega la lista completa de accesos.</li>
+<li><strong><code>setfacl</code>:</strong> Modifica la lista. Utiliza el flag <code>-m</code> para modificar/añadir y <code>-x</code> para eliminar reglas.</li>
+</ul>
+<h3 id="3-el-concepto-de-la-mascara-mask">3. El Concepto de la Máscara (<code>mask</code>)</h3>
+<p>Cuando se habilitan ACLs en un archivo, aparece un nuevo concepto llamado <strong>máscara</strong>. La máscara define el <strong>límite máximo de permisos efectivos</strong> que cualquier usuario o grupo de la ACL (excepto el dueño) puede llegar a tener. Si la máscara se establece en <code>r--</code> (lectura), aunque le des <code>rwx</code> (acceso total) a un usuario en la ACL, su permiso efectivo real será únicamente de lectura.</p>
+<h3 id="4-acls-por-defecto-default-acls">4. ACLs por Defecto (Default ACLs)</h3>
+<p>Aplicadas exclusivamente a <strong>directorios</strong>. No afectan a los permisos del directorio en sí, sino que actúan como una "plantilla heredable". Cualquier archivo o subcarpeta que se cree dentro de ese directorio heredará automáticamente las ACLs definidas por defecto, facilitando enormemente la gestión de permisos en entornos compartidos de red (como servidores Samba o NFS).</p>
+<hr />
+<h2 id="laboratorio-practico-permisos-multi-rol">Laboratorio Práctico: Permisos Multi-Rol</h2>
+<h3 id="escenario">Escenario</h3>
+<p>Disponemos de un directorio crítico de auditoría en <code>/srv/auditoria</code>. El propietario actual es <code>root:sysadmin</code>. Necesitamos aplicar la siguiente política sin alterar la propiedad del directorio:</p>
+<ol>
+<li>El usuario <code>auditor_externo</code> debe tener acceso exclusivo de lectura (<code>r--</code>).</li>
+<li>El grupo <code>compliance_team</code> debe tener acceso de lectura y escritura (<code>rw-</code>).</li>
+<li>Cualquier archivo nuevo creado dentro del directorio debe heredar estas mismas reglas automáticamente.</li>
+</ol>
+<h3 id="paso-1-verificar-el-estado-inicial">Paso 1: Verificar el estado inicial</h3>
+<p>Ejecutamos <code>getfacl</code> para observar la estructura tradicional antes de aplicar cambios.</p>
+<pre><code class="language-bash">sudo mkdir -p /srv/auditoria
+getfacl /srv/auditoria
+</code></pre>
+<p><em>Muestra el output estándar de permisos POSIX mapeados en formato de lista.</em></p>
+<h3 id="paso-2-asignar-acls-especificas-a-usuarios-y-grupos">Paso 2: Asignar ACLs específicas a usuarios y grupos</h3>
+<p>Utilizamos setfacl especificando si la regla es para un usuario (u:) o un grupo (g:).</p>
+<pre><code class="language-bash"># Otorgar lectura al usuario auditor_externo (el directorio necesita 'x' para permitir el acceso)
+sudo setfacl -m u:auditor_externo:rx /srv/auditoria
+
+# Otorgar lectura y escritura al grupo compliance_team
+sudo setfacl -m g:compliance_team:rwx /srv/auditoria
+</code></pre>
+<h3 id="paso-3-configurar-la-herencia-default-acls">Paso 3: Configurar la herencia (Default ACLs)</h3>
+<p>Para que todo archivo futuro mantenga esta lógica, repetimos el comando añadiendo el flag -d (Default).</p>
+<pre><code class="language-bash">sudo setfacl -d -m u:auditor_externo:rx /srv/auditoria
+sudo setfacl -d -m g:compliance_team:rwx /srv/auditoria
+</code></pre>
+<h3 id="paso-4-auditar-el-resultado-extendido">Paso 4: Auditar el resultado extendido</h3>
+<p>Analizamos cómo el sistema procesa los nuevos metadatos:</p>
+<pre><code class="language-bash">getfacl /srv/auditoria
+</code></pre>
+<p><em>Output esperado:</em></p>
+<pre><code class="language-text"># file: srv/auditoria
+# owner: root
+# group: sysadmin
+user::rwx
+user:auditor_externo:r-x
+group::r-x
+group:compliance_team:rwx
+mask::rwx
+other::r-x
+default:user::rwx
+default:user:auditor_externo:r-x
+default:group::r-x
+default:group:compliance_team:rwx
+default:mask::rwx
+default:other::r-x
+</code></pre>
+<p>Si ahora ejecutas un simple ls -ld /srv/auditoria, notarás un cambio sutil pero vital en la cadena de permisos:</p>
+<pre><code class="language-text">drwxrwxr-x+ 2 root sysadmin 4096 may 18 08:35 /srv/auditoria
+</code></pre>
+<p>!!! info "El signo Más (+)"
+    Ese carácter + al final de la cadena de permisos (drwxrwxr-x+) es el indicador universal en Linux de que <strong>ese archivo o directorio tiene ACLs extendidas activas</strong>. Cuando lo veas, el comando ls ya no te estará mostrando la verdad absoluta; tendrás que usar getfacl.</p>
+<hr />
+<h2 id="errores-comunes-y-troubleshooting">Errores Comunes y Troubleshooting</h2>
+<ol>
+<li><strong>Pérdida de ACLs durante migraciones o backups:</strong> Utilizar comandos tradicionales como cp o tar sin los parámetros adecuados destruirá los atributos extendidos, haciendo que los archivos clonados pierdan las ACLs y queden inaccesibles o expuestos.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Al copiar, usa siempre cp -a o cp --preserve=xattr. Al empaquetar con tar, añade obligatoriamente las flags --acls y --xattrs.</p>
+</blockquote>
+<ol>
+<li><strong>El misterio de la Máscara restrictiva:</strong> Modificas los permisos de un archivo con ACL usando el comando tradicional chmod g-w archivo. Al hacer esto, Linux no modifica los grupos secundarios, sino que <strong>reescribe la máscara</strong>. Como consecuencia, todos los usuarios de la ACL perderán el derecho de escritura de forma inmediata aunque sus reglas individuales digan lo contrario.</li>
+</ol>
+<blockquote>
+<p><strong>Solución:</strong> Si la máscara ha limitado los permisos (lo verás en getfacl con la advertencia #effective:), restáurala usando: sudo setfacl -m m:rwx archivo.</p>
+</blockquote>
+<hr />
+<h2 id="buenas-practicas">Buenas Prácticas</h2>
+<ul>
+<li><strong>No abuses de las ACLs:</strong> Las ACLs añaden complejidad cognitiva. Un administrador que entre nuevo a la infraestructura puede volverse loco intentando entender por qué un usuario accede a un archivo si el comando ls -l tradicional dice lo contrario. Úsalas solo cuando el modelo UGO sea inviable.</li>
+<li><strong>Documentación obligatoria:</strong> Si una estructura de directorios crítica depende de ACLs para su funcionamiento productivo, añade un archivo README.md explicativo en la raíz del recurso o automatiza su despliegue mediante playbooks de <strong>Ansible</strong> para mantener la infraestructura como código (IaC).</li>
+<li><strong>Eliminación limpia:</strong> Si decides revocar por completo las políticas extendidas de un archivo y volver al modelo tradicional, no borres línea por línea. Usa el flag de purga total:</li>
+</ul>
+<p><code>bash
+  sudo setfacl -b /srv/auditoria</code></p>
+<p><em>El flag -b (remove-all) elimina instantáneamente todas las ACLs extendidas y el signo + desaparecerá.</em></p>
+<hr />
+<h2 id="resumen">Resumen</h2>
+<p>Has aprendido a romper los límites del sistema de archivos POSIX tradicional, dotando a tu infraestructura de un control de acceso granular y profesional. Con las identidades y sus permisos de almacenamiento bajo control, el siguiente desafío de seguridad es gestionar cómo los usuarios ejecutan comandos administrativos.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.indexes", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tooltips", "header.autohide", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
