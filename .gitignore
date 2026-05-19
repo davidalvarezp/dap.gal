@@ -56,6 +56,6 @@ Thumbs.db
 # =========================
 # MkDocs projects plugin (variantes comunes)
 # =========================
-projects/
+projects/site/
 docs-projects/
 *.mkdocs-project/
