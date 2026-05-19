@@ -1,0 +1,13 @@
+site_name: Linux Docs
+
+site_url: /docs/
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - tags
+
+nav:
+  - Inicio: index.md

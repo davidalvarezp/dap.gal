@@ -1,0 +1,41 @@
+site_name: Manual SysAdmin Linux
+site_description: De 0 a Senior - Ruta completa de aprendizaje para administradores de sistemas Linux.
+site_author: dap
+site_url: /sysadmin-linux/
+copyright: Copyright &copy; 2026 <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+
+# Configuración del Repositorio (Opcional)
+#repo_name: davidalvarezp/dap.gal
+#repo_url: https://github.com/davidalvarezp/dap.gal
+#edit_uri: edit/main/docs/
+
+# Configuración del Tema
+theme:
+ name: material
+ language: es
+
+ #font:
+ # text: JetBrains Mono
+ features:
+   - navigation.tabs
+   - navigation.tabs.sticky
+   - navigation.sections
+   - navigation.expand
+   - navigation.path
+   - navigation.top
+   - navigation.indexes
+   - navigation.tracking
+   - navigation.footer
+   - search.suggest
+   - search.highlight
+   - search.share
+   - content.code.copy
+   - content.code.annotate
+   - content.tooltips
+   - header.autohide
+   - toc.follow
+
+
+# Navegación
+nav:
+ - Inicio: index.md

@@ -1,0 +1,13 @@
+site_name: Blog
+
+site_url: /blog/
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - blog
+
+nav:
+  - Blog: index.md

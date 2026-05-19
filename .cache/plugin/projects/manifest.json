@@ -1,0 +1,6 @@
+{
+  ".": "mkdocs.yml",
+  ".blog": "projects\\blog\\mkdocs.yml",
+  ".docs": "projects\\docs\\mkdocs.yml",
+  ".sysadmin-linux": "projects\\sysadmin-linux\\mkdocs.yml"
+}
