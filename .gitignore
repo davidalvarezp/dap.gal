@@ -1,0 +1,61 @@
+# =========================
+# MkDocs / Material
+# =========================
+site/
+*.pyc
+__pycache__/
+.cache/
+.mkdocs/
+
+# Builds de MkDocs (incluye projects plugin outputs)
+site-projects/
+projects-site/
+*.build/
+*.output/
+
+# Si usas mkdocs-material insiders (a veces genera cache extra)
+.material/
+.material-cache/
+
+# =========================
+# Python
+# =========================
+.venv/
+venv/
+env/
+ENV/
+.Python
+pip-wheel-metadata/
+dist/
+build/
+*.egg-info/
+
+# =========================
+# Node / frontend (si usas plugins con assets)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# MkDocs projects plugin (variantes comunes)
+# =========================
+projects/
+docs-projects/
+*.mkdocs-project/

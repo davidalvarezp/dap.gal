@@ -114,5 +114,5 @@ extra_css:
 # Navegación
 nav:
   - Inicio: index.md
-  - LinuxMan: /sysadmin-linux/
+  - Manual de Linux: /man-linux/
   - Contacto: /contacto/
