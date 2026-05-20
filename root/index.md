@@ -1,6 +1,6 @@
 ---
-title: dap.gal | SysAdmin & DevOps
-description: Administrador de sistemas especializado en ciberseguridade, virtualización e infraestrutura Linux.
+title: dap.gal | SysAdmin
+description: Administrador de sistemas especializado en ciberseguridad, virtualización e infraestrutura Linux.
 hide:
   - navigation
   - toc

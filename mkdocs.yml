@@ -1,11 +1,11 @@
 site_name: dap.gal | SysAdmin
-site_description: Administrador de sistemas especializado en ciberseguridade, virtualización e infraestrutura Linux.
+site_description: Administrador de sistemas especializado en ciberseguridad, virtualización e infraestrutura Linux.
 site_author: David Álvarez Pampillón
 site_url: https://dap.gal/
 use_directory_urls: false
 docs_dir: root
 copyright: >-
-  &copy; 2020 - $(now) <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
+  &copy; 2020-<script>document.write(new Date().getFullYear())</script> <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
 
 repo_name: davidalvarezp/dap.gal
 repo_url: https://github.com/davidalvarezp/dap.gal
@@ -16,8 +16,8 @@ theme:
  language: es
  logo: assets/img/logo.webp
  favicon: assets/img/favicon.ico
- #font:
- # text: JetBrains Mono
+ font:
+  text: JetBrains Mono
  features:
   - navigation.instant
   - navigation.instant.progress
@@ -112,5 +112,6 @@ extra_css:
 # Navegación
 nav:
   - Inicio: index.md
+  - Blog: /blog/
   - Manual de Linux: /man-linux/
   - Contacto: /contacto/
