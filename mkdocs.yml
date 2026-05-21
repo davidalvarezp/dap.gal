@@ -29,20 +29,10 @@ theme:
   - content.code.copy
   - content.code.annotate
  palette:
-   - media: "(prefers-color-scheme: light)"
-     scheme: default
-     primary: black
-     accent: green
-     toggle:
-       icon: material/toggle-switch
-       name: Cambiar a modo oscuro
-   - media: "(prefers-color-scheme: dark)"
-     scheme: slate
-     primary: black
-     accent: green
-     toggle:
-       icon: material/toggle-switch-off-outline
-       name: Cambiar a modo claro
+  scheme: default
+  primary: black
+  accent: green
+
 
 markdown_extensions:
   - admonition
