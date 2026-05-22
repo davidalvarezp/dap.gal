@@ -1,12 +1,98 @@
-site_name: Blog
+site_name: Blog | dap.gal
+site_description: Articulos y guías sobre administración de sistemas, ciberseguridad, virtualización e infraestructura Linux.
+site_url: https://dap.gal/blog/
+use_directory_urls: false
 
+# IMPORTANTE: dentro de subproyecto
+docs_dir: docs
+
+# --------------------------------------------------
+# THEME
+# --------------------------------------------------
 theme:
   name: material
+  language: es
+  logo: /img/logo.webp
+  favicon: /img/favicon.ico
+  font:
+    text: JetBrains Mono
+  palette:
+    scheme: default
+    primary: black
+    accent: green
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - toc.integrate
 
+
+# --------------------------------------------------
+# MARKDOWN
+# --------------------------------------------------
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+
+  - toc:
+      permalink: true
+
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# --------------------------------------------------
+# PLUGINS
+# --------------------------------------------------
 plugins:
+  - search
+
+  # BLOG
   - blog:
       blog_dir: .
       post_dir: posts
 
+      # UI
+      archive: true
+      categories: true
+
+      # orden
+      pagination: true
+
+  # RSS
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+
+      categories:
+        - categories
+        - tags
+
+      pretty_print: true
+
+# --------------------------------------------------
+# EXTRA
+# --------------------------------------------------
+extra:
+  generator: false
+
+# --------------------------------------------------
+# NAV (mínima, Material genera el resto)
+# --------------------------------------------------
 nav:
-  - index.md
+  - dap.gal: https://dap.gal
+  - Blog: index.md
