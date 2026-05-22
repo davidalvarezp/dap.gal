@@ -1,3 +1,3 @@
 # Blog
 
-{% include "blog/posts.html" %}
+<!-- blog -->

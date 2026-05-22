@@ -9,7 +9,7 @@ copyright: >-
 
 repo_name: davidalvarezp/dap.gal
 repo_url: https://github.com/davidalvarezp/dap.gal
-edit_uri: edit/main/docs/
+edit_uri: edit/main/root/
 
 theme:
  name: material
