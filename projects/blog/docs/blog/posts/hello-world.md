@@ -1,5 +1,6 @@
 ---
 draft: false
+title: Hello world
 date: 2026-01-01
 slug: hello-world
 categories:

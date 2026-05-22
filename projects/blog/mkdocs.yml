@@ -25,6 +25,7 @@ theme:
    - navigation.path
    - navigation.top
    - navigation.indexes
+   - navigation.instant
    - navigation.tracking
    - navigation.footer
    - search.suggest
@@ -97,9 +98,13 @@ markdown_extensions:
 # Plugins
 plugins:
   - search
+
   - blog:
-      blog_dir: .
-      authors_profiles: true
+      blog_dir: blog
+      post_dir: posts
+      archive: true
+      categories: true
+
   - rss:
       match_path: posts/.* 
       date_from_meta:
