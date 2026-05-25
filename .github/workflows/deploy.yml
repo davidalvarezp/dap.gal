@@ -29,7 +29,7 @@ jobs:
             mkdocs-monorepo-plugin \
             mkdocs-blog-plugin \
             mkdocs-rss-plugin \
-            mkdocs-tags-plugin \
+            mkdocs-tags \
             mkdocs-sitemap \
             mkdocs-minify-plugin \
             pymdown-extensions \
