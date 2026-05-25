@@ -1,4 +1,4 @@
-name: Deploy MkDocs to GitHub Pages | Demo Build
+name: Deploy MkDocs to GitHub Pages | Demo site
 
 on:
   push:
@@ -19,21 +19,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: "3.11"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
 
       - name: Install dependencies
         run: |
-          pip install \
-            mkdocs \
-            mkdocs-material \
-            mkdocs-monorepo-plugin \
-            mkdocs-blog-plugin \
-            mkdocs-rss-plugin \
-            mkdocs-tags \
-            mkdocs-sitemap \
-            mkdocs-minify-plugin \
-            pymdown-extensions \
-            mkdocs-material[imaging]
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build site (strict mode)
+        run: mkdocs build --strict
 
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
