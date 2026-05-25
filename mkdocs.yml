@@ -7,9 +7,9 @@ docs_dir: root
 copyright: >-
   &copy; 2020-<script>document.write(new Date().getFullYear())</script> <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
 
-repo_name: davidalvarezp/dap.gal
-repo_url: https://github.com/davidalvarezp/dap.gal
-edit_uri: edit/main/root/
+# repo_name: davidalvarezp/dap.gal
+# repo_url: https://github.com/davidalvarezp/dap.gal
+# edit_uri: edit/main/root/
 
 theme:
  name: material
@@ -60,14 +60,14 @@ extra:
   scope: /
   generator: false
   social:
+    - icon: simple/x 
+      link: https://x.com/sudodap
     - icon: simple/youtube
       link: https://youtube.com/@davidalvarezp
     - icon: simple/twitch
       link: https://twitch.tv/sudodap
     - icon: simple/telegram
       link: https://t.me/sudodap
-    - icon: simple/x 
-      link: https://x.com/sudodap
     - icon: simple/instagram
       link: https://instagram.com/davidalvarezzp
     - icon: simple/discord

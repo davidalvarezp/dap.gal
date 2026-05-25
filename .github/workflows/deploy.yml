@@ -1,0 +1,39 @@
+name: Deploy MkDocs to GitHub Pages | Demo Build
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          pip install \
+            mkdocs \
+            mkdocs-material \
+            mkdocs-monorepo-plugin \
+            mkdocs-blog-plugin \
+            mkdocs-rss-plugin \
+            mkdocs-tags-plugin \
+            mkdocs-sitemap \
+            mkdocs-minify-plugin \
+            pymdown-extensions \
+            mkdocs-material[imaging]
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
