@@ -58,6 +58,9 @@ plugins:
 
 # Extra
 extra:
+  meta:
+    - name: google-adsense-account
+      content: ca-pub-8695201052769769
   scope: /
   generator: false
   social:
