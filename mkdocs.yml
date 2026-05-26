@@ -55,11 +55,6 @@ plugins:
   - tags
   - meta
   - projects
-  - social:
-    cards_layout_options:
-      background_color: "#008008"
-      color: "#ffffff"
-      font_family: Roboto
 
 # Extra
 extra:
