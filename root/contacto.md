@@ -1,5 +1,5 @@
 ---
-title: Contacto | dap.gal
+title: Contacto
 hide:
   - navigation
   - toc
