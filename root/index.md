@@ -47,3 +47,21 @@ hide:
     </p>
   </div>
 </footer>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "David Álvarez Pampillón",
+  "url": "https://dap.gal",
+  "sameAs": [
+    "https://x.com/sudodap",
+    "https://t.me/sudodap",
+    "https://youtube.com/@davidalvarezp",
+    "https://github.com/davidalvarezp"
+  ],
+  "jobTitle": "SysAdmin · CyberSec · DevOps",
+  "knowsAbout": ["Linux", "Ciberseguridad", "Virtualización", "DevOps"]
+}
+</script>
