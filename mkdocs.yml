@@ -2,7 +2,7 @@ site_name: dap.gal | SysAdmin
 site_description: Administrador de sistemas especializado en ciberseguridad, virtualización e infraestrutura Linux.
 site_author: David Álvarez Pampillón
 site_url: https://dap.gal/
-use_directory_urls: false
+#use_directory_urls: false
 docs_dir: root
 copyright: >-
   &copy; 2020-<script>document.write(new Date().getFullYear())</script> <a href="https://dap.gal" target="_blank" rel="noopener noreferrer" style="color:DDDDDD"><strong>dap</strong></a> | All rights reserved.
