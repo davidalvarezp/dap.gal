@@ -1048,3 +1048,79 @@ body[data-page-home] .md-content__inner {
   color: #000000;
   border-color: #008008;
 }
+
+
+/* ============================================================
+   CONTACTO
+   ============================================================ */
+
+.dap-hero--compact .dap-hero__body {
+  padding: 6rem 1.5rem 3rem;
+}
+
+.dap-contact {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.dap-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.dap-contact__card {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color .2s, background .2s;
+  background: rgba(255,255,255,.02);
+}
+
+.dap-contact__card:hover {
+  border-color: var(--md-accent-fg-color);
+  background: rgba(255,255,255,.05);
+}
+
+.dap-contact__card--primary {
+  border-color: var(--md-accent-fg-color);
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dap-contact__icon {
+  font-size: 1.3rem;
+  opacity: .7;
+}
+
+.dap-contact__label {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .5;
+  color: var(--md-default-fg-color);
+}
+
+.dap-contact__value {
+  font-family: var(--md-code-font);
+  font-size: .9rem;
+  color: var(--md-accent-fg-color);
+}
+
+.dap-contact__card--primary .dap-contact__value {
+  font-size: 1.1rem;
+}
+
+.dap-contact__note {
+  text-align: center;
+  opacity: .45;
+  font-size: .85rem;
+}
