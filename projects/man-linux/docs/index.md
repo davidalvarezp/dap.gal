@@ -1,4 +1,6 @@
 ---
+title: Manual SysAdmin Linux | dap.gal
+description: Ruta completa de aprendizaje para administradores de sistemas Linux, de fundamentos a producción.
 hide:
   - navigation
   - toc
