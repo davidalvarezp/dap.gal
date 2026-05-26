@@ -19,6 +19,7 @@ Esta documentación ha sido estructurada como un itinerario de aprendizaje progr
 ---
 
 ## Objetivo
+
 El propósito de este proyecto es proporcionar un marco de aprendizaje **pragmático y profesional**. No se limita a listar comandos; explica el *porqué* de cada configuración, siguiendo las mejores prácticas de la industria y estándares de seguridad corporativos.
 
 Al finalizar, serás capaz de desplegar, asegurar y mantener infraestructuras Linux complejas, preparándote para roles como **Sysadmin Senior**, **DevOps Engineer** o **SRE (Site Reliability Engineer)**.
