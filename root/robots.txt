@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /p/
+
+Sitemap: https://dap.gal/sitemap.xml
+Sitemap: https://dap.gal/blog/sitemap.xml
+Sitemap: https://dap.gal/man-linux/sitemap.xml
+Sitemap: https://dap.gal/homelab/sitemap.xml
