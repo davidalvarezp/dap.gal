@@ -1,6 +1,0 @@
-{
-  ".": "mkdocs.yml",
-  ".blog": "projects\\blog\\mkdocs.yml",
-  ".homelab": "projects\\homelab\\mkdocs.yml",
-  ".man-linux": "projects\\man-linux\\mkdocs.yml"
-}
