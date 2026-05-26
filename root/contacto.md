@@ -30,7 +30,7 @@ meta:
 </section>
 
 <section class="dap-contact">
-  <div class="dap-contact__grid">
+  <div class="dap-contact__grid" markdown="block">
 
   <a href="mailto:hi@dap.gal" class="dap-contact__card dap-contact__card--primary">
     <span class="dap-contact__icon">✉</span>
@@ -49,8 +49,8 @@ meta:
     <span class="dap-contact__label">X / Twitter</span>
     <span class="dap-contact__value">@sudodap</span>
   </a>
-  </div>
 
+  </div>
   <p class="dap-contact__note">
     <code>$ ping hi@dap.gal</code> — respondo en 24-48h.
   </p>
