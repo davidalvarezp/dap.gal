@@ -105,4 +105,5 @@ nav:
   - Inicio: index.md
   - Blog: /blog/
   - Manual de Linux: /man-linux/
+  - Cheatsheet: /cheatsheets/
   - Contacto: /contacto/
