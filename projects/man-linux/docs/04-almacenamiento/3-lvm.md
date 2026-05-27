@@ -114,13 +114,18 @@ Si ejecutas un df -h, comprobarás con asombro que el almacenamiento ha crecido 
 ## Errores Comunes y Troubleshooting
 
 1. **Olvidar redimensionar el Filesystem:** Ejecutas lvextend -L +5G /dev/vg_infra/lv_app (sin el flag -r). LVM te dice que la operación fue un éxito. Sin embargo, entras con df -h y sigues viendo el espacio antiguo.
-  - **El motivo:** Has ampliado el contenedor virtual (el LV), pero no has estirado la estructura lógica interna (el sistema de archivos).
-  - **Solución:** Ejecuta el comando manual de expansión de sistema de archivos según tu tecnología:
-    - Si es **ext4**: sudo resize2fs /dev/vg_infra/lv_app
-    - Si es **XFS**: sudo xfs_growfs /dev/vg_infra/lv_app (Nota: XFS requiere pasarle el punto de montaje en lugar del archivo de bloque).
+
+  **El motivo:** Has ampliado el contenedor virtual (el LV), pero no has estirado la estructura lógica interna (el sistema de archivos).
+  
+  > **Solución:** Ejecuta el comando manual de expansión de sistema de archivos según tu tecnología:
+  >   - Si es **ext4**: sudo resize2fs /dev/vg_infra/lv_app
+  >   - Si es **XFS**: sudo xfs_growfs /dev/vg_infra/lv_app (Nota: XFS requiere pasarle el punto de montaje en lugar del archivo de bloque).
+
 2. **Intentar encoger un volumen XFS:** Tu jefe te pide reducir un volumen lógico formateado en XFS para recuperar espacio para otro servicio. Ejecutas un comando de reducción y el sistema arroja un error crítico.
-  - **El motivo:** Como aprendimos en el capítulo anterior, el sistema de archivos **XFS no soporta la reducción bajo ninguna circunstancia**.
-  - **Solución:** Con XFS, la única opción es hacer un backup de los datos, destruir el LV, crearlo más pequeño y restaurar los datos. Si vas a necesitar encoger volúmenes habitualmente, utiliza siempre **ext4**.
+
+  **El motivo:** Como aprendimos en el capítulo anterior, el sistema de archivos **XFS no soporta la reducción bajo ninguna circunstancia**.
+
+  > **Solución:** Con XFS, la única opción es hacer un backup de los datos, destruir el LV, crearlo más pequeño y restaurar los datos. Si vas a necesitar encoger volúmenes habitualmente, utiliza siempre **ext4**.
 
 ---
 

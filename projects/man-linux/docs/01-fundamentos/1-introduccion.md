@@ -50,7 +50,7 @@ No todas las distribuciones son iguales. En el mundo corporativo, nos movemos pr
 | **SUSE** | openSUSE / SLES | Muy fuerte en el mercado europeo y entornos SAP. |
 
 !!! info "Nota sobre el Ciclo de Vida"
-En producción, siempre buscaremos versiones **LTS (Long Term Support)**. Estas garantizan parches de seguridad durante 5 o 10 años, evitando migraciones costosas y riesgosas cada pocos meses.
+    En producción, siempre buscaremos versiones **LTS (Long Term Support)**. Estas garantizan parches de seguridad durante 5 o 10 años, evitando migraciones costosas y riesgosas cada pocos meses.
 
 ---
 

@@ -54,7 +54,7 @@ En Linux, los procesos pueden encontrarse en diferentes estados:
 - **Z (Zombie):** Finalizado pero no recogido por su padre.
 
 !!! warning "Procesos Zombie"
-Un proceso zombie puede parecer inofensivo, pero en sistemas con alta carga puede provocar agotamiento de la tabla de procesos.
+    Un proceso zombie puede parecer inofensivo, pero en sistemas con alta carga puede provocar agotamiento de la tabla de procesos.
 
 ---
 
@@ -232,7 +232,7 @@ Ejemplo peligroso:
 ```
 
 !!! warning "Fork Bomb"
-Este comando puede colapsar completamente el sistema.
+    Este comando puede colapsar completamente el sistema.
 
 -*Solución:**
 
@@ -304,7 +304,7 @@ Integrable en scripts de monitorización.
 ### 5. Evita uso indiscriminado de SIGKILL
 
 !!! warning "SIGKILL como último recurso"
-No permite limpieza de recursos ni cierre seguro.
+    No permite limpieza de recursos ni cierre seguro.
 
 ---
 

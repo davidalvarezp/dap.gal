@@ -98,7 +98,7 @@ SHELL
 ```
 
 !!! warning "Entorno limitado"
-Muchos scripts fallan en cron porque dependen de variables que no están definidas.
+        Muchos scripts fallan en cron porque dependen de variables que no están definidas.
 
 ---
 
@@ -379,4 +379,4 @@ Este conocimiento es clave para mantener sistemas autónomos y reducir la interv
 
 El siguiente paso es aplicar todo esto en el ámbito de red:
 
-➡️ **6.1 Configuración de Red en Linux**, donde aprenderás a configurar interfaces, routing y conectividad en entornos productivos.
+**6.1 Configuración de Red en Linux**, donde aprenderás a configurar interfaces, routing y conectividad en entornos productivos.

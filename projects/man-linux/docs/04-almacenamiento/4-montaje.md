@@ -43,15 +43,18 @@ UUID=b3a2...-43af       /data/produccion   ext4         defaults,noatime       0
 2. **Punto de Montaje:** El directorio existente donde se acoplará el disco (ej. /mnt/respaldos).
 3. **Tipo de Sistema de Archivos:** La tecnología con la que se formateó (ext4, xfs, vfat, ntfs-3g, btrfs).
 4. **Opciones de Montaje:** Flags que modifican el comportamiento y la seguridad del disco:
-  - defaults: Aplica un conjunto estándar (rw, suid, dev, exec, auto, nouser, async).
-  - noatime: Desactiva la actualización de la marca de tiempo de último acceso cada vez que se lee un archivo. **Eleva drásticamente el rendimiento de E/S del disco**.
-  - ro: Monta el disco en modo *Solo Lectura* (útil para backups o auditorías forenses).
-  - noexec: Prohíbe la ejecución de binarios dentro de esa partición (ideal para securizar /tmp o directorios de subida de usuarios).
+
+    - defaults: Aplica un conjunto estándar (rw, suid, dev, exec, auto, nouser, async).
+    - noatime: Desactiva la actualización de la marca de tiempo de último acceso cada vez que se lee un archivo. **Eleva drásticamente el rendimiento de E/S del disco**.
+    - ro: Monta el disco en modo *Solo Lectura* (útil para backups o auditorías forenses).
+    - noexec: Prohíbe la ejecución de binarios dentro de esa partición (ideal para securizar /tmp o directorios de subida de usuarios).
+
 5. **Dump (Respaldo):** Un valor binario (0 o 1). Indica si la herramienta obsoleta dump debe hacer copia de seguridad de la partición. En la actualidad, **siempre se configura en 0**.
 6. **Pass (Revisión fsck):** Determina el orden en que el sistema operativo escaneará el disco en busca de errores durante el arranque:
-  - 1: Reservado exclusivamente para la partición raíz /.
-  - 2: Para el resto de tus particiones de datos o discos secundarios.
-  - 0: Desactiva por completo el escaneo automático para ese disco.
+
+    - 1: Reservado exclusivamente para la partición raíz /.
+    - 2: Para el resto de tus particiones de datos o discos secundarios.
+    - 0: Desactiva por completo el escaneo automático para ese disco.
 
 ---
 
@@ -121,7 +124,7 @@ df -h | grep /srv/app_data
 
 1. **El servidor no arranca y entra en "Emergency Mode":** Editaste /etc/fstab, no pasaste el control de calidad con mount -a y reiniciaste. El servidor se queda colgado en una pantalla negra pidiendo la contraseña de root.
 
-  > **El motivo:** El Kernel ha intentado buscar un UUID o una ruta inexistente durante el boot y, al ser una partición obligatoria (pass 2), detiene todo el sistema por seguridad.
+  **El motivo:** El Kernel ha intentado buscar un UUID o una ruta inexistente durante el boot y, al ser una partición obligatoria (pass 2), detiene todo el sistema por seguridad.
 
   > **Solución:** Introduce la contraseña de root para acceder a la CLI de emergencia. El sistema de archivos raíz estará probablemente montado como *Solo Lectura*, por lo que no te dejará corregir el archivo. Ejecuta el siguiente comando para remontar la raíz en modo escritura:
 

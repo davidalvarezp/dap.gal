@@ -130,7 +130,7 @@ sudo tcpdump -i eth0 -c 5
 
 1. **La trampa de dar sudo a binarios interactivos:** Si configuras una línea en sudoers que permite a un usuario ejecutar sudo vim /etc/exports o sudo less /var/log/syslog, has comprometido el servidor por completo.
 
-  > **El motivo:** Tanto vim como less permiten abrir una shell interactiva desde su interior (ej: si pulsas : y luego escribes !bash dentro de vim, abrirá una consola). Como el programa padre corría como root, esa nueva consola será **una terminal de root con acceso total**.
+  **El motivo:** Tanto vim como less permiten abrir una shell interactiva desde su interior (ej: si pulsas : y luego escribes !bash dentro de vim, abrirá una consola). Como el programa padre corría como root, esa nueva consola será **una terminal de root con acceso total**.
 
   > **Solución:** Usa herramientas específicas de edición controlada como sudoedit en lugar de dar acceso directo al editor de texto.
 

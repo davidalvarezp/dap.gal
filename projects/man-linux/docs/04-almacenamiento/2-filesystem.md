@@ -105,7 +105,7 @@ sudo mkfs.xfs -f /dev/sdb1
 
 1. **El misterio de "No space left on device" con el disco vacío:** Tu monitor de alertas indica que un servidor no puede escribir archivos porque el disco está al 100%. Entras, ejecutas df -h y ves que tienes 50 GB libres en la partición.
 
-  > **El motivo:** Tienes espacio de almacenamiento físico, pero has agotado la tabla de inodos estática (típico en servidores de correo con millones de micro-archivos de 1 byte). Si no hay inodos libres, no se pueden registrar nuevos archivos.
+  **El motivo:** Tienes espacio de almacenamiento físico, pero has agotado la tabla de inodos estática (típico en servidores de correo con millones de micro-archivos de 1 byte). Si no hay inodos libres, no se pueden registrar nuevos archivos.
 
   > **Solución:** Audita tus inodos con el comando:
 
@@ -113,7 +113,7 @@ sudo mkfs.xfs -f /dev/sdb1
 df -i    
 ```
 
-  >  Si la columna IUse% está al 100%, tendrás que buscar el directorio que contiene los millones de archivos temporales olvidados y borrarlos, o migrar ese almacenamiento a un sistema de archivos **XFS** (que gestiona inodos dinámicos).
+  Si la columna IUse% está al 100%, tendrás que buscar el directorio que contiene los millones de archivos temporales olvidados y borrarlos, o migrar ese almacenamiento a un sistema de archivos **XFS** (que gestiona inodos dinámicos).
 
 2. **Formatear el disco equivocado en producción:** Ejecutar un mkfs destructivo sobre una partición activa de datos por una errata de nomenclatura.
 

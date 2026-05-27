@@ -43,6 +43,7 @@ El manual se divide en bloques modulares que cubren todas las facetas de la admi
 | **09. Automatización** | Eficiencia | Bash Scripting Avanzado, Introducción a Ansible (IaC). |
 | **10. Virtualización** | Modernización | Docker, Podman, Containers, Introducción a K8s. |
 | **11. Observabilidad** | Troubleshooting | Logs, Monitoreo (Prometheus/Grafana), Diagnóstico. |
+| **11. Cloud** | Cloud computing | Conceptos, Infraestructura, Servicios. |
 
 ---
 
@@ -50,8 +51,8 @@ El manual se divide en bloques modulares que cubren todas las facetas de la admi
 Para seguir esta guía, te recomendamos disponer de un entorno donde puedas experimentar sin miedo a romper el sistema:
 
 - **Virtualización:** VirtualBox, VMware o Proxmox.
-- **Contenedores:** Docker Desktop o Podman.
-- **Entorno Local:** Una distribución base (se recomiendan **Debian 12** o **AlmaLinux 9** por su estabilidad en servidores).
+- **Contenedores:** LXC o Docker.
+- **Entorno Local:** Una distribución base (se recomiendan **Debian** o **Ubuntu** por su estabilidad en servidores).
 
 ---
 
@@ -66,4 +67,4 @@ Cada artículo está estructurado para maximizar el aprendizaje técnico:
 ---
 
 !!! info "Créditos y Herramientas"
-    Esta documentación ha sido redactada con el apoyo de un LLM local que he entrenado expresamente para esta documentación, garantizando un flujo de trabajo privado, rápido y altamente técnico.
+    Esta documentación ha sido redactada por [dap](https://dap.gal) con el apoyo de un LLM local entrenado específicamente para esta documentación, garantizando un flujo de trabajo privado, rápido y técnico.

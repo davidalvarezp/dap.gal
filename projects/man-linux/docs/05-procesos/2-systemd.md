@@ -266,7 +266,7 @@ Restart=always
 Puede generar loops.
 
 !!! warning "Bucle infinito de reinicio"
-systemd intentará reiniciar continuamente un servicio defectuoso, consumiendo recursos.
+      systemd intentará reiniciar continuamente un servicio defectuoso, consumiendo recursos.
 
 Solución alternativa:
 

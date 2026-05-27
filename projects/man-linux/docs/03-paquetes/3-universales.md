@@ -122,7 +122,7 @@ chmod +x Inkscape-e1a0bda-x86_64.AppImage
 
 1. **Saturación del disco por culpa de /dev/loop (En Snap):** Al ejecutar df -h, notas que tu consola se llena de docenas de dispositivos /dev/loop al 100% de uso, y el espacio en disco disminuye drásticamente.
 
-  > **El motivo:** Por defecto, Snap guarda hasta 3 versiones antiguas de cada aplicación para permitir *rollbacks*. Como cada versión es una imagen de disco SquashFS completa, el consumo se dispara.
+  **El motivo:** Por defecto, Snap guarda hasta 3 versiones antiguas de cada aplicación para permitir *rollbacks*. Como cada versión es una imagen de disco SquashFS completa, el consumo se dispara.
 
   > **Solución:** Modifica la retención del sistema para que guarde el mínimo posible (2 versiones):
 
@@ -132,7 +132,7 @@ sudo snap set system refresh.retain=2
 
 2. **"Permission Denied" dentro de Flatpak al intentar leer /mnt/data:** Instalas un reproductor de vídeo o editor de código vía Flatpak, pero al intentar abrir un archivo ubicado en un disco duro secundario montado en /mnt, la aplicación no ve el archivo o da error.
 
-  > **El motivo:** El aislamiento (*sandboxing*) bloquea por defecto el acceso al sistema de archivos del anfitrión para proteger el sistema.
+  **El motivo:** El aislamiento (*sandboxing*) bloquea por defecto el acceso al sistema de archivos del anfitrión para proteger el sistema.
 
   > **Solución:** Otorga permisos explícitos a la aplicación usando la CLI de Flatpak, o utiliza la herramienta gráfica **Flatseal**:
 
