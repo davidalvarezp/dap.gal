@@ -1,7 +1,10 @@
-site_name: Blog | dap.gal
+site_name: dap.gal/Blog | SysAdmin & DevSecOps
 site_description: Articulos y guías sobre administración de sistemas, ciberseguridad, virtualización e infraestructura Linux.
 site_url: https://dap.gal/blog/
 #use_directory_urls: false
+site_description: >
+  Blog personal sobre SysAdmin, DevSecOps, ciberseguridad, Linux,
+  automatización e infraestructuras modernas.
 
 # Configuración del Repositorio
 repo_name: dap.gal/blog
@@ -24,18 +27,26 @@ theme:
   font:
     text: JetBrains Mono
   palette:
-    scheme: default
+    scheme: slate
     primary: black
     accent: green
   features:
     - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.top
     - navigation.sections
-    - navigation.tracking
     - search.highlight
     - search.suggest
     - content.code.copy
     - content.code.annotate
     - toc.integrate
+    - content.action.edit
+    - content.action.view
+
+
+extra_css:
+  - assets/css/extra.css
 
 
 # --------------------------------------------------
