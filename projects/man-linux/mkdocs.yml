@@ -117,7 +117,7 @@ extra:
 
 # Navegación
 nav:
- - Homepage: /
+ - dap.gal: https://dap.gal
  - Inicio: index.md
  - 'Fundamentos':
    - 'Introducción': 01-fundamentos/1-introduccion.md

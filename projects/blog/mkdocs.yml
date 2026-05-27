@@ -12,8 +12,8 @@ docs_dir: docs
 theme:
   name: material
   language: es
-  logo: /img/logo.webp
-  favicon: /img/favicon.ico
+  logo: https://dap.gal/assets/img/logo.webp
+  favicon: https://dap.gal/assets/img/favicon.ico
   font:
     text: JetBrains Mono
   palette:
