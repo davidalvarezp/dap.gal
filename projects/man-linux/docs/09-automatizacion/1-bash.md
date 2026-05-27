@@ -1,6 +1,6 @@
 # 9.1 Automatización con Bash en Entornos Linux
 
-***
+---
 
 ## Introducción
 
@@ -10,19 +10,19 @@ Un Sysadmin no automatiza únicamente por conveniencia, sino por **consistencia,
 
 En este capítulo, se abordan los fundamentos de Bash desde una perspectiva profesional, orientada a uso en producción.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender el funcionamiento de Bash como intérprete y lenguaje de scripting.
-* Escribir scripts estructurados y mantenibles.
-* Implementar control de flujo mediante condicionales y bucles.
-* Gestionar errores y códigos de retorno.
-* Crear automatizaciones reales listas para entornos productivos.
+- Comprender el funcionamiento de Bash como intérprete y lenguaje de scripting.
+- Escribir scripts estructurados y mantenibles.
+- Implementar control de flujo mediante condicionales y bucles.
+- Gestionar errores y códigos de retorno.
+- Crear automatizaciones reales listas para entornos productivos.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -30,19 +30,19 @@ Al finalizar este capítulo serás capaz de:
 
 Bash (Bourne Again Shell) es el intérprete de comandos por defecto en la mayoría de distribuciones Linux. Su rol es:
 
-* interpretar comandos del usuario
-* ejecutar procesos
-* encadenar utilidades del sistema
-* automatizar tareas mediante scripts
+- interpretar comandos del usuario
+- ejecutar procesos
+- encadenar utilidades del sistema
+- automatizar tareas mediante scripts
 
 Cada comando ejecutado devuelve un **código de salida (exit code)**:
 
-* `0` → ejecución correcta
-* `≠ 0` → error
+- `0` → ejecución correcta
+- `≠ 0` → error
 
 Este comportamiento es fundamental para la lógica condicional en automatización.
 
-***
+---
 
 ### 2. Estructura de un script Bash
 
@@ -73,7 +73,7 @@ chmod +x script.sh
 !!! info "Buenas bases"
 Un script sin `set -euo pipefail` en producción es propenso a fallos silenciosos.
 
-***
+---
 
 ### 3. Variables y expansión
 
@@ -92,10 +92,10 @@ echo "$USUARIO"
 
 Buenas prácticas:
 
-* siempre usar comillas
-* nombres en mayúsculas para constantes
+- siempre usar comillas
+- nombres en mayúsculas para constantes
 
-***
+---
 
 ### 4. Control de flujo
 
@@ -111,16 +111,16 @@ fi
 
 Operadores comunes:
 
-* `-f` → archivo
-* `-d` → directorio
-* `-z` → vacío
-* `-n` → no vacío
+- `-f` → archivo
+- `-d` → directorio
+- `-z` → vacío
+- `-n` → no vacío
 
-***
+---
 
 #### Bucles
 
-**for:**
+-*for:**
 
 ```bash
 for i in 1 2 3; do
@@ -128,7 +128,7 @@ for i in 1 2 3; do
 done
 ```
 
-**while:**
+-*while:**
 
 ```bash
 while read linea; do
@@ -139,7 +139,7 @@ done < archivo.txt
 ??? tip "Uso recomendado"
 Para procesar archivos, prioriza `while read` frente a `for`.
 
-***
+---
 
 ### 5. Gestión de errores
 
@@ -151,9 +151,9 @@ set -euo pipefail
 
 Comportamiento:
 
-* detiene ejecución ante errores
-* evita variables no definidas
-* detecta fallos en pipelines
+- detiene ejecución ante errores
+- evita variables no definidas
+- detecta fallos en pipelines
 
 Control manual:
 
@@ -164,7 +164,7 @@ if ! comando; then
 fi
 ```
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -172,12 +172,12 @@ fi
 
 Un servidor aloja contenido web en `/var/www`. Necesitas automatizar:
 
-* generación de backups
-* almacenamiento en `/backup`
-* registro de logs
-* validación de estado
+- generación de backups
+- almacenamiento en `/backup`
+- registro de logs
+- validación de estado
 
-***
+---
 
 ## Parte 1: Creación del script
 
@@ -223,7 +223,7 @@ else
 fi
 ```
 
-***
+---
 
 ## Parte 2: Permisos y ejecución
 
@@ -232,7 +232,7 @@ chmod +x backup.sh
 ./backup.sh
 ```
 
-***
+---
 
 ## Output esperado
 
@@ -240,7 +240,7 @@ chmod +x backup.sh
 2026-05-26 OK: Backup creado backup_2026-05-26_15-00-00.tar.gz
 ```
 
-***
+---
 
 ## Parte 3: Validación
 
@@ -252,7 +252,7 @@ ls -lh /backup
 cat /var/log/backup.log
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -264,35 +264,35 @@ rm -rf $DIR
 
 Si `DIR` está vacío → ejecución peligrosa.
 
-**Corrección:**
+-*Corrección:**
 
 ```bash
 rm -rf "$DIR"
 ```
 
-***
+---
 
 ### 2. Falta de validación de rutas
 
 Ejecutar sin comprobar directorios produce fallos.
 
-**Solución:**
+-*Solución:**
 
 validar siempre con `-d` o `-f`.
 
-***
+---
 
 ### 3. Errores silenciosos
 
 Sin control de errores, el script continúa tras fallos.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 set -euo pipefail
 ```
 
-***
+---
 
 ### 4. Problemas de permisos
 
@@ -300,19 +300,19 @@ set -euo pipefail
 Permission denied
 ```
 
-**Solución:**
+-*Solución:**
 
 ```bash
 chmod +x script.sh
 ```
 
-***
+---
 
 ### 5. Dependencias no instaladas
 
 Comandos como `tar` o `gzip` pueden no estar disponibles en sistemas mínimos.
 
-**Solución:**
+-*Solución:**
 
 verificar antes:
 
@@ -320,7 +320,7 @@ verificar antes:
 command -v tar >/dev/null || exit 1
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -328,7 +328,7 @@ command -v tar >/dev/null || exit 1
 
 Los scripts deben poder ejecutarse múltiples veces sin efectos colaterales.
 
-***
+---
 
 ### 2. Logging estructurado
 
@@ -338,7 +338,7 @@ echo "$(date) INFO mensaje" >> /var/log/app.log
 
 Separar logs por aplicación.
 
-***
+---
 
 ### 3. Uso de funciones
 
@@ -350,7 +350,7 @@ log() {
 
 Mejora legibilidad y reutilización.
 
-***
+---
 
 ### 4. Validación de entrada
 
@@ -361,15 +361,15 @@ if [[ $# -lt 1 ]]; then
 fi
 ```
 
-***
+---
 
 ### 5. Seguridad
 
-* evitar `eval`
-* controlar variables externas
-* limitar permisos de ejecución
+- evitar `eval`
+- controlar variables externas
+- limitar permisos de ejecución
 
-***
+---
 
 ### 6. Rutas absolutas
 
@@ -380,7 +380,7 @@ Nunca depender del directorio actual:
 /usr/bin/date
 ```
 
-***
+---
 
 ### 7. Integración con cron
 
@@ -394,17 +394,17 @@ crontab -e
 0 2 * * * /ruta/backup.sh
 ```
 
-***
+---
 
 ### 8. Versionado
 
 Gestionar scripts en Git:
 
-* control de cambios
-* rollback
-* auditoría
+- control de cambios
+- rollback
+- auditoría
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

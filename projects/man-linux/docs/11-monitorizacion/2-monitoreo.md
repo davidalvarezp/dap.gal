@@ -1,6 +1,6 @@
 # 11.2 Monitoreo en Linux: Sistemas Centralizados y Alerting
 
-***
+---
 
 ## Introducción
 
@@ -10,19 +10,19 @@ El monitoreo permite recolectar, almacenar, visualizar y alertar sobre métricas
 
 Para un Sysadmin senior, el monitoreo no consiste solo en ver gráficos, sino en diseñar un sistema que permita **detectar anomalías, anticipar fallos y automatizar respuestas operativas**.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender la arquitectura de un sistema de monitoreo moderno.
-* Implementar Prometheus para recolectar métricas.
-* Visualizar datos con Grafana.
-* Configurar alertas proactivas.
-* Diseñar una estrategia de monitoreo escalable.
+- Comprender la arquitectura de un sistema de monitoreo moderno.
+- Implementar Prometheus para recolectar métricas.
+- Visualizar datos con Grafana.
+- Configurar alertas proactivas.
+- Diseñar una estrategia de monitoreo escalable.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -30,19 +30,19 @@ Al finalizar este capítulo serás capaz de:
 
 El monitoreo centralizado consiste en:
 
-* recolectar métricas de múltiples sistemas
-* almacenarlas en una base de datos
-* analizarlas y visualizarlas
-* generar alertas automáticas
+- recolectar métricas de múltiples sistemas
+- almacenarlas en una base de datos
+- analizarlas y visualizarlas
+- generar alertas automáticas
 
 Componentes principales:
 
-* **exporters** → recolectan métricas
-* **collector (Prometheus)** → las almacena
-* **visualización (Grafana)** → las muestra
-* **alertmanager** → gestiona alertas
+- **exporters** → recolectan métricas
+- **collector (Prometheus)** → las almacena
+- **visualización (Grafana)** → las muestra
+- **alertmanager** → gestiona alertas
 
-***
+---
 
 ### 2. Modelo de Prometheus
 
@@ -61,15 +61,15 @@ node_cpu_seconds_total{mode="idle"} 12345.67
 !!! info "Ventaja clave"
 Modelo pull simplifica escalabilidad y evita configuraciones complejas en nodos.
 
-***
+---
 
 ### 3. Exporters
 
 Los exporters exponen métricas del sistema:
 
-* **node\_exporter** → sistema (CPU, RAM, disco)
-* **mysql\_exporter** → bases de datos
-* **nginx\_exporter** → servidores web
+- **node\_exporter** → sistema (CPU, RAM, disco)
+- **mysql\_exporter** → bases de datos
+- **nginx\_exporter** → servidores web
 
 Funcionamiento:
 
@@ -77,23 +77,23 @@ Funcionamiento:
 host → exporter → endpoint HTTP → Prometheus
 ```
 
-***
+---
 
 ### 4. Grafana
 
 Grafana permite:
 
-* construir dashboards
-* visualizar métricas en tiempo real
-* correlacionar datos
+- construir dashboards
+- visualizar métricas en tiempo real
+- correlacionar datos
 
 Tipos de visualización:
 
-* gráficas de línea
-* histogramas
-* gauges
+- gráficas de línea
+- histogramas
+- gauges
 
-***
+---
 
 ### 5. Alerting
 
@@ -107,22 +107,22 @@ Prometheus utiliza reglas:
 
 Alertmanager:
 
-* agrupa alertas
-* evita duplicados
-* envía notificaciones (email, Slack, etc.)
+- agrupa alertas
+- evita duplicados
+- envía notificaciones (email, Slack, etc.)
 
-***
+---
 
 ### 6. Métricas vs logs
 
 Diferencia clave:
 
-* **métricas** → datos numéricos agregados
-* **logs** → eventos detallados
+- **métricas** → datos numéricos agregados
+- **logs** → eventos detallados
 
 Ambos sistemas deben coexistir.
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -130,11 +130,11 @@ Ambos sistemas deben coexistir.
 
 Implementar un sistema básico de monitoreo:
 
-* recolectar métricas del sistema
-* visualizarlas en Grafana
-* validar funcionamiento
+- recolectar métricas del sistema
+- visualizarlas en Grafana
+- validar funcionamiento
 
-***
+---
 
 ## Parte 1: Instalar Prometheus
 
@@ -143,7 +143,7 @@ sudo apt update
 sudo apt install prometheus
 ```
 
-***
+---
 
 ### Verificar servicio
 
@@ -151,7 +151,7 @@ sudo apt install prometheus
 systemctl status prometheus
 ```
 
-***
+---
 
 Prometheus por defecto escucha en:
 
@@ -159,7 +159,7 @@ Prometheus por defecto escucha en:
 http://localhost:9090
 ```
 
-***
+---
 
 ## Parte 2: Instalar Node Exporter
 
@@ -167,7 +167,7 @@ http://localhost:9090
 sudo apt install prometheus-node-exporter
 ```
 
-***
+---
 
 Verificar:
 
@@ -175,7 +175,7 @@ Verificar:
 curl http://localhost:9100/metrics
 ```
 
-***
+---
 
 ## Parte 3: Configurar Prometheus
 
@@ -194,7 +194,7 @@ scrape_configs:
       - targets: ["localhost:9100"]
 ```
 
-***
+---
 
 Reiniciar servicio:
 
@@ -202,7 +202,7 @@ Reiniciar servicio:
 systemctl restart prometheus
 ```
 
-***
+---
 
 ## Parte 4: Consultar métricas
 
@@ -218,7 +218,7 @@ Consulta básica:
 node_cpu_seconds_total
 ```
 
-***
+---
 
 ## Parte 5: Instalar Grafana
 
@@ -226,7 +226,7 @@ node_cpu_seconds_total
 sudo apt install grafana
 ```
 
-***
+---
 
 Arrancar servicio:
 
@@ -247,7 +247,7 @@ Credenciales por defecto:
 admin / admin
 ```
 
-***
+---
 
 ## Parte 6: Configurar datasource
 
@@ -260,27 +260,27 @@ En Grafana:
 http://localhost:9090
 ```
 
-***
+---
 
 ## Parte 7: Crear dashboard
 
 Ejemplo:
 
-* CPU usage
-* memoria
-* disco
+- CPU usage
+- memoria
+- disco
 
-***
+---
 
 ## Output esperado
 
 Sistema funcional con:
 
-* Prometheus recolectando métricas
-* Grafana mostrando dashboards
-* métricas actualizadas en tiempo real
+- Prometheus recolectando métricas
+- Grafana mostrando dashboards
+- métricas actualizadas en tiempo real
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -290,35 +290,35 @@ Sistema funcional con:
 connection refused
 ```
 
-**Solución:**
+-*Solución:**
 
 ```bash
 systemctl status prometheus-node-exporter
 ```
 
-***
+---
 
 ### 2. Prometheus no recolecta datos
 
-**Causa:**
+-*Causa:**
 
 configuración incorrecta.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 journalctl -u prometheus
 ```
 
-***
+---
 
 ### 3. Grafana sin datos
 
-**Causa:**
+-*Causa:**
 
 datasource incorrecto.
 
-***
+---
 
 ### 4. Puerto bloqueado
 
@@ -328,13 +328,13 @@ ss -tulnp
 
 Verificar puertos 9090, 3000, 9100.
 
-***
+---
 
 ### 5. Métricas vacías
 
 Esperar intervalo de scraping (por defecto 15s).
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -342,54 +342,54 @@ Esperar intervalo de scraping (por defecto 15s).
 
 Elegir métricas relevantes:
 
-* CPU
-* latencias
-* errores
+- CPU
+- latencias
+- errores
 
 Evitar ruido innecesario.
 
-***
+---
 
 ### 2. Dashboards estructurados
 
-* por servicio
-* por capa (infraestructura, aplicación)
+- por servicio
+- por capa (infraestructura, aplicación)
 
-***
+---
 
 ### 3. Alertas útiles
 
 Evitar alert fatigue:
 
-* definir umbrales realistas
-* alertas accionables
+- definir umbrales realistas
+- alertas accionables
 
-***
+---
 
 ### 4. Retención de datos
 
 Configurar almacenamiento:
 
-* no almacenar datos indefinidamente
-* ajustar según necesidades
+- no almacenar datos indefinidamente
+- ajustar según necesidades
 
-***
+---
 
 ### 5. Alta disponibilidad
 
 Prometheus en HA:
 
-* replicación
-* almacenamiento remoto
+- replicación
+- almacenamiento remoto
 
-***
+---
 
 ### 6. Seguridad
 
-* limitar acceso a endpoints `/metrics`
-* autenticación en Grafana
+- limitar acceso a endpoints `/metrics`
+- autenticación en Grafana
 
-***
+---
 
 ### 7. Etiquetas (labels)
 
@@ -400,25 +400,25 @@ instance="web1"
 env="prod"
 ```
 
-***
+---
 
 ### 8. Integración con alerting externo
 
-* email
-* Slack
-* PagerDuty
+- email
+- Slack
+- PagerDuty
 
-***
+---
 
 ### 9. Infraestructura como código
 
 Versionar:
 
-* dashboards
-* reglas
-* configuraciones
+- dashboards
+- reglas
+- configuraciones
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

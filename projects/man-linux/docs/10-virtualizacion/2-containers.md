@@ -1,6 +1,6 @@
 # 10.2 Contenedores en Linux: Docker y Virtualización Ligera
 
-***
+---
 
 ## Introducción
 
@@ -10,19 +10,19 @@ En entornos modernos, los contenedores son la base de arquitecturas **cloud-nati
 
 Para un Sysadmin senior, dominar contenedores implica ser capaz de desplegar aplicaciones de forma reproducible, portable y escalable.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender qué son los contenedores y cómo funcionan internamente.
-* Diferenciar entre virtualización tradicional y contenedores.
-* Instalar y configurar Docker en Linux.
-* Crear, ejecutar y gestionar contenedores.
-* Aplicar buenas prácticas en entornos de producción.
+- Comprender qué son los contenedores y cómo funcionan internamente.
+- Diferenciar entre virtualización tradicional y contenedores.
+- Instalar y configurar Docker en Linux.
+- Crear, ejecutar y gestionar contenedores.
+- Aplicar buenas prácticas en entornos de producción.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -30,20 +30,20 @@ Al finalizar este capítulo serás capaz de:
 
 Un contenedor es una unidad estándar de software que incluye:
 
-* código de aplicación
-* dependencias
-* librerías
-* configuración
+- código de aplicación
+- dependencias
+- librerías
+- configuración
 
 Todo ello aislado del sistema mediante características del kernel:
 
-* **namespaces** → aislamiento
-* **cgroups** → control de recursos
+- **namespaces** → aislamiento
+- **cgroups** → control de recursos
 
 !!! info "Concepto clave"
 Un contenedor no incluye un sistema operativo completo, solo lo necesario para ejecutar la aplicación.
 
-***
+---
 
 ### 2. Contenedores vs Máquinas Virtuales
 
@@ -54,29 +54,29 @@ Un contenedor no incluye un sistema operativo completo, solo lo necesario para e
 | Arranque       | Minutos  | Segundos   |
 | Aislamiento    | Fuerte   | Medio      |
 
-***
+---
 
 ### 3. Docker como estándar de facto
 
 Docker proporciona:
 
-* runtime de contenedores
-* construcción de imágenes
-* gestión de redes y almacenamiento
+- runtime de contenedores
+- construcción de imágenes
+- gestión de redes y almacenamiento
 
 Componentes principales:
 
-* **docker daemon (dockerd)**
-* **docker CLI**
-* **imagenes**
-* **contenedores**
+- **docker daemon (dockerd)**
+- **docker CLI**
+- **imagenes**
+- **contenedores**
 
-***
+---
 
 ### 4. Imágenes y contenedores
 
-* **Imagen** → plantilla inmutable
-* **Contenedor** → instancia en ejecución
+- **Imagen** → plantilla inmutable
+- **Contenedor** → instancia en ejecución
 
 Ejemplo:
 
@@ -84,7 +84,7 @@ Ejemplo:
 imagen nginx → contenedor nginx1
 ```
 
-***
+---
 
 ### 5. Ciclo de vida de un contenedor
 
@@ -94,7 +94,7 @@ imagen nginx → contenedor nginx1
 4. Detener
 5. Eliminar
 
-***
+---
 
 ### 6. Almacenamiento y persistencia
 
@@ -102,10 +102,10 @@ Por defecto, los contenedores son efímeros.
 
 Opciones:
 
-* **volúmenes**
-* bind mounts
+- **volúmenes**
+- bind mounts
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -113,12 +113,12 @@ Opciones:
 
 Desplegar un contenedor web con Docker:
 
-* instalar Docker
-* ejecutar nginx
-* exponer servicio
-* persistir datos
+- instalar Docker
+- ejecutar nginx
+- exponer servicio
+- persistir datos
 
-***
+---
 
 ## Parte 1: Instalación de Docker
 
@@ -133,7 +133,7 @@ Verificación:
 docker version
 ```
 
-***
+---
 
 ## Paso 2: Habilitar servicio
 
@@ -142,7 +142,7 @@ systemctl enable docker
 systemctl start docker
 ```
 
-***
+---
 
 ## Paso 3: Añadir usuario
 
@@ -151,7 +151,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-***
+---
 
 ## Parte 2: Ejecutar contenedor
 
@@ -159,16 +159,16 @@ newgrp docker
 docker run -d -p 8080:80 --name web nginx
 ```
 
-***
+---
 
 ### Explicación
 
-* `-d` → modo detached
-* `-p` → mapeo de puertos
-* `--name` → nombre contenedor
-* `nginx` → imagen
+- `-d` → modo detached
+- `-p` → mapeo de puertos
+- `--name` → nombre contenedor
+- `nginx` → imagen
 
-***
+---
 
 ## Verificación
 
@@ -176,7 +176,7 @@ docker run -d -p 8080:80 --name web nginx
 docker ps
 ```
 
-***
+---
 
 Acceso:
 
@@ -184,7 +184,7 @@ Acceso:
 curl http://localhost:8080
 ```
 
-***
+---
 
 ## Parte 3: Gestión de contenedores
 
@@ -194,7 +194,7 @@ curl http://localhost:8080
 docker stop web
 ```
 
-***
+---
 
 ### Arrancar:
 
@@ -202,7 +202,7 @@ docker stop web
 docker start web
 ```
 
-***
+---
 
 ### Eliminar:
 
@@ -210,7 +210,7 @@ docker start web
 docker rm web
 ```
 
-***
+---
 
 ## Parte 4: Persistencia con volúmenes
 
@@ -222,7 +222,7 @@ docker run -d \
 nginx
 ```
 
-***
+---
 
 ## Parte 5: Crear imagen propia
 
@@ -235,7 +235,7 @@ FROM nginx:latest
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
-***
+---
 
 Construir imagen:
 
@@ -249,7 +249,7 @@ Ejecutar:
 docker run -d -p 8080:80 mi-nginx
 ```
 
-***
+---
 
 ## Output esperado
 
@@ -258,7 +258,7 @@ CONTAINER ID   IMAGE     STATUS
 abc123         nginx     Up 10 seconds
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -268,13 +268,13 @@ abc123         nginx     Up 10 seconds
 permission denied docker.sock
 ```
 
-**Solución:**
+-*Solución:**
 
 ```bash
 usermod -aG docker usuario
 ```
 
-***
+---
 
 ### 2. Puerto ocupado
 
@@ -282,7 +282,7 @@ usermod -aG docker usuario
 ss -tulnp | grep 8080
 ```
 
-***
+---
 
 ### 3. Contenedor se detiene
 
@@ -290,7 +290,7 @@ ss -tulnp | grep 8080
 docker logs web
 ```
 
-***
+---
 
 ### 4. Imagen no encontrada
 
@@ -298,11 +298,11 @@ docker logs web
 pull access denied
 ```
 
-**Solución:**
+-*Solución:**
 
 verificar nombre imagen.
 
-***
+---
 
 ### 5. Problemas de red
 
@@ -310,7 +310,7 @@ verificar nombre imagen.
 docker network ls
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -318,10 +318,10 @@ docker network ls
 
 Usar imágenes ligeras:
 
-* alpine
-* distroless
+- alpine
+- distroless
 
-***
+---
 
 ### 2. No usar root
 
@@ -329,13 +329,13 @@ Usar imágenes ligeras:
 USER 1001
 ```
 
-***
+---
 
 ### 3. Persistencia adecuada
 
 Nunca almacenar datos críticos dentro del contenedor.
 
-***
+---
 
 ### 4. Versionado de imágenes
 
@@ -345,21 +345,21 @@ nginx:1.25
 
 Evitar `latest` en producción.
 
-***
+---
 
 ### 5. Logs centralizados
 
 No depender de logs internos.
 
-***
+---
 
 ### 6. Seguridad
 
-* escanear imágenes
-* limitar capacidades
-* usar namespaces correctamente
+- escanear imágenes
+- limitar capacidades
+- usar namespaces correctamente
 
-***
+---
 
 ### 7. Resource limits
 
@@ -367,20 +367,20 @@ No depender de logs internos.
 --memory=512m --cpus=1
 ```
 
-***
+---
 
 ### 8. Networking controlado
 
-* redes custom
-* aislamiento
+- redes custom
+- aislamiento
 
-***
+---
 
 ### 9. Integración con CI/CD
 
 Construcción automática de imágenes.
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

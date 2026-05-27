@@ -1,6 +1,6 @@
 # 10.1 Virtualización con KVM: Fundamentos y Operación en Linux
 
-***
+---
 
 ## Introducción
 
@@ -10,19 +10,19 @@ En el ecosistema Linux, **KVM (Kernel-based Virtual Machine)** es la solución e
 
 Para un Sysadmin senior, dominar KVM implica poder construir entornos reproducibles, aislar cargas de trabajo críticas y desplegar infraestructura eficiente sin depender de soluciones propietarias.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender la arquitectura de KVM y su integración con el kernel.
-* Identificar los componentes clave del stack de virtualización.
-* Instalar y configurar KVM en un sistema Linux.
-* Crear y gestionar máquinas virtuales desde CLI.
-* Aplicar buenas prácticas en entornos de producción.
+- Comprender la arquitectura de KVM y su integración con el kernel.
+- Identificar los componentes clave del stack de virtualización.
+- Instalar y configurar KVM en un sistema Linux.
+- Crear y gestionar máquinas virtuales desde CLI.
+- Aplicar buenas prácticas en entornos de producción.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -32,28 +32,28 @@ KVM es un módulo del kernel de Linux que permite transformar el sistema en un *
 
 Componentes clave:
 
-* **kvm.ko** → módulo principal
-* **kvm-intel.ko / kvm-amd.ko** → soporte de CPU
-* **QEMU** → emulación de hardware
-* **libvirt** → capa de gestión
+- **kvm.ko** → módulo principal
+- **kvm-intel.ko / kvm-amd.ko** → soporte de CPU
+- **QEMU** → emulación de hardware
+- **libvirt** → capa de gestión
 
 !!! info "Concepto clave"
 KVM proporciona virtualización, pero la gestión se realiza mediante herramientas como **libvirt** y **virsh**.
 
-***
+---
 
 ### 2. Tipos de virtualización
 
 #### Virtualización completa
 
-* El sistema huésped no sabe que está virtualizado.
-* Usa extensiones de CPU (Intel VT-x / AMD-V).
+- El sistema huésped no sabe que está virtualizado.
+- Usa extensiones de CPU (Intel VT-x / AMD-V).
 
 #### Paravirtualización
 
-* Mejora rendimiento mediante drivers optimizados (virtio).
+- Mejora rendimiento mediante drivers optimizados (virtio).
 
-***
+---
 
 ### 3. Arquitectura del stack
 
@@ -71,11 +71,11 @@ Herramientas (virsh, virt-manager)
 
 Roles:
 
-* **QEMU** → ejecuta la VM
-* **libvirt** → gestión centralizada
-* **virsh** → CLI administrativa
+- **QEMU** → ejecuta la VM
+- **libvirt** → gestión centralizada
+- **virsh** → CLI administrativa
 
-***
+---
 
 ### 4. Requisitos del sistema
 
@@ -87,22 +87,22 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 
 Resultado:
 
-* `0` → no soportado
-* `>0` → soportado
+- `0` → no soportado
+- `>0` → soportado
 
-***
+---
 
 ### 5. Tipos de almacenamiento en KVM
 
-* archivos (`.qcow2`, `.raw`)
-* LVM
-* NFS / iSCSI
+- archivos (`.qcow2`, `.raw`)
+- LVM
+- NFS / iSCSI
 
 Formato recomendado:
 
-* **qcow2** → flexible (snapshots, compresión)
+- **qcow2** → flexible (snapshots, compresión)
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -110,11 +110,11 @@ Formato recomendado:
 
 Configurar un servidor Linux como hypervisor:
 
-* instalar KVM
-* crear una máquina virtual
-* arrancarla y comprobar su estado
+- instalar KVM
+- crear una máquina virtual
+- arrancarla y comprobar su estado
 
-***
+---
 
 ## Parte 1: Instalación de KVM
 
@@ -123,7 +123,7 @@ sudo apt update
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst
 ```
 
-***
+---
 
 ## Paso 2: Verificar instalación
 
@@ -135,7 +135,7 @@ systemctl status libvirtd
 lsmod | grep kvm
 ```
 
-***
+---
 
 ## Paso 3: Añadir usuario a grupo
 
@@ -149,7 +149,7 @@ Aplicar cambios:
 newgrp libvirt
 ```
 
-***
+---
 
 ## Parte 2: Crear máquina virtual
 
@@ -159,7 +159,7 @@ newgrp libvirt
 wget https://releases.ubuntu.com/22.04/ubuntu-22.04.iso
 ```
 
-***
+---
 
 ### Paso 2: Crear VM con virt-install
 
@@ -176,17 +176,17 @@ virt-install \
 --graphics none
 ```
 
-***
+---
 
 ### Explicación clave
 
-* **--name** → nombre VM
-* **--ram** → memoria
-* **--vcpus** → CPU
-* **--disk** → almacenamiento
-* **--network** → red virtual
+- **--name** → nombre VM
+- **--ram** → memoria
+- **--vcpus** → CPU
+- **--disk** → almacenamiento
+- **--network** → red virtual
 
-***
+---
 
 ## Parte 3: Gestión de la VM
 
@@ -196,7 +196,7 @@ virt-install \
 virsh list --all
 ```
 
-***
+---
 
 ### Arrancar VM
 
@@ -204,7 +204,7 @@ virsh list --all
 virsh start test-vm
 ```
 
-***
+---
 
 ### Apagar VM
 
@@ -212,7 +212,7 @@ virsh start test-vm
 virsh shutdown test-vm
 ```
 
-***
+---
 
 ### Acceder a consola
 
@@ -226,7 +226,7 @@ Salir:
 Ctrl + ]
 ```
 
-***
+---
 
 ## Output esperado
 
@@ -236,7 +236,7 @@ Ctrl + ]
  1    test-vm   running
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -246,27 +246,27 @@ Ctrl + ]
 KVM acceleration not available
 ```
 
-**Causa:**
+-*Causa:**
 
-* VT-x/AMD-V deshabilitado en BIOS
+- VT-x/AMD-V deshabilitado en BIOS
 
-**Solución:**
+-*Solución:**
 
 activar en BIOS/UEFI.
 
-***
+---
 
 ### 2. Permisos insuficientes
 
 Errores al usar `virsh`.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 usermod -aG libvirt usuario
 ```
 
-***
+---
 
 ### 3. Servicio libvirt caído
 
@@ -274,7 +274,7 @@ usermod -aG libvirt usuario
 systemctl restart libvirtd
 ```
 
-***
+---
 
 ### 4. Red no funcional
 
@@ -288,7 +288,7 @@ Reiniciar red:
 virsh net-start default
 ```
 
-***
+---
 
 ### 5. Disco no encontrado
 
@@ -298,7 +298,7 @@ Verificar ruta y permisos en:
 /var/lib/libvirt/images/
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -311,14 +311,14 @@ Mejora rendimiento:
 --network model=virtio
 ```
 
-***
+---
 
 ### 2. Separación de almacenamiento
 
-* sistema → disco principal
-* datos → volúmenes independientes
+- sistema → disco principal
+- datos → volúmenes independientes
 
-***
+---
 
 ### 3. Snapshots
 
@@ -328,55 +328,55 @@ Permiten rollback rápido:
 virsh snapshot-create-as test-vm snap1
 ```
 
-***
+---
 
 ### 4. Networking avanzado
 
-* bridges para integración real
-* VLANs en entornos complejos
+- bridges para integración real
+- VLANs en entornos complejos
 
-***
+---
 
 ### 5. Automatización
 
 Integrar con:
 
-* Ansible
-* Terraform
+- Ansible
+- Terraform
 
-***
+---
 
 ### 6. Seguridad
 
-* aislar redes virtuales
-* limitar acceso a libvirt
-* usar SELinux/AppArmor
+- aislar redes virtuales
+- limitar acceso a libvirt
+- usar SELinux/AppArmor
 
-***
+---
 
 ### 7. Monitorización
 
-* uso de CPU/RAM
-* I/O discos
-* latencias
+- uso de CPU/RAM
+- I/O discos
+- latencias
 
-***
+---
 
 ### 8. Backup de VMs
 
-* copiar discos apagados
-* usar snapshots coherentes
+- copiar discos apagados
+- usar snapshots coherentes
 
-***
+---
 
 ### 9. Overcommit controlado
 
 Evitar saturar host:
 
-* CPU overcommit moderado
-* RAM con ballooning
+- CPU overcommit moderado
+- RAM con ballooning
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

@@ -1,27 +1,27 @@
 # 6.3 SSH Profesional: Acceso Seguro y Gestión Remota
 
-***
+---
 
 ## Introducción
 
-**SSH (Secure Shell)** es el estándar de facto para la administración remota segura en sistemas Linux. Permite a los Sysadmins conectarse, ejecutar comandos, transferir archivos y automatizar tareas en servidores distribuidos de forma cifrada y autenticada.
+-*SSH (Secure Shell)** es el estándar de facto para la administración remota segura en sistemas Linux. Permite a los Sysadmins conectarse, ejecutar comandos, transferir archivos y automatizar tareas en servidores distribuidos de forma cifrada y autenticada.
 
 En entornos de producción, una mala configuración de SSH es una de las principales puertas de entrada para ataques. Por ello, dominar SSH no solo implica saber conectarse, sino **securizar, auditar y optimizar su uso** en infraestructuras críticas.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender el funcionamiento interno de SSH.
-* Configurar accesos seguros basados en claves.
-* Gestionar conexiones remotas de forma eficiente.
-* Transferir archivos con `scp` y `rsync`.
-* Securizar el servicio SSH (`sshd`).
-* Diagnosticar problemas de conexión.
+- Comprender el funcionamiento interno de SSH.
+- Configurar accesos seguros basados en claves.
+- Gestionar conexiones remotas de forma eficiente.
+- Transferir archivos con `scp` y `rsync`.
+- Securizar el servicio SSH (`sshd`).
+- Diagnosticar problemas de conexión.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -29,14 +29,14 @@ Al finalizar este capítulo serás capaz de:
 
 SSH es un protocolo criptográfico que permite:
 
-* acceso remoto seguro
-* ejecución de comandos
-* transferencia de datos
+- acceso remoto seguro
+- ejecución de comandos
+- transferencia de datos
 
 Funciona bajo el modelo cliente-servidor:
 
-* **ssh (cliente)**
-* **sshd (servidor)**
+- **ssh (cliente)**
+- **sshd (servidor)**
 
 Puerto por defecto:
 
@@ -44,7 +44,7 @@ Puerto por defecto:
 TCP 22
 ```
 
-***
+---
 
 ### 2. Autenticación
 
@@ -52,20 +52,20 @@ SSH soporta dos métodos principales:
 
 #### 1. Contraseña
 
-* Simple pero inseguro.
-* Vulnerable a ataques brute-force.
+- Simple pero inseguro.
+- Vulnerable a ataques brute-force.
 
 #### 2. Clave pública/privada (recomendado)
 
-* Mucho más seguro.
-* Basado en criptografía.
+- Mucho más seguro.
+- Basado en criptografía.
 
 Archivos clave:
 
-* `~/.ssh/id_rsa` → clave privada
-* `~/.ssh/id_rsa.pub` → clave pública
+- `~/.ssh/id_rsa` → clave privada
+- `~/.ssh/id_rsa.pub` → clave pública
 
-***
+---
 
 ### 3. Proceso de conexión SSH
 
@@ -75,15 +75,15 @@ Archivos clave:
 4. Autenticación.
 5. Sesión cifrada.
 
-***
+---
 
 ### 4. Archivos importantes
 
-* **/etc/ssh/sshd\_config** → configuración del servidor
-* **\~/.ssh/authorized\_keys** → claves permitidas
-* **\~/.ssh/known\_hosts** → servidores conocidos
+- **/etc/ssh/sshd\_config** → configuración del servidor
+- **\~/.ssh/authorized\_keys** → claves permitidas
+- **\~/.ssh/known\_hosts** → servidores conocidos
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -91,11 +91,11 @@ Archivos clave:
 
 Quieres securizar el acceso a un servidor:
 
-* eliminar acceso por contraseña
-* usar claves SSH
-* endurecer configuración
+- eliminar acceso por contraseña
+- usar claves SSH
+- endurecer configuración
 
-***
+---
 
 ## Parte 1: Generación de claves
 
@@ -103,12 +103,12 @@ Quieres securizar el acceso a un servidor:
 ssh-keygen -t ed25519 -C "admin@empresa"
 ```
 
-***
+---
 
 ### Explicación
 
-* `-t ed25519` → algoritmo moderno y seguro.
-* `-C` → comentario identificativo.
+- `-t ed25519` → algoritmo moderno y seguro.
+- `-C` → comentario identificativo.
 
 Archivos generados:
 
@@ -117,7 +117,7 @@ Archivos generados:
 ~/.ssh/id_ed25519.pub
 ```
 
-***
+---
 
 ## Parte 2: Copiar clave al servidor
 
@@ -131,7 +131,7 @@ Alternativa manual:
 cat id_ed25519.pub | ssh usuario@servidor "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
 
-***
+---
 
 ## Parte 3: Conexión sin contraseña
 
@@ -139,7 +139,7 @@ cat id_ed25519.pub | ssh usuario@servidor "mkdir -p ~/.ssh && cat >> ~/.ssh/auth
 ssh usuario@servidor
 ```
 
-***
+---
 
 ## Parte 4: Configuración del servidor (hardening)
 
@@ -158,7 +158,7 @@ PubkeyAuthentication yes
 Port 22
 ```
 
-***
+---
 
 ### Aplicar cambios
 
@@ -169,7 +169,7 @@ sudo systemctl restart ssh
 !!! warning "No bloquearse fuera"
 Nunca desactives autenticación por contraseña sin haber probado acceso por clave.
 
-***
+---
 
 ## Parte 5: Transferencia de archivos
 
@@ -179,7 +179,7 @@ Nunca desactives autenticación por contraseña sin haber probado acceso por cla
 scp archivo.txt usuario@servidor:/tmp/
 ```
 
-***
+---
 
 ### RSYNC (más eficiente)
 
@@ -187,7 +187,7 @@ scp archivo.txt usuario@servidor:/tmp/
 rsync -avz archivo.txt usuario@servidor:/tmp/
 ```
 
-***
+---
 
 ## Parte 6: Túneles SSH
 
@@ -203,7 +203,7 @@ Accedes a:
 http://localhost:8080
 ```
 
-***
+---
 
 ## Parte 7: Configuración cliente SSH
 
@@ -229,16 +229,16 @@ Uso:
 ssh prod
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. Permission denied (publickey)
 
-**Causas:**
+-*Causas:**
 
-* clave no copiada
-* permisos incorrectos
+- clave no copiada
+- permisos incorrectos
 
 Solución:
 
@@ -247,7 +247,7 @@ chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 ```
 
-***
+---
 
 ### 2. Connection refused
 
@@ -257,14 +257,14 @@ systemctl status ssh
 
 Servidor SSH no activo.
 
-***
+---
 
 ### 3. Timeout de conexión
 
-* Firewall bloqueando puerto 22.
-* IP incorrecta.
+- Firewall bloqueando puerto 22.
+- IP incorrecta.
 
-***
+---
 
 ### 4. Clave rechazada
 
@@ -276,7 +276,7 @@ ssh -v usuario@servidor
 
 Debug detallado.
 
-***
+---
 
 ### 5. known\_hosts conflict
 
@@ -284,7 +284,7 @@ Debug detallado.
 ssh-keygen -R 192.168.1.10
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -294,7 +294,7 @@ ssh-keygen -R 192.168.1.10
 PermitRootLogin no
 ```
 
-***
+---
 
 ### 2. Cambiar puerto SSH
 
@@ -304,7 +304,7 @@ Port 2222
 
 Reduce ruido de ataques automatizados.
 
-***
+---
 
 ### 3. Restringir acceso por IP
 
@@ -312,7 +312,7 @@ Reduce ruido de ataques automatizados.
 AllowUsers admin@192.168.1.*
 ```
 
-***
+---
 
 ### 4. Fail2Ban
 
@@ -322,7 +322,7 @@ Protege contra brute-force:
 apt install fail2ban
 ```
 
-***
+---
 
 ### 5. Uso de claves modernas
 
@@ -332,7 +332,7 @@ Preferir:
 ed25519
 ```
 
-***
+---
 
 ### 6. Auditoría de accesos
 
@@ -340,7 +340,7 @@ ed25519
 journalctl -u ssh
 ```
 
-***
+---
 
 ### 7. Agente SSH
 
@@ -351,7 +351,7 @@ ssh-agent bash
 ssh-add
 ```
 
-***
+---
 
 ### 8. Seguridad avanzada
 
@@ -363,7 +363,7 @@ MaxAuthTries 3
 LoginGraceTime 30
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

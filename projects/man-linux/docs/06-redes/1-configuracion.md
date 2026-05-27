@@ -1,6 +1,6 @@
 # 6.1 Configuración de Red en Linux
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ La red es el sistema nervioso de cualquier infraestructura moderna. Sin conectiv
 
 Para un Sysadmin, dominar la configuración de red implica no solo asignar direcciones IP, sino entender interfaces, routing, resolución, persistencia y diagnóstico en entornos de producción.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender cómo Linux gestiona interfaces de red.
-* Configurar direcciones IP estáticas y dinámicas (DHCP).
-* Gestionar configuraciones persistentes.
-* Interpretar tablas de routing.
-* Utilizar herramientas modernas como `ip` y `nmcli`.
-* Diagnosticar problemas de conectividad básica.
+- Comprender cómo Linux gestiona interfaces de red.
+- Configurar direcciones IP estáticas y dinámicas (DHCP).
+- Gestionar configuraciones persistentes.
+- Interpretar tablas de routing.
+- Utilizar herramientas modernas como `ip` y `nmcli`.
+- Diagnosticar problemas de conectividad básica.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -31,9 +31,9 @@ En Linux, cada dispositivo de red se representa como una **interfaz**:
 
 Ejemplos:
 
-* **eth0 / enp0s3** → interfaces Ethernet
-* **wlan0** → WiFi
-* **lo** → loopback
+- **eth0 / enp0s3** → interfaces Ethernet
+- **wlan0** → WiFi
+- **lo** → loopback
 
 Consultar interfaces:
 
@@ -41,7 +41,7 @@ Consultar interfaces:
 ip link show
 ```
 
-***
+---
 
 ### 2. Direccionamiento IP
 
@@ -49,8 +49,8 @@ Una interfaz necesita una dirección IP para comunicarse.
 
 Tipos:
 
-* **Dinámica (DHCP)** → asignada automáticamente.
-* **Estática** → definida manualmente.
+- **Dinámica (DHCP)** → asignada automáticamente.
+- **Estática** → definida manualmente.
 
 Ejemplo de IP:
 
@@ -58,10 +58,10 @@ Ejemplo de IP:
 192.168.1.100/24
 ```
 
-* IP: 192.168.1.100
-* Máscara: /24 (255.255.255.0)
+- IP: 192.168.1.100
+- Máscara: /24 (255.255.255.0)
 
-***
+---
 
 ### 3. Comando ip (reemplazo de ifconfig)
 
@@ -73,11 +73,11 @@ ip
 
 Principales usos:
 
-* `ip a` → ver IPs
-* `ip link` → interfaces
-* `ip route` → rutas
+- `ip a` → ver IPs
+- `ip link` → interfaces
+- `ip route` → rutas
 
-***
+---
 
 ### 4. Tabla de Routing
 
@@ -95,24 +95,24 @@ Ejemplo:
 default via 192.168.1.1 dev eth0
 ```
 
-* **default** → gateway de salida
-* **via** → router
-* **dev** → interfaz
+- **default** → gateway de salida
+- **via** → router
+- **dev** → interfaz
 
-***
+---
 
 ### 5. Configuración Persistente
 
 Depende de la distribución:
 
-* **Debian/Ubuntu (netplan):**
+- **Debian/Ubuntu (netplan):**
   * `/etc/netplan/*.yaml`
-* **RHEL/CentOS:**
+- **RHEL/CentOS:**
   * `/etc/sysconfig/network-scripts/`
-* **systemd-networkd:**
+- **systemd-networkd:**
   * `/etc/systemd/network/`
 
-***
+---
 
 ### 6. NetworkManager
 
@@ -124,11 +124,11 @@ nmcli
 
 Permite:
 
-* configurar interfaces
-* gestionar WiFi
-* automatizar perfiles
+- configurar interfaces
+- gestionar WiFi
+- automatizar perfiles
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -136,12 +136,12 @@ Permite:
 
 Configurar un servidor con:
 
-* IP estática
-* Gateway
-* DNS
-* Validar conectividad
+- IP estática
+- Gateway
+- DNS
+- Validar conectividad
 
-***
+---
 
 ## Parte 1: Inspección inicial
 
@@ -156,7 +156,7 @@ ip a
     inet 192.168.1.50/24
 ```
 
-***
+---
 
 ## Parte 2: Configuración temporal de IP
 
@@ -170,7 +170,7 @@ Activar interfaz:
 sudo ip link set eth0 up
 ```
 
-***
+---
 
 ## Parte 3: Configurar gateway
 
@@ -178,7 +178,7 @@ sudo ip link set eth0 up
 sudo ip route add default via 192.168.1.1
 ```
 
-***
+---
 
 ## Parte 4: Configurar DNS
 
@@ -197,7 +197,7 @@ nameserver 8.8.8.8
 !!! warning "Configuración temporal"
 Este archivo puede ser sobrescrito por NetworkManager o DHCP.
 
-***
+---
 
 ## Parte 5: Configuración persistente (Netplan)
 
@@ -228,7 +228,7 @@ Aplicar cambios:
 sudo netplan apply
 ```
 
-***
+---
 
 ## Parte 6: Verificación
 
@@ -250,7 +250,7 @@ ping -c 4 8.8.8.8
 ping google.com
 ```
 
-***
+---
 
 ## Parte 7: Configuración con nmcli
 
@@ -275,7 +275,7 @@ Reiniciar conexión:
 nmcli con down eth0 && nmcli con up eth0
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -290,11 +290,11 @@ ip route
 
 Verifica:
 
-* IP existe
-* interfaz está UP
-* gateway correcto
+- IP existe
+- interfaz está UP
+- gateway correcto
 
-***
+---
 
 ### 2. No resuelve DNS
 
@@ -305,9 +305,9 @@ ping 8.8.8.8
 ping google.com
 ```
 
-* Si IP funciona pero DNS no → problema en resolv.conf.
+- Si IP funciona pero DNS no → problema en resolv.conf.
 
-***
+---
 
 ### 3. Netplan no aplica cambios
 
@@ -322,13 +322,13 @@ Fallo por YAML mal indentado.
 !!! warning "YAML estricto"
 La indentación incorrecta rompe completamente la configuración.
 
-***
+---
 
 ### 4. Interfaz cambia de nombre
 
 Ejemplo:
 
-* eth0 → enp0s3
+- eth0 → enp0s3
 
 Solución:
 
@@ -338,7 +338,7 @@ ip link
 
 Identificar nombre real.
 
-***
+---
 
 ### 5. Conflicto DHCP + estática
 
@@ -350,7 +350,7 @@ dhcp4: yes
 
 Y IP manual → conflicto.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -362,20 +362,20 @@ Evita asumir `eth0`, usa detección:
 ip link show
 ```
 
-***
+---
 
 ### 2. Versiona configuraciones
 
 Guarda `/etc/netplan` en Git para auditoría.
 
-***
+---
 
 ### 3. Minimiza cambios en producción
 
 !!! tip "Cambio controlado"
 Siempre valida configuración en entorno staging.
 
-***
+---
 
 ### 4. Usa múltiples DNS
 
@@ -384,21 +384,21 @@ nameservers:
   addresses: [8.8.8.8, 1.1.1.1]
 ```
 
-***
+---
 
 ### 5. NetworkManager vs Netplan
 
-* Servidores → Netplan/systemd-networkd
-* Escritorios → NetworkManager
+- Servidores → Netplan/systemd-networkd
+- Escritorios → NetworkManager
 
-***
+---
 
 ### 6. Seguridad
 
-* No expongas servicios innecesarios.
-* Usa firewall (ver módulo 7).
+- No expongas servicios innecesarios.
+- Usa firewall (ver módulo 7).
 
-***
+---
 
 ### 7. Automatización
 
@@ -411,7 +411,7 @@ Integrar con Ansible:
     dest: /etc/netplan/01-netcfg.yaml
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

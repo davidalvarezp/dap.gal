@@ -1,6 +1,6 @@
 # 9.2 Automatización con Ansible: Infraestructura como Código
 
-***
+---
 
 ## Introducción
 
@@ -8,19 +8,19 @@ A medida que las infraestructuras crecen en complejidad, los scripts Bash dejan 
 
 Ansible destaca por su simplicidad: no requiere agentes, utiliza **SSH** como canal de comunicación y define el estado del sistema mediante archivos declarativos en **YAML**. Para un Sysadmin senior, Ansible permite garantizar **consistencia, escalabilidad y repetibilidad** en entornos productivos.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender la arquitectura y funcionamiento de Ansible.
-* Crear inventarios de hosts y gestionarlos.
-* Escribir playbooks en YAML para automatización.
-* Ejecutar tareas remotas de forma controlada.
-* Aplicar buenas prácticas en entornos reales.
+- Comprender la arquitectura y funcionamiento de Ansible.
+- Crear inventarios de hosts y gestionarlos.
+- Escribir playbooks en YAML para automatización.
+- Ejecutar tareas remotas de forma controlada.
+- Aplicar buenas prácticas en entornos reales.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -28,31 +28,31 @@ Al finalizar este capítulo serás capaz de:
 
 Ansible es una herramienta de automatización que permite:
 
-* configuración de sistemas
-* despliegue de aplicaciones
-* ejecución remota de tareas
-* orquestación de infraestructuras
+- configuración de sistemas
+- despliegue de aplicaciones
+- ejecución remota de tareas
+- orquestación de infraestructuras
 
 Se basa en tres pilares:
 
-* **Agentless** → no requiere instalar software en los nodos gestionados
-* **Declarativo** → defines el estado deseado, no los pasos
-* **Idempotente** → múltiples ejecuciones no alteran el resultado final
+- **Agentless** → no requiere instalar software en los nodos gestionados
+- **Declarativo** → defines el estado deseado, no los pasos
+- **Idempotente** → múltiples ejecuciones no alteran el resultado final
 
 !!! info "Concepto clave"
 Ansible no describe *cómo* ejecutar tareas, sino *cómo debe quedar el sistema*.
 
-***
+---
 
 ### 2. Arquitectura de Ansible
 
 Componentes principales:
 
-* **Nodo de control**: donde se ejecuta Ansible
-* **Nodos gestionados**: servidores destino
-* **Inventario**: listado de hosts
-* **Playbooks**: definiciones de tareas
-* **Módulos**: unidades de trabajo (copy, apt, service, etc.)
+- **Nodo de control**: donde se ejecuta Ansible
+- **Nodos gestionados**: servidores destino
+- **Inventario**: listado de hosts
+- **Playbooks**: definiciones de tareas
+- **Módulos**: unidades de trabajo (copy, apt, service, etc.)
 
 Flujo:
 
@@ -61,7 +61,7 @@ Flujo:
 3. Ejecuta módulos en remoto
 4. Devuelve resultados
 
-***
+---
 
 ### 3. Inventario de hosts
 
@@ -78,10 +78,10 @@ db1 ansible_host=192.168.1.20
 
 Parámetros útiles:
 
-* `ansible_user`
-* `ansible_ssh_private_key_file`
+- `ansible_user`
+- `ansible_ssh_private_key_file`
 
-***
+---
 
 ### 4. Playbooks y YAML
 
@@ -101,25 +101,25 @@ Los playbooks definen tareas de forma declarativa:
 
 Elementos:
 
-* `hosts` → grupo destino
-* `become` → privilegios elevados
-* `tasks` → lista de acciones
+- `hosts` → grupo destino
+- `become` → privilegios elevados
+- `tasks` → lista de acciones
 
-***
+---
 
 ### 5. Módulos
 
 Ansible utiliza módulos en lugar de comandos directos:
 
-* `apt` → gestión de paquetes
-* `copy` → copia de archivos
-* `service` → gestión de servicios
-* `file` → gestión de permisos
+- `apt` → gestión de paquetes
+- `copy` → copia de archivos
+- `service` → gestión de servicios
+- `file` → gestión de permisos
 
 !!! warning "Evitar malas prácticas"
 No abuses del módulo `shell`. Prioriza módulos nativos.
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -127,11 +127,11 @@ No abuses del módulo `shell`. Prioriza módulos nativos.
 
 Gestionar dos servidores web:
 
-* instalar nginx
-* desplegar contenido web
-* asegurar que el servicio está activo
+- instalar nginx
+- desplegar contenido web
+- asegurar que el servicio está activo
 
-***
+---
 
 ## Parte 1: Instalación de Ansible
 
@@ -146,7 +146,7 @@ Verificación:
 ansible --version
 ```
 
-***
+---
 
 ## Parte 2: Crear inventario
 
@@ -160,7 +160,7 @@ nano hosts.ini
 192.168.1.11
 ```
 
-***
+---
 
 ## Parte 3: Test de conectividad
 
@@ -174,7 +174,7 @@ Output esperado:
 "ping": "pong"
 ```
 
-***
+---
 
 ## Parte 4: Crear playbook
 
@@ -209,7 +209,7 @@ Contenido:
         enabled: true
 ```
 
-***
+---
 
 ## Parte 5: Ejecutar playbook
 
@@ -217,19 +217,19 @@ Contenido:
 ansible-playbook -i hosts.ini install_nginx.yml
 ```
 
-***
+---
 
 ## Resultado esperado
 
-* Nginx instalado en todos los nodos
-* Servicio activo
-* Página accesible:
+- Nginx instalado en todos los nodos
+- Servicio activo
+- Página accesible:
 
 ```bash
 curl http://IP
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -239,62 +239,62 @@ curl http://IP
 UNREACHABLE
 ```
 
-**Causa:**
+-*Causa:**
 
-* claves SSH no configuradas
+- claves SSH no configuradas
 
-**Solución:**
+-*Solución:**
 
 ```bash
 ssh-copy-id user@host
 ```
 
-***
+---
 
 ### 2. Permisos insuficientes
 
 Errores al instalar paquetes.
 
-**Solución:**
+-*Solución:**
 
 ```yaml
 become: true
 ```
 
-***
+---
 
 ### 3. Inventario incorrecto
 
 Hosts mal definidos o inaccesibles.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 ansible-inventory -i hosts.ini --list
 ```
 
-***
+---
 
 ### 4. Uso incorrecto de YAML
 
 Errores de indentación.
 
-**Solución:**
+-*Solución:**
 
-* usar espacios (no tabs)
-* validar sintaxis
+- usar espacios (no tabs)
+- validar sintaxis
 
-***
+---
 
 ### 5. Cambios no aplicados
 
 Ansible no ejecuta tareas si no detecta cambios.
 
-**Causa:**
+-*Causa:**
 
 idempotencia.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -308,7 +308,7 @@ ansible/
 └── playbooks/
 ```
 
-***
+---
 
 ### 2. Uso de roles
 
@@ -318,7 +318,7 @@ Permite modularidad:
 ansible-galaxy init nginx
 ```
 
-***
+---
 
 ### 3. Variables
 
@@ -328,7 +328,7 @@ Separar configuración de lógica:
 nginx_port: 80
 ```
 
-***
+---
 
 ### 4. Vault (secretos)
 
@@ -336,13 +336,13 @@ nginx_port: 80
 ansible-vault encrypt vars.yml
 ```
 
-***
+---
 
 ### 5. Idempotencia estricta
 
 Evitar tareas no deterministas.
 
-***
+---
 
 ### 6. Control de cambios
 
@@ -352,7 +352,7 @@ Ejecutar en modo check:
 ansible-playbook --check
 ```
 
-***
+---
 
 ### 7. Limitar impacto
 
@@ -360,19 +360,19 @@ ansible-playbook --check
 --limit web1
 ```
 
-***
+---
 
 ### 8. Logs y auditoría
 
 Integrar con sistemas de logging centralizado.
 
-***
+---
 
 ### 9. Evitar snowflake servers
 
 Todos los servidores deben ser reproducibles.
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

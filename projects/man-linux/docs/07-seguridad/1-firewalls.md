@@ -1,6 +1,6 @@
 # 7.1 Firewalls en Linux: UFW y NFTables
 
-***
+---
 
 ## Introducción
 
@@ -8,25 +8,25 @@ En cualquier sistema expuesto a red, el **firewall** es la primera línea de def
 
 En Linux moderno existen múltiples herramientas, pero destacan dos enfoques:
 
-* **UFW (Uncomplicated Firewall)** → interfaz simplificada (ideal para administración rápida).
-* **NFTables** → herramienta avanzada y moderna que sustituye a iptables.
+- **UFW (Uncomplicated Firewall)** → interfaz simplificada (ideal para administración rápida).
+- **NFTables** → herramienta avanzada y moderna que sustituye a iptables.
 
 Como Sysadmin, debes ser capaz de trabajar con ambos: UFW para operaciones rápidas y NFTables para configuraciones complejas y altamente optimizadas.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender cómo funciona un firewall a nivel de filtrado de paquetes.
-* Configurar reglas básicas con UFW.
-* Implementar políticas avanzadas con NFTables.
-* Gestionar tráfico entrante, saliente y reenviado.
-* Diagnosticar problemas de conectividad relacionados con firewall.
-* Diseñar políticas seguras en entornos de producción.
+- Comprender cómo funciona un firewall a nivel de filtrado de paquetes.
+- Configurar reglas básicas con UFW.
+- Implementar políticas avanzadas con NFTables.
+- Gestionar tráfico entrante, saliente y reenviado.
+- Diagnosticar problemas de conectividad relacionados con firewall.
+- Diseñar políticas seguras en entornos de producción.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -34,54 +34,54 @@ Al finalizar este capítulo serás capaz de:
 
 Un **firewall** es un sistema que inspecciona paquetes de red y decide si deben ser:
 
-* **Aceptados (ACCEPT)**
-* **Rechazados (REJECT)**
-* **Descartados (DROP)**
+- **Aceptados (ACCEPT)**
+- **Rechazados (REJECT)**
+- **Descartados (DROP)**
 
 Se basa en reglas que analizan:
 
-* IP origen/destino
-* puerto
-* protocolo (TCP, UDP, ICMP)
+- IP origen/destino
+- puerto
+- protocolo (TCP, UDP, ICMP)
 
-***
+---
 
 ### 2. Tipos de filtrado
 
 #### Stateless
 
-* No mantiene estado.
-* Analiza paquetes individualmente.
+- No mantiene estado.
+- Analiza paquetes individualmente.
 
 #### Stateful (moderno)
 
-* Mantiene seguimiento de conexiones.
-* Permite tráfico relacionado automáticamente.
+- Mantiene seguimiento de conexiones.
+- Permite tráfico relacionado automáticamente.
 
 Ejemplo:
 
-* Permites conexión saliente HTTP → respuestas permitidas automáticamente.
+- Permites conexión saliente HTTP → respuestas permitidas automáticamente.
 
-***
+---
 
 ### 3. Cadenas y tablas (concepto base)
 
 En motores como nftables:
 
-* **INPUT** → tráfico entrante
-* **OUTPUT** → tráfico saliente
-* **FORWARD** → tráfico encaminado
+- **INPUT** → tráfico entrante
+- **OUTPUT** → tráfico saliente
+- **FORWARD** → tráfico encaminado
 
-***
+---
 
 ### 4. Políticas por defecto
 
 Definen comportamiento cuando no hay reglas:
 
-* **deny all** → todo bloqueado (recomendado)
-* **allow all** → inseguro
+- **deny all** → todo bloqueado (recomendado)
+- **allow all** → inseguro
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -89,15 +89,15 @@ Definen comportamiento cuando no hay reglas:
 
 Configurar un servidor seguro:
 
-* Solo permitir SSH y HTTP
-* Bloquear resto de tráfico entrante
-* Permitir salidas
+- Solo permitir SSH y HTTP
+- Bloquear resto de tráfico entrante
+- Permitir salidas
 
-***
+---
 
 # Parte 1: Configuración con UFW
 
-***
+---
 
 ## Paso 1: Instalar y activar UFW
 
@@ -106,7 +106,7 @@ sudo apt install ufw
 sudo ufw enable
 ```
 
-***
+---
 
 ## Paso 2: Definir políticas por defecto
 
@@ -115,7 +115,7 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-***
+---
 
 ## Paso 3: Permitir SSH
 
@@ -126,7 +126,7 @@ sudo ufw allow 22/tcp
 !!! warning "Acceso remoto"
 Permitir SSH antes de activar el firewall evita perder acceso al servidor.
 
-***
+---
 
 ## Paso 4: Permitir HTTP
 
@@ -134,7 +134,7 @@ Permitir SSH antes de activar el firewall evita perder acceso al servidor.
 sudo ufw allow 80/tcp
 ```
 
-***
+---
 
 ## Paso 5: Ver estado
 
@@ -151,7 +151,7 @@ Default: deny (incoming), allow (outgoing)
 80/tcp ALLOW
 ```
 
-***
+---
 
 ## Paso 6: Eliminar regla
 
@@ -159,7 +159,7 @@ Default: deny (incoming), allow (outgoing)
 sudo ufw delete allow 80/tcp
 ```
 
-***
+---
 
 ## Paso 7: Limitar acceso SSH
 
@@ -169,11 +169,11 @@ sudo ufw limit 22/tcp
 
 Mitiga ataques brute-force.
 
-***
+---
 
 # Parte 2: Configuración con NFTables
 
-***
+---
 
 ## Paso 1: Ver estado
 
@@ -181,7 +181,7 @@ Mitiga ataques brute-force.
 sudo nft list ruleset
 ```
 
-***
+---
 
 ## Paso 2: Crear configuración básica
 
@@ -218,16 +218,16 @@ table inet filter {
 }
 ```
 
-***
+---
 
 ## Explicación
 
-* **policy drop** → bloqueo por defecto
-* **ct state established** → tráfico legítimo permitido
-* **lo** → loopback permitido
-* reglas específicas → puertos abiertos
+- **policy drop** → bloqueo por defecto
+- **ct state established** → tráfico legítimo permitido
+- **lo** → loopback permitido
+- reglas específicas → puertos abiertos
 
-***
+---
 
 ## Paso 3: Aplicar configuración
 
@@ -236,7 +236,7 @@ sudo systemctl enable nftables
 sudo systemctl start nftables
 ```
 
-***
+---
 
 ## Paso 4: Validar reglas
 
@@ -244,7 +244,7 @@ sudo systemctl start nftables
 sudo nft list ruleset
 ```
 
-***
+---
 
 ## Paso 5: Añadir regla en caliente
 
@@ -252,22 +252,22 @@ sudo nft list ruleset
 sudo nft add rule inet filter input tcp dport 443 accept
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. Pérdida de conexión SSH
 
-**Causa:**
+-*Causa:**
 
-* Firewall bloqueó puerto 22.
+- Firewall bloqueó puerto 22.
 
-**Solución:**
+-*Solución:**
 
-* Acceso por consola (KVM / rescue).
-* Corregir reglas.
+- Acceso por consola (KVM / rescue).
+- Corregir reglas.
 
-***
+---
 
 ### 2. Servicio no accesible
 
@@ -283,7 +283,7 @@ Y firewall:
 ufw status
 ```
 
-***
+---
 
 ### 3. Reglas duplicadas
 
@@ -293,7 +293,7 @@ Revisar:
 ufw status numbered
 ```
 
-***
+---
 
 ### 4. NFTables no persistente
 
@@ -303,14 +303,14 @@ Asegurar:
 systemctl enable nftables
 ```
 
-***
+---
 
 ### 5. Conflicto UFW vs NFTables
 
 !!! warning "No mezclar herramientas"
 Usar múltiples firewalls simultáneamente puede generar conflictos imprevisibles.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -322,13 +322,13 @@ Siempre:
 deny incoming
 ```
 
-***
+---
 
 ### 2. Principio de mínimo acceso
 
 Solo abrir puertos necesarios.
 
-***
+---
 
 ### 3. Logging selectivo
 
@@ -338,24 +338,24 @@ En nftables:
 log prefix "DROP: "
 ```
 
-***
+---
 
 ### 4. Hardening SSH junto a firewall
 
-* limitar conexiones
-* usar fail2ban
+- limitar conexiones
+- usar fail2ban
 
-***
+---
 
 ### 5. Segmentación de red
 
 Separar:
 
-* frontend
-* backend
-* bases de datos
+- frontend
+- backend
+- bases de datos
 
-***
+---
 
 ### 6. Automatización
 
@@ -368,7 +368,7 @@ Ejemplo Ansible:
     port: 22
 ```
 
-***
+---
 
 ### 7. Auditorías periódicas
 
@@ -376,7 +376,7 @@ Ejemplo Ansible:
 nmap localhost
 ```
 
-***
+---
 
 ### 8. Evitar reglas demasiado permisivas
 
@@ -386,7 +386,7 @@ nmap localhost
 ufw allow 0.0.0.0/0
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

@@ -1,6 +1,6 @@
 # 6.2 Resolución de Nombres (DNS) en Linux
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ En cualquier infraestructura moderna, los humanos no trabajan con direcciones IP
 
 Para un Sysadmin, comprender el funcionamiento del DNS es crítico: una mala configuración puede provocar desde lentitud en aplicaciones hasta la completa indisponibilidad de servicios. Además, el DNS es un punto clave tanto en rendimiento como en seguridad.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Entender cómo funciona el sistema DNS a nivel conceptual.
-* Configurar resolvers en Linux correctamente.
-* Diagnosticar problemas de resolución de nombres.
-* Utilizar herramientas como `dig`, `nslookup` y `host`.
-* Implementar configuraciones locales con `/etc/hosts`.
-* Analizar latencias y errores de resolución.
+- Entender cómo funciona el sistema DNS a nivel conceptual.
+- Configurar resolvers en Linux correctamente.
+- Diagnosticar problemas de resolución de nombres.
+- Utilizar herramientas como `dig`, `nslookup` y `host`.
+- Implementar configuraciones locales con `/etc/hosts`.
+- Analizar latencias y errores de resolución.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -44,15 +44,15 @@ www.google.com → 142.250.x.x
 4. Se obtiene la IP.
 5. Se devuelve al cliente.
 
-***
+---
 
 ### 2. Jerarquía DNS
 
 El DNS está estructurado en niveles:
 
-* **Root Servers (.)**
-* **TLD (.com, .org, .es)**
-* **Dominios autoritativos**
+- **Root Servers (.)**
+- **TLD (.com, .org, .es)**
+- **Dominios autoritativos**
 
 Ejemplo:
 
@@ -64,7 +64,7 @@ www.example.com
 └── example.com (autoritativo)
 ```
 
-***
+---
 
 ### 3. /etc/resolv.conf
 
@@ -83,10 +83,10 @@ nameserver 1.1.1.1
 
 Campos importantes:
 
-* **nameserver:** servidor DNS.
-* **search:** dominios de búsqueda.
+- **nameserver:** servidor DNS.
+- **search:** dominios de búsqueda.
 
-***
+---
 
 ### 4. /etc/hosts
 
@@ -106,15 +106,15 @@ Ejemplo:
 !!! info "Prioridad de resolución"
 El sistema consulta primero `/etc/hosts` antes que DNS.
 
-***
+---
 
 ### 5. systemd-resolved
 
 En sistemas modernos, systemd introduce:
 
-* resolución DNS gestionada
-* caché local
-* soporte DNSSEC
+- resolución DNS gestionada
+- caché local
+- soporte DNSSEC
 
 Consulta estado:
 
@@ -122,7 +122,7 @@ Consulta estado:
 systemd-resolve --status
 ```
 
-***
+---
 
 ### 6. NSS (Name Service Switch)
 
@@ -143,7 +143,7 @@ Orden:
 1. `/etc/hosts`
 2. DNS
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -151,11 +151,11 @@ Orden:
 
 Un servidor no puede acceder a `intranet.local`. Necesitas:
 
-* verificar resolución DNS
-* comprobar configuración
-* corregir problemas
+- verificar resolución DNS
+- comprobar configuración
+- corregir problemas
 
-***
+---
 
 ## Paso 1: Test básico de resolución
 
@@ -169,14 +169,14 @@ Si falla:
 ping 8.8.8.8
 ```
 
-***
+---
 
 ### Interpretación
 
-* ✅ IP funciona, DNS no → problema de resolución
-* ❌ ambos fallan → problema de red
+- ✅ IP funciona, DNS no → problema de resolución
+- ❌ ambos fallan → problema de red
 
-***
+---
 
 ## Paso 2: Uso de dig
 
@@ -193,10 +193,10 @@ google.com.    300    IN    A    142.250.x.x
 
 Campos clave:
 
-* **ANSWER SECTION:** resultado
-* **Query time:** latencia
+- **ANSWER SECTION:** resultado
+- **Query time:** latencia
 
-***
+---
 
 ## Paso 3: Consulta a servidor específico
 
@@ -206,7 +206,7 @@ dig @8.8.8.8 intranet.local
 
 Sirve para aislar problemas locales.
 
-***
+---
 
 ## Paso 4: Uso de nslookup
 
@@ -221,7 +221,7 @@ Server: 8.8.8.8
 Address: 8.8.8.8#53
 ```
 
-***
+---
 
 ## Paso 5: Verificar resolver local
 
@@ -235,7 +235,7 @@ Corregir:
 sudo nano /etc/resolv.conf
 ```
 
-***
+---
 
 ## Paso 6: Test con host
 
@@ -243,7 +243,7 @@ sudo nano /etc/resolv.conf
 host google.com
 ```
 
-***
+---
 
 ## Paso 7: Uso de /etc/hosts para override
 
@@ -263,7 +263,7 @@ Validar:
 ping intranet.local
 ```
 
-***
+---
 
 ## Paso 8: Limpiar caché DNS
 
@@ -273,24 +273,24 @@ Systemd:
 sudo systemd-resolve --flush-caches
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. resolv.conf se sobrescribe
 
-**Causa:**
+-*Causa:**
 
-* DHCP o NetworkManager
+- DHCP o NetworkManager
 
 !!! warning "Conflicto de gestión"
 No edites resolv.conf manualmente en sistemas gestionados.
 
-**Solución:**
+-*Solución:**
 
-* Configurar DNS en Netplan o nmcli.
+- Configurar DNS en Netplan o nmcli.
 
-***
+---
 
 ### 2. DNS lento
 
@@ -302,7 +302,7 @@ dig google.com
 
 Alta latencia → cambiar DNS.
 
-***
+---
 
 ### 3. Dominio no resuelve
 
@@ -314,7 +314,7 @@ dig dominio
 
 Si no hay ANSWER → problema externo.
 
-***
+---
 
 ### 4. Cache obsoleta
 
@@ -322,13 +322,13 @@ Si no hay ANSWER → problema externo.
 systemd-resolve --flush-caches
 ```
 
-***
+---
 
 ### 5. Error en /etc/hosts
 
 Entradas incorrectas pueden romper servicios.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -339,16 +339,16 @@ nameserver 1.1.1.1
 nameserver 8.8.8.8
 ```
 
-***
+---
 
 ### 2. Implementa caché local
 
-* systemd-resolved
-* dnsmasq
+- systemd-resolved
+- dnsmasq
 
 Reduce latencia.
 
-***
+---
 
 ### 3. Monitoriza latencia
 
@@ -356,20 +356,20 @@ Reduce latencia.
 dig google.com | grep "Query time"
 ```
 
-***
+---
 
 ### 4. Evita hardcoding innecesario
 
 Solo usa `/etc/hosts` para casos controlados.
 
-***
+---
 
 ### 5. Seguridad DNS
 
-* Evita DNS públicos en entornos sensibles.
-* Usa DNS internos (AD, Bind).
+- Evita DNS públicos en entornos sensibles.
+- Usa DNS internos (AD, Bind).
 
-***
+---
 
 ### 6. Auditoría
 
@@ -379,7 +379,7 @@ Revisar periódicamente:
 cat /etc/resolv.conf
 ```
 
-***
+---
 
 ### 7. Automatización
 
@@ -392,7 +392,7 @@ Ejemplo con Ansible:
     line: "nameserver 1.1.1.1"
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

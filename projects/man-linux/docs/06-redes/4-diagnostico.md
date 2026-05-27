@@ -1,6 +1,6 @@
 # 6.4 Diagnóstico de Red en Linux
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ En producción, los problemas de red no suelen ser evidentes ni simples. Una ca�
 
 Dominar estas técnicas te permitirá identificar rápidamente dónde está el problema (capa física, red, transporte o aplicación) y actuar con precisión, evitando tiempos de indisponibilidad prolongados.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Diagnosticar problemas de conectividad en múltiples capas.
-* Utilizar herramientas clave (`ping`, `traceroute`, `ss`, `tcpdump`, etc.).
-* Interpretar latencia, pérdida de paquetes y rutas.
-* Analizar puertos abiertos y conexiones activas.
-* Detectar cuellos de botella y problemas de red complejos.
-* Aplicar metodologías sistemáticas de troubleshooting.
+- Diagnosticar problemas de conectividad en múltiples capas.
+- Utilizar herramientas clave (`ping`, `traceroute`, `ss`, `tcpdump`, etc.).
+- Interpretar latencia, pérdida de paquetes y rutas.
+- Analizar puertos abiertos y conexiones activas.
+- Detectar cuellos de botella y problemas de red complejos.
+- Aplicar metodologías sistemáticas de troubleshooting.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -37,18 +37,18 @@ Para diagnosticar red, debes pensar en capas:
 !!! info "Regla de oro"
 Siempre diagnostica de abajo hacia arriba. No intentes resolver DNS si no tienes conectividad IP.
 
-***
+---
 
 ### 2. Tipos de Problemas Comunes
 
-* Sin conectividad
-* Latencia alta
-* Pérdida de paquetes
-* DNS lento o incorrecto
-* Puertos cerrados
-* Routing mal configurado
+- Sin conectividad
+- Latencia alta
+- Pérdida de paquetes
+- DNS lento o incorrecto
+- Puertos cerrados
+- Routing mal configurado
 
-***
+---
 
 ### 3. Herramientas clave
 
@@ -62,7 +62,7 @@ Siempre diagnostica de abajo hacia arriba. No intentes resolver DNS si no tienes
 | `netstat` (legacy) | conexiones            |
 | `mtr`              | latencia + traceroute |
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -70,7 +70,7 @@ Siempre diagnostica de abajo hacia arriba. No intentes resolver DNS si no tienes
 
 Un usuario reporta que no puede acceder a un servicio web (`http://miapp.local`). Debes identificar la causa.
 
-***
+---
 
 ## Paso 1: Verificar conectividad básica
 
@@ -80,10 +80,10 @@ ping -c 4 8.8.8.8
 
 ### Interpretación
 
-* ✅ Responde → hay red
-* ❌ No responde → fallo de conectividad
+- ✅ Responde → hay red
+- ❌ No responde → fallo de conectividad
 
-***
+---
 
 ## Paso 2: Verificar IP local
 
@@ -93,10 +93,10 @@ ip a
 
 Buscar:
 
-* IP asignada
-* interfaz UP
+- IP asignada
+- interfaz UP
 
-***
+---
 
 ## Paso 3: Verificar routing
 
@@ -110,7 +110,7 @@ Debe existir:
 default via 192.168.1.1
 ```
 
-***
+---
 
 ## Paso 4: Diagnóstico DNS
 
@@ -122,7 +122,7 @@ ping google.com
 dig miapp.local
 ```
 
-***
+---
 
 ## Paso 5: Analizar ruta con traceroute
 
@@ -140,9 +140,9 @@ Output típico:
 
 ### Interpretación
 
-* Salto donde falla → posible bloqueo o caída.
+- Salto donde falla → posible bloqueo o caída.
 
-***
+---
 
 ## Paso 6: Uso de mtr (muy recomendado)
 
@@ -152,11 +152,11 @@ mtr google.com
 
 Combina:
 
-* traceroute
-* latencia
-* pérdida de paquetes
+- traceroute
+- latencia
+- pérdida de paquetes
 
-***
+---
 
 ## Paso 7: Ver puertos abiertos
 
@@ -170,7 +170,7 @@ Ejemplo:
 LISTEN 0 128 0.0.0.0:80
 ```
 
-***
+---
 
 ## Paso 8: Test de puerto remoto
 
@@ -178,7 +178,7 @@ LISTEN 0 128 0.0.0.0:80
 nc -zv 192.168.1.10 80
 ```
 
-***
+---
 
 ## Paso 9: Captura de tráfico con tcpdump
 
@@ -188,10 +188,10 @@ sudo tcpdump -i eth0 port 80
 
 Permite ver:
 
-* paquetes entrantes/salientes
-* errores de comunicación
+- paquetes entrantes/salientes
+- errores de comunicación
 
-***
+---
 
 ## Paso 10: Diagnóstico HTTP
 
@@ -205,26 +205,26 @@ Output esperado:
 HTTP/1.1 200 OK
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. Ping funciona pero servicio no
 
-* Problema de capa 7 (aplicación).
-* Verificar servicio:
+- Problema de capa 7 (aplicación).
+- Verificar servicio:
 
 ```bash
 systemctl status nginx
 ```
 
-***
+---
 
 ### 2. DNS funciona pero no hay conexión
 
-* Problema de firewall o routing.
+- Problema de firewall o routing.
 
-***
+---
 
 ### 3. Alta latencia
 
@@ -234,10 +234,10 @@ Ver:
 mtr google.com
 ```
 
-* posible congestión
-* proveedor ISP
+- posible congestión
+- proveedor ISP
 
-***
+---
 
 ### 4. Puerto cerrado
 
@@ -247,7 +247,7 @@ Verificar:
 ss -tulnp
 ```
 
-***
+---
 
 ### 5. Firewall bloqueando
 
@@ -255,7 +255,7 @@ ss -tulnp
 sudo ufw status
 ```
 
-***
+---
 
 ### 6. Interfaz caída
 
@@ -263,7 +263,7 @@ sudo ufw status
 ip link show
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -277,14 +277,14 @@ Siempre seguir orden:
 4. puerto
 5. aplicación
 
-***
+---
 
 ### 2. Usa herramientas adecuadas
 
-* `mtr` en lugar de traceroute si es posible.
-* `ss` en lugar de netstat.
+- `mtr` en lugar de traceroute si es posible.
+- `ss` en lugar de netstat.
 
-***
+---
 
 ### 3. Logs son clave
 
@@ -292,7 +292,7 @@ Siempre seguir orden:
 journalctl -u network
 ```
 
-***
+---
 
 ### 4. Automatiza checks
 
@@ -302,22 +302,22 @@ Ejemplo script:
 ping -c 2 8.8.8.8 || echo "Fallo red"
 ```
 
-***
+---
 
 ### 5. Monitorización continua
 
-* Prometheus
-* Nagios
-* Zabbix
+- Prometheus
+- Nagios
+- Zabbix
 
-***
+---
 
 ### 6. Seguridad
 
-* No exponer servicios innecesarios.
-* Auditar puertos abiertos regularmente.
+- No exponer servicios innecesarios.
+- Auditar puertos abiertos regularmente.
 
-***
+---
 
 ### 7. Captura selectiva
 
@@ -333,17 +333,17 @@ Prefiere filtros:
 tcpdump port 443
 ```
 
-***
+---
 
 ### 8. Documenta topología
 
 Tener claridad sobre:
 
-* subredes
-* gateways
-* servicios
+- subredes
+- gateways
+- servicios
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

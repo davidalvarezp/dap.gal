@@ -1,6 +1,6 @@
 # 5.3 Tareas Programadas en Linux: Cron y systemd timers
 
-***
+---
 
 ## Introducción
 
@@ -8,40 +8,40 @@ La automatización es uno de los pilares de la administración de sistemas. En e
 
 Como Sysadmin, debes dominar ambos enfoques: cron por su simplicidad y compatibilidad universal, y systemd timers por su integración con el ecosistema moderno de Linux.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender cómo funciona el sistema cron.
-* Escribir y gestionar tareas programadas con crontab.
-* Interpretar la sintaxis de programación temporal.
-* Diagnosticar fallos en ejecuciones automáticas.
-* Implementar tareas programadas con systemd timers.
-* Elegir entre cron y systemd según el caso de uso.
+- Comprender cómo funciona el sistema cron.
+- Escribir y gestionar tareas programadas con crontab.
+- Interpretar la sintaxis de programación temporal.
+- Diagnosticar fallos en ejecuciones automáticas.
+- Implementar tareas programadas con systemd timers.
+- Elegir entre cron y systemd según el caso de uso.
 
-***
+---
 
 ## Conceptos Teóricos
 
 ### 1. ¿Qué es cron?
 
-**cron** es un servicio que ejecuta comandos o scripts en intervalos definidos.
+-*cron** es un servicio que ejecuta comandos o scripts en intervalos definidos.
 
 Componentes clave:
 
-* **crond:** daemon que ejecuta tareas.
-* **crontab:** archivo donde se definen las tareas.
+- **crond:** daemon que ejecuta tareas.
+- **crontab:** archivo donde se definen las tareas.
 
-***
+---
 
 ### 2. Sintaxis de crontab
 
 Cada línea tiene 5 campos temporales + comando:
 
 ```text
-* * * * * comando
+- * * * * comando
 │ │ │ │ │
 │ │ │ │ └── Día semana (0-7)
 │ │ │ └──── Mes (1-12)
@@ -58,17 +58,17 @@ Ejemplo:
 
 ➡️ Ejecuta a las **02:00 cada día**.
 
-***
+---
 
 ### 3. Tipos de crontab
 
-* Usuario:
+- Usuario:
 
 ```bash
 crontab -e
 ```
 
-* Sistema:
+- Sistema:
 
 ```bash
 /etc/crontab
@@ -77,13 +77,13 @@ crontab -e
 
 Diferencia clave:
 
-* `/etc/crontab` incluye campo de usuario:
+- `/etc/crontab` incluye campo de usuario:
 
 ```text
 0 3 * * * root /script.sh
 ```
 
-***
+---
 
 ### 4. Variables de entorno en cron
 
@@ -100,7 +100,7 @@ SHELL
 !!! warning "Entorno limitado"
 Muchos scripts fallan en cron porque dependen de variables que no están definidas.
 
-***
+---
 
 ### 5. systemd timers
 
@@ -108,17 +108,17 @@ Alternativa moderna a cron:
 
 Ventajas:
 
-* Integración con systemd.
-* Registro centralizado en journal.
-* Mejor control de dependencias.
-* Mayor flexibilidad temporal.
+- Integración con systemd.
+- Registro centralizado en journal.
+- Mejor control de dependencias.
+- Mayor flexibilidad temporal.
 
 Ejemplo:
 
-* `backup.service`
-* `backup.timer`
+- `backup.service`
+- `backup.timer`
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -126,11 +126,11 @@ Ejemplo:
 
 Necesitas programar una copia de seguridad diaria y asegurarte de que:
 
-* Se ejecuta automáticamente.
-* Registra logs.
-* Puede auditarse fácilmente.
+- Se ejecuta automáticamente.
+- Registra logs.
+- Puede auditarse fácilmente.
 
-***
+---
 
 ## Parte 1: Implementación con cron
 
@@ -140,7 +140,7 @@ Necesitas programar una copia de seguridad diaria y asegurarte de que:
 crontab -e
 ```
 
-***
+---
 
 ### Paso 2: Añadir tarea
 
@@ -150,11 +150,11 @@ crontab -e
 
 #### Explicación
 
-* `0 2 * * *` → ejecución diaria a las 02:00.
-* `>>` → append a log.
-* `2>&1` → redirige errores a log.
+- `0 2 * * *` → ejecución diaria a las 02:00.
+- `>>` → append a log.
+- `2>&1` → redirige errores a log.
 
-***
+---
 
 ### Paso 3: Verificar tareas
 
@@ -162,7 +162,7 @@ crontab -e
 crontab -l
 ```
 
-***
+---
 
 ### Paso 4: Comprobar logs
 
@@ -170,7 +170,7 @@ crontab -l
 cat /var/log/backup.log
 ```
 
-***
+---
 
 ## Parte 2: Implementación con systemd timers
 
@@ -191,7 +191,7 @@ Type=oneshot
 ExecStart=/usr/local/bin/backup.sh
 ```
 
-***
+---
 
 ### Paso 2: Crear timer
 
@@ -213,14 +213,14 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-***
+---
 
 ### Explicación
 
-* **OnCalendar** → programación temporal.
-* **Persistent=true** → ejecuta si el sistema estuvo apagado.
+- **OnCalendar** → programación temporal.
+- **Persistent=true** → ejecuta si el sistema estuvo apagado.
 
-***
+---
 
 ### Paso 3: Activar timer
 
@@ -229,7 +229,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now backup.timer
 ```
 
-***
+---
 
 ### Paso 4: Ver timers activos
 
@@ -237,7 +237,7 @@ sudo systemctl enable --now backup.timer
 systemctl list-timers
 ```
 
-***
+---
 
 ### Paso 5: Ver logs
 
@@ -245,17 +245,17 @@ systemctl list-timers
 journalctl -u backup.service
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. Script funciona manualmente pero no en cron
 
-**Causa:**
+-*Causa:**
 
-* PATH incorrecto.
+- PATH incorrecto.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -263,7 +263,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 Añadir al inicio del crontab.
 
-***
+---
 
 ### 2. No se ejecuta la tarea
 
@@ -273,7 +273,7 @@ Verifica:
 systemctl status cron
 ```
 
-***
+---
 
 ### 3. Falta de permisos
 
@@ -283,7 +283,7 @@ Cron no ejecuta si no tiene permisos:
 chmod +x script.sh
 ```
 
-***
+---
 
 ### 4. Problemas de entorno
 
@@ -293,7 +293,7 @@ Usa rutas absolutas siempre:
 /home/user/script.sh
 ```
 
-***
+---
 
 ### 5. Timer no ejecuta
 
@@ -303,7 +303,7 @@ Verifica:
 systemctl status backup.timer
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -313,7 +313,7 @@ systemctl status backup.timer
 >> /var/log/script.log 2>&1
 ```
 
-***
+---
 
 ### 2. Evita solapamiento de ejecuciones
 
@@ -323,26 +323,26 @@ Usa flock:
 flock -n /tmp/script.lock /usr/local/bin/script.sh
 ```
 
-***
+---
 
 ### 3. Usa systemd timers para producción crítica
 
 Ventajas:
 
-* tolerancia a fallos
-* logs centralizados
-* dependencias
+- tolerancia a fallos
+- logs centralizados
+- dependencias
 
-***
+---
 
 ### 4. Centraliza scripts
 
 Ubicaciones recomendadas:
 
-* `/usr/local/bin`
-* `/opt/scripts`
+- `/usr/local/bin`
+- `/opt/scripts`
 
-***
+---
 
 ### 5. Monitoriza ejecuciones
 
@@ -352,14 +352,14 @@ Ejemplo simple:
 grep CRON /var/log/syslog
 ```
 
-***
+---
 
 ### 6. Seguridad
 
-* No ejecutes como root si no es necesario.
-* Valida scripts antes de programar.
+- No ejecutes como root si no es necesario.
+- Valida scripts antes de programar.
 
-***
+---
 
 ### 7. Versionado
 
@@ -369,7 +369,7 @@ Guarda scripts en Git:
 git init /opt/scripts
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

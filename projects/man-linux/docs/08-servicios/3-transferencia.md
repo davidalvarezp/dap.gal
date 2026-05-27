@@ -1,6 +1,6 @@
 # 8.3 Transferencia de Archivos en Linux: SFTP, SCP, Rsync y FTP
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ La transferencia de archivos es una necesidad fundamental en cualquier entorno L
 
 Existen múltiples herramientas y protocolos para la transferencia de datos en Linux. En entornos modernos, destacan **SCP, SFTP y Rsync** por su integración con SSH y su enfoque seguro, mientras que **FTP** queda relegado a entornos legacy o específicos.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender los principales protocolos de transferencia en Linux.
-* Transferir archivos de forma segura con SCP y SFTP.
-* Sincronizar datos eficientemente con Rsync.
-* Configurar servicios de transferencia.
-* Diagnosticar problemas de transferencias.
-* Aplicar buenas prácticas de seguridad y automatización.
+- Comprender los principales protocolos de transferencia en Linux.
+- Transferir archivos de forma segura con SCP y SFTP.
+- Sincronizar datos eficientemente con Rsync.
+- Configurar servicios de transferencia.
+- Diagnosticar problemas de transferencias.
+- Aplicar buenas prácticas de seguridad y automatización.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -29,28 +29,28 @@ Al finalizar este capítulo serás capaz de:
 
 #### FTP (File Transfer Protocol)
 
-* Protocolo clásico.
-* **No cifrado** → inseguro.
-* Usa puerto 21.
+- Protocolo clásico.
+- **No cifrado** → inseguro.
+- Usa puerto 21.
 
 #### SFTP (SSH File Transfer Protocol)
 
-* Basado en SSH.
-* Transferencia cifrada.
-* Muy usado en producción.
+- Basado en SSH.
+- Transferencia cifrada.
+- Muy usado en producción.
 
 #### SCP (Secure Copy)
 
-* Transferencia directa sobre SSH.
-* Simple y rápida.
+- Transferencia directa sobre SSH.
+- Simple y rápida.
 
 #### Rsync
 
-* Sincronización inteligente.
-* Solo transfiere diferencias.
-* Optimiza ancho de banda.
+- Sincronización inteligente.
+- Solo transfiere diferencias.
+- Optimiza ancho de banda.
 
-***
+---
 
 ### 2. Comparativa rápida
 
@@ -61,17 +61,17 @@ Al finalizar este capítulo serás capaz de:
 | SCP         | ✅         | Media      | Copias rápidas       |
 | Rsync       | ✅         | ✅✅         | Sincronización       |
 
-***
+---
 
 ### 3. Integración con SSH
 
 SCP, SFTP y Rsync utilizan SSH, lo que implica:
 
-* cifrado
-* autenticación por claves
-* control de acceso
+- cifrado
+- autenticación por claves
+- control de acceso
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -79,15 +79,15 @@ SCP, SFTP y Rsync utilizan SSH, lo que implica:
 
 Necesitas:
 
-* transferir archivos a un servidor remoto
-* sincronizar backups
-* asegurar el canal de transferencia
+- transferir archivos a un servidor remoto
+- sincronizar backups
+- asegurar el canal de transferencia
 
-***
+---
 
 # Parte 1: Transferencia con SCP
 
-***
+---
 
 ## Paso 1: Copiar archivo al servidor
 
@@ -95,7 +95,7 @@ Necesitas:
 scp archivo.txt usuario@servidor:/tmp/
 ```
 
-***
+---
 
 ## Paso 2: Copiar desde servidor
 
@@ -103,7 +103,7 @@ scp archivo.txt usuario@servidor:/tmp/
 scp usuario@servidor:/tmp/archivo.txt .
 ```
 
-***
+---
 
 ## Paso 3: Copiar directorio
 
@@ -111,18 +111,18 @@ scp usuario@servidor:/tmp/archivo.txt .
 scp -r carpeta/ usuario@servidor:/tmp/
 ```
 
-***
+---
 
 ### Explicación
 
-* `-r` → recursivo
-* sintaxis similar a `cp`
+- `-r` → recursivo
+- sintaxis similar a `cp`
 
-***
+---
 
 # Parte 2: Transferencia con SFTP
 
-***
+---
 
 ## Paso 1: Conectar
 
@@ -130,7 +130,7 @@ scp -r carpeta/ usuario@servidor:/tmp/
 sftp usuario@servidor
 ```
 
-***
+---
 
 ## Paso 2: Navegación
 
@@ -139,7 +139,7 @@ ls
 cd /tmp
 ```
 
-***
+---
 
 ## Paso 3: Subir archivo
 
@@ -147,7 +147,7 @@ cd /tmp
 put archivo.txt
 ```
 
-***
+---
 
 ## Paso 4: Descargar archivo
 
@@ -155,7 +155,7 @@ put archivo.txt
 get archivo.txt
 ```
 
-***
+---
 
 ## Paso 5: Salir
 
@@ -163,11 +163,11 @@ get archivo.txt
 exit
 ```
 
-***
+---
 
 # Parte 3: Sincronización con Rsync
 
-***
+---
 
 ## Paso 1: Copia básica
 
@@ -175,7 +175,7 @@ exit
 rsync -av archivo.txt usuario@servidor:/tmp/
 ```
 
-***
+---
 
 ## Paso 2: Sincronizar directorio
 
@@ -183,7 +183,7 @@ rsync -av archivo.txt usuario@servidor:/tmp/
 rsync -av /local/ usuario@servidor:/remoto/
 ```
 
-***
+---
 
 ## Paso 3: Eliminar archivos obsoletos
 
@@ -191,15 +191,15 @@ rsync -av /local/ usuario@servidor:/remoto/
 rsync -av --delete /local/ usuario@servidor:/remoto/
 ```
 
-***
+---
 
 ### Explicación
 
-* `-a` → modo archivo (preserva permisos, timestamps)
-* `-v` → verbose
-* `--delete` → elimina en destino lo que no existe en origen
+- `-a` → modo archivo (preserva permisos, timestamps)
+- `-v` → verbose
+- `--delete` → elimina en destino lo que no existe en origen
 
-***
+---
 
 ## Paso 4: Compresión
 
@@ -207,7 +207,7 @@ rsync -av --delete /local/ usuario@servidor:/remoto/
 rsync -avz /local/ usuario@servidor:/remoto/
 ```
 
-***
+---
 
 ## Paso 5: Uso con SSH específico
 
@@ -215,11 +215,11 @@ rsync -avz /local/ usuario@servidor:/remoto/
 rsync -av -e ssh carpeta/ usuario@servidor:/destino/
 ```
 
-***
+---
 
 # Parte 4: Configuración básica de FTP (vsftpd)
 
-***
+---
 
 ## Instalación
 
@@ -227,7 +227,7 @@ rsync -av -e ssh carpeta/ usuario@servidor:/destino/
 sudo apt install vsftpd
 ```
 
-***
+---
 
 ## Configuración
 
@@ -243,7 +243,7 @@ local_enable=YES
 write_enable=YES
 ```
 
-***
+---
 
 ## Reiniciar
 
@@ -254,20 +254,20 @@ sudo systemctl restart vsftpd
 !!! warning "FTP inseguro"
 FTP transmite datos en claro. Solo usar en redes aisladas o migrar a SFTP.
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
 ### 1. Permission denied (SSH)
 
-* clave incorrecta
-* permisos mal configurados
+- clave incorrecta
+- permisos mal configurados
 
 ```bash
 chmod 600 ~/.ssh/id_ed25519
 ```
 
-***
+---
 
 ### 2. Conexión rechazada
 
@@ -275,23 +275,23 @@ chmod 600 ~/.ssh/id_ed25519
 systemctl status ssh
 ```
 
-***
+---
 
 ### 3. Rsync no sincroniza correctamente
 
 Revisar:
 
-* rutas origen/destino
-* uso correcto de `/`
+- rutas origen/destino
+- uso correcto de `/`
 
-***
+---
 
 ### 4. Velocidad lenta
 
-* sin compresión (`-z`)
-* latencia alta
+- sin compresión (`-z`)
+- latencia alta
 
-***
+---
 
 ### 5. Firewall bloqueando
 
@@ -299,14 +299,14 @@ Revisar:
 ufw allow 22/tcp
 ```
 
-***
+---
 
 ### 6. FTP no conecta
 
-* puerto 21 cerrado
-* modo pasivo no configurado
+- puerto 21 cerrado
+- modo pasivo no configurado
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -314,13 +314,13 @@ ufw allow 22/tcp
 
 Usar:
 
-* SCP
-* SFTP
-* Rsync
+- SCP
+- SFTP
+- Rsync
 
 Evitar FTP.
 
-***
+---
 
 ### 2. Automatización de backups
 
@@ -330,20 +330,20 @@ Ejemplo con cron:
 rsync -av --delete /data/ backup@server:/backup/
 ```
 
-***
+---
 
 ### 3. Uso de claves SSH
 
 Evitar contraseñas en scripts.
 
-***
+---
 
 ### 4. Limitación de acceso
 
-* chroot en SFTP
-* restringir usuarios
+- chroot en SFTP
+- restringir usuarios
 
-***
+---
 
 ### 5. Logging
 
@@ -353,7 +353,7 @@ Monitorizar:
 journalctl -u ssh
 ```
 
-***
+---
 
 ### 6. Ancho de banda limitado
 
@@ -361,7 +361,7 @@ journalctl -u ssh
 rsync --bwlimit=1000
 ```
 
-***
+---
 
 ### 7. Verificación previa
 
@@ -369,7 +369,7 @@ rsync --bwlimit=1000
 rsync -av --dry-run /src/ /dst/
 ```
 
-***
+---
 
 ### 8. Integridad de datos
 
@@ -379,7 +379,7 @@ Usar checksums:
 rsync -avc
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

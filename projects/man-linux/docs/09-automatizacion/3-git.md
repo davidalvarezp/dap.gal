@@ -1,6 +1,6 @@
 # 9.3 Git: Control de Versiones para Sysadmins
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ En un entorno profesional, la automatización sin control de versiones es un rie
 
 Para un Sysadmin senior, Git no es solo una herramienta de desarrollo: es un componente crítico para gestionar **infraestructura como código, configuraciones de sistemas y despliegues automatizados** con garantías de trazabilidad.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender el modelo de funcionamiento de Git.
-* Gestionar repositorios locales y remotos.
-* Versionar scripts, configuraciones y playbooks.
-* Trabajar con ramas (branches) y flujos de cambios.
-* Resolver conflictos y mantener historial limpio.
-* Aplicar buenas prácticas en entornos profesionales.
+- Comprender el modelo de funcionamiento de Git.
+- Gestionar repositorios locales y remotos.
+- Versionar scripts, configuraciones y playbooks.
+- Trabajar con ramas (branches) y flujos de cambios.
+- Resolver conflictos y mantener historial limpio.
+- Aplicar buenas prácticas en entornos profesionales.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -29,25 +29,25 @@ Al finalizar este capítulo serás capaz de:
 
 Git es un sistema de control de versiones distribuido que permite:
 
-* registrar cambios en archivos
-* mantener historial completo
-* colaborar en equipos
-* revertir estados anteriores
+- registrar cambios en archivos
+- mantener historial completo
+- colaborar en equipos
+- revertir estados anteriores
 
 A diferencia de otros sistemas, Git no guarda solo diferencias: guarda **instantáneas (snapshots)** del estado del proyecto.
 
 !!! info "Concepto clave"
 Cada commit representa el estado completo del proyecto en un momento concreto.
 
-***
+---
 
 ### 2. Arquitectura de Git
 
 Git se compone de tres áreas principales:
 
-* **Working directory** → archivos en local
-* **Staging area (index)** → área de preparación
-* **Repositorio (.git)** → historial versionado
+- **Working directory** → archivos en local
+- **Staging area (index)** → área de preparación
+- **Repositorio (.git)** → historial versionado
 
 Flujo típico:
 
@@ -55,27 +55,27 @@ Flujo típico:
 Working → Staging → Commit → Repository
 ```
 
-***
+---
 
 ### 3. Estados de los archivos
 
 Un archivo en Git puede estar en:
 
-* **untracked** → no versionado
-* **modified** → modificado
-* **staged** → preparado
-* **committed** → registrado
+- **untracked** → no versionado
+- **modified** → modificado
+- **staged** → preparado
+- **committed** → registrado
 
-***
+---
 
 ### 4. Commits e historial
 
 Un commit incluye:
 
-* cambios realizados
-* autor
-* timestamp
-* mensaje descriptivo
+- cambios realizados
+- autor
+- timestamp
+- mensaje descriptivo
 
 Ejemplo:
 
@@ -83,15 +83,15 @@ Ejemplo:
 git commit -m "Añadir script de backup"
 ```
 
-***
+---
 
 ### 5. Ramas (Branches)
 
 Las ramas permiten trabajar en paralelo:
 
-* `main` / `master` → rama principal
-* `feature/*` → nuevas funcionalidades
-* `hotfix/*` → correcciones urgentes
+- `main` / `master` → rama principal
+- `feature/*` → nuevas funcionalidades
+- `hotfix/*` → correcciones urgentes
 
 Crear rama:
 
@@ -106,7 +106,7 @@ O directamente:
 git checkout -b nueva-feature
 ```
 
-***
+---
 
 ### 6. Repositorios remotos
 
@@ -117,7 +117,7 @@ git remote add origin git@repo.git
 git push -u origin main
 ```
 
-***
+---
 
 ### 7. Merge y conflictos
 
@@ -133,7 +133,7 @@ cambio remoto
 
 Debe resolverse manualmente.
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -141,11 +141,11 @@ Debe resolverse manualmente.
 
 Versionar un proyecto de automatización:
 
-* script Bash de backup
-* playbook de Ansible
-* mantener historial y control de cambios
+- script Bash de backup
+- playbook de Ansible
+- mantener historial y control de cambios
 
-***
+---
 
 ## Parte 1: Inicializar repositorio
 
@@ -155,7 +155,7 @@ cd automatizacion
 git init
 ```
 
-***
+---
 
 ## Parte 2: Añadir archivos
 
@@ -170,7 +170,7 @@ Ver estado:
 git status
 ```
 
-***
+---
 
 ## Parte 3: Añadir al staging
 
@@ -178,7 +178,7 @@ git status
 git add backup.sh install_nginx.yml
 ```
 
-***
+---
 
 ## Parte 4: Crear commit
 
@@ -186,7 +186,7 @@ git add backup.sh install_nginx.yml
 git commit -m "Primer commit: scripts de automatización"
 ```
 
-***
+---
 
 ## Parte 5: Crear repositorio remoto
 
@@ -194,7 +194,7 @@ git commit -m "Primer commit: scripts de automatización"
 git remote add origin git@github.com:usuario/automatizacion.git
 ```
 
-***
+---
 
 ## Parte 6: Subir cambios
 
@@ -202,7 +202,7 @@ git remote add origin git@github.com:usuario/automatizacion.git
 git push -u origin main
 ```
 
-***
+---
 
 ## Parte 7: Workflow de cambios
 
@@ -226,7 +226,7 @@ git commit -m "Mejora logging backup"
 git push
 ```
 
-***
+---
 
 ## Output esperado
 
@@ -235,7 +235,7 @@ git push
  1 file changed, 3 insertions(+)
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -245,14 +245,14 @@ git push
 Please tell me who you are
 ```
 
-**Solución:**
+-*Solución:**
 
 ```bash
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu@email.com"
 ```
 
-***
+---
 
 ### 2. Push rechazado
 
@@ -260,36 +260,36 @@ git config --global user.email "tu@email.com"
 rejected
 ```
 
-**Causa:**
+-*Causa:**
 
 desincronización con remoto.
 
-**Solución:**
+-*Solución:**
 
 ```bash
 git pull --rebase
 ```
 
-***
+---
 
 ### 3. Añadir archivos sensibles
 
 Ejemplo: claves privadas.
 
-**Solución:**
+-*Solución:**
 
 usar `.gitignore`:
 
 ```text
-*.key
+-.key
 .env
 ```
 
-***
+---
 
 ### 4. Conflictos de merge
 
-**Solución:**
+-*Solución:**
 
 editar manualmente y:
 
@@ -298,13 +298,13 @@ git add archivo
 git commit
 ```
 
-***
+---
 
 ### 5. Commits desordenados
 
 Mensajes poco claros dificultan auditoría.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -323,34 +323,34 @@ feat: añadir playbook nginx
 fix: corregir ruta backup
 ```
 
-***
+---
 
 ### 2. Uso de ramas
 
-* nunca trabajar directamente en `main`
-* usar flujo controlado
+- nunca trabajar directamente en `main`
+- usar flujo controlado
 
-***
+---
 
 ### 3. `.gitignore` adecuado
 
 ```text
-*.log
-*.tmp
+-.log
+-.tmp
 backup/
 ```
 
-***
+---
 
 ### 4. Integración con automatización
 
 Versionar:
 
-* scripts Bash
-* playbooks Ansible
-* configuraciones
+- scripts Bash
+- playbooks Ansible
+- configuraciones
 
-***
+---
 
 ### 5. Hooks
 
@@ -360,38 +360,38 @@ Validación automática antes de commits:
 .git/hooks/pre-commit
 ```
 
-***
+---
 
 ### 6. Repositorios privados
 
 Evitar exponer infraestructura:
 
-* usar GitHub privado / GitLab
-* controlar accesos
+- usar GitHub privado / GitLab
+- controlar accesos
 
-***
+---
 
 ### 7. Auditoría
 
 Git permite:
 
-* saber quién hizo cambios
-* cuándo
-* qué se modificó
+- saber quién hizo cambios
+- cuándo
+- qué se modificó
 
 Clave para entornos regulados.
 
-***
+---
 
 ### 8. Integración CI/CD
 
 Git es base de:
 
-* pipelines
-* despliegues automáticos
-* testing
+- pipelines
+- despliegues automáticos
+- testing
 
-***
+---
 
 ### 9. Revertir cambios
 
@@ -401,7 +401,7 @@ git revert HEAD
 
 Nunca borrar historial en producción.
 
-***
+---
 
 ## Resumen y Siguiente Paso
 
@@ -411,9 +411,9 @@ Dominar Git es imprescindible para cualquier flujo moderno de automatización y 
 
 A partir de este punto, eres capaz de:
 
-* automatizar con Bash
-* gestionar infraestructuras con Ansible
-* versionar y auditar con Git
+- automatizar con Bash
+- gestionar infraestructuras con Ansible
+- versionar y auditar con Git
 
 Con esto completas el bloque de automatización y estás preparado para abordar entornos más avanzados como plataformas de ejecución y orquestación.
 

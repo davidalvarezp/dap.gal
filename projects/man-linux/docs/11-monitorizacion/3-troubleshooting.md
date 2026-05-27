@@ -1,6 +1,6 @@
 # 11.3 Troubleshooting en Linux: Diagnóstico y Resolución de Incidencias
 
-***
+---
 
 ## Introducción
 
@@ -10,19 +10,19 @@ El troubleshooting en Linux no es ejecutar comandos al azar, sino aplicar un enf
 
 Este capítulo aborda las técnicas y herramientas esenciales para resolver problemas complejos en sistemas Linux.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Aplicar metodologías estructuradas de troubleshooting.
-* Analizar logs del sistema y servicios.
-* Diagnosticar problemas de CPU, memoria, disco y red.
-* Identificar causas raíz y no solo síntomas.
-* Resolver incidencias en entornos reales de producción.
+- Aplicar metodologías estructuradas de troubleshooting.
+- Analizar logs del sistema y servicios.
+- Diagnosticar problemas de CPU, memoria, disco y red.
+- Identificar causas raíz y no solo síntomas.
+- Resolver incidencias en entornos reales de producción.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -40,18 +40,18 @@ Un diagnóstico efectivo sigue siempre una metodología:
 !!! info "Regla fundamental"
 Nunca aplicar soluciones sin entender la causa raíz.
 
-***
+---
 
 ### 2. Síntoma vs causa raíz
 
 Ejemplo:
 
-* Síntoma → aplicación lenta
-* Causa real → disco saturado
+- Síntoma → aplicación lenta
+- Causa real → disco saturado
 
 Un error común es actuar sobre el síntoma sin resolver el origen.
 
-***
+---
 
 ### 3. Fuentes de información
 
@@ -65,33 +65,33 @@ Ubicación:
 
 Ejemplos:
 
-* `/var/log/syslog`
-* `/var/log/auth.log`
-* `/var/log/nginx/error.log`
+- `/var/log/syslog`
+- `/var/log/auth.log`
+- `/var/log/nginx/error.log`
 
 #### Métricas
 
-* CPU
-* memoria
-* I/O
+- CPU
+- memoria
+- I/O
 
 #### Estado del sistema
 
-* procesos activos
-* conexiones de red
-* servicios
+- procesos activos
+- conexiones de red
+- servicios
 
-***
+---
 
 ### 4. Tipos de incidencias
 
-* rendimiento degradado
-* servicio caído
-* errores de configuración
-* problemas de red
-* falta de recursos
+- rendimiento degradado
+- servicio caído
+- errores de configuración
+- problemas de red
+- falta de recursos
 
-***
+---
 
 ### 5. Herramientas clave
 
@@ -103,7 +103,7 @@ Ejemplos:
 | Red       | ss, ping     |
 | Debug     | strace, lsof |
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -111,13 +111,13 @@ Ejemplos:
 
 Un servidor web no responde correctamente:
 
-* alta latencia
-* errores intermitentes
-* posible saturación
+- alta latencia
+- errores intermitentes
+- posible saturación
 
 Debes diagnosticar el problema.
 
-***
+---
 
 ## Parte 1: Verificar estado del sistema
 
@@ -127,9 +127,9 @@ uptime
 
 Interpretar carga:
 
-* load average elevado → saturación
+- load average elevado → saturación
 
-***
+---
 
 ```bash
 top
@@ -137,10 +137,10 @@ top
 
 Identificar:
 
-* procesos con alto uso de CPU
-* consumo de memoria
+- procesos con alto uso de CPU
+- consumo de memoria
 
-***
+---
 
 ## Parte 2: Revisar logs
 
@@ -156,11 +156,11 @@ journalctl -u nginx
 
 Buscar:
 
-* errores
-* reinicios
-* fallos de configuración
+- errores
+- reinicios
+- fallos de configuración
 
-***
+---
 
 ## Parte 3: Analizar disco
 
@@ -170,9 +170,9 @@ df -h
 
 Detectar:
 
-* particiones llenas
+- particiones llenas
 
-***
+---
 
 ```bash
 iostat -xz 2
@@ -180,7 +180,7 @@ iostat -xz 2
 
 Detectar latencias altas.
 
-***
+---
 
 ## Parte 4: Ver conexiones de red
 
@@ -190,10 +190,10 @@ ss -tulnp
 
 Detectar:
 
-* servicios escuchando
-* conexiones activas
+- servicios escuchando
+- conexiones activas
 
-***
+---
 
 ## Parte 5: Analizar procesos específicos
 
@@ -201,7 +201,7 @@ Detectar:
 ps aux | grep nginx
 ```
 
-***
+---
 
 ### Ver archivos abiertos
 
@@ -209,7 +209,7 @@ ps aux | grep nginx
 lsof -p <PID>
 ```
 
-***
+---
 
 ### Trazar ejecución
 
@@ -217,7 +217,7 @@ lsof -p <PID>
 strace -p <PID>
 ```
 
-***
+---
 
 ## Output esperado
 
@@ -229,11 +229,11 @@ nginx error: no space left on device
 
 Interpretación:
 
-* sistema saturado
-* disco lleno
-* fallo en escritura de logs → impacto en servicio
+- sistema saturado
+- disco lleno
+- fallo en escritura de logs → impacto en servicio
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -241,38 +241,38 @@ Interpretación:
 
 Reiniciar el servicio oculta el problema.
 
-**Solución:**
+-*Solución:**
 
 investigar antes de actuar.
 
-***
+---
 
 ### 2. No revisar logs
 
 Ignorar `/var/log/` es uno de los errores más graves.
 
-***
+---
 
 ### 3. Analizar solo una métrica
 
 Ejemplo: revisar CPU pero ignorar disco.
 
-***
+---
 
 ### 4. Falta de contexto
 
 No correlacionar eventos:
 
-* despliegue reciente
-* cambios de configuración
+- despliegue reciente
+- cambios de configuración
 
-***
+---
 
 ### 5. Uso incorrecto de herramientas
 
 Ejecutar comandos sin interpretar resultados.
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -280,79 +280,79 @@ Ejecutar comandos sin interpretar resultados.
 
 Siempre seguir un proceso:
 
-* observación
-* análisis
-* acción
+- observación
+- análisis
+- acción
 
-***
+---
 
 ### 2. Centralización de logs
 
 Utilizar:
 
-* ELK (Elasticsearch, Logstash, Kibana)
-* sistemas centralizados
+- ELK (Elasticsearch, Logstash, Kibana)
+- sistemas centralizados
 
-***
+---
 
 ### 3. Correlación
 
 Relacionar:
 
-* métricas (Prometheus)
-* logs
-* eventos del sistema
+- métricas (Prometheus)
+- logs
+- eventos del sistema
 
-***
+---
 
 ### 4. Uso de timelines
 
 Reconstruir línea temporal del incidente.
 
-***
+---
 
 ### 5. Automatización de diagnóstico
 
 Scripts para:
 
-* recopilar métricas
-* capturar estado del sistema
+- recopilar métricas
+- capturar estado del sistema
 
-***
+---
 
 ### 6. Post-mortem
 
 Tras incidencia:
 
-* documentar causa
-* definir acciones correctivas
+- documentar causa
+- definir acciones correctivas
 
-***
+---
 
 ### 7. Alertas proactivas
 
 Evitar que el problema escale a caída total.
 
-***
+---
 
 ### 8. Control de cambios
 
 Registrar:
 
-* despliegues
-* modificaciones de configuración
+- despliegues
+- modificaciones de configuración
 
-***
+---
 
 ### 9. Observabilidad completa
 
 Integrar:
 
-* métricas
-* logs
-* trazas
+- métricas
+- logs
+- trazas
 
-***
+---
 
 ## Resumen
 
@@ -362,8 +362,8 @@ El troubleshooting eficaz no solo resuelve incidencias, sino que mejora la fiabi
 
 Con este capítulo, completas el bloque de monitorización, incorporando:
 
-* análisis de rendimiento
-* monitoreo centralizado
-* diagnóstico avanzado
+- análisis de rendimiento
+- monitoreo centralizado
+- diagnóstico avanzado
 
 Este conocimiento te posiciona para gestionar sistemas Linux en producción con un enfoque completo de **observabilidad y fiabilidad operativa**.

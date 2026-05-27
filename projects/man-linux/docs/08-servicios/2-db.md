@@ -1,6 +1,6 @@
 # 8.2 Bases de Datos en Linux: Despliegue y Administración Profesional
 
-***
+---
 
 ## Introducción
 
@@ -8,20 +8,20 @@ Las **bases de datos** son el núcleo de prácticamente cualquier aplicación mo
 
 En Linux, los motores más utilizados son **MySQL/MariaDB** y **PostgreSQL**, cada uno con características específicas. Como Sysadmin, tu responsabilidad no es solo instalarlos, sino garantizar su **seguridad, rendimiento, disponibilidad y mantenibilidad en producción**.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Comprender las diferencias entre motores de bases de datos.
-* Instalar y configurar MariaDB/MySQL y PostgreSQL.
-* Gestionar bases de datos y usuarios.
-* Realizar copias de seguridad y restauraciones.
-* Diagnosticar problemas comunes.
-* Aplicar buenas prácticas de seguridad y rendimiento.
+- Comprender las diferencias entre motores de bases de datos.
+- Instalar y configurar MariaDB/MySQL y PostgreSQL.
+- Gestionar bases de datos y usuarios.
+- Realizar copias de seguridad y restauraciones.
+- Diagnosticar problemas comunes.
+- Aplicar buenas prácticas de seguridad y rendimiento.
 
-***
+---
 
 ## Conceptos Teóricos
 
@@ -31,15 +31,15 @@ Las bases de datos relacionales (RDBMS) organizan información en tablas.
 
 Ejemplos:
 
-* **MySQL / MariaDB**
-* **PostgreSQL**
+- **MySQL / MariaDB**
+- **PostgreSQL**
 
 Características:
 
-* SQL como lenguaje estándar.
-* Soporte ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad).
+- SQL como lenguaje estándar.
+- Soporte ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad).
 
-***
+---
 
 ### 2. MySQL vs MariaDB vs PostgreSQL
 
@@ -54,22 +54,22 @@ Características:
 \- **MariaDB/MySQL** → aplicaciones web clásicas  
 \- **PostgreSQL** → sistemas complejos, analítica, integridad avanzada
 
-***
+---
 
 ### 3. Arquitectura básica
 
 Componentes principales:
 
-* **Servidor (daemon)** → gestiona conexiones
-* **Clientes** → interactúan con DB
-* **Motor de almacenamiento** (InnoDB, etc.)
+- **Servidor (daemon)** → gestiona conexiones
+- **Clientes** → interactúan con DB
+- **Motor de almacenamiento** (InnoDB, etc.)
 
-***
+---
 
 ### 4. Puertos y ubicaciones
 
-* MySQL/MariaDB → `3306`
-* PostgreSQL → `5432`
+- MySQL/MariaDB → `3306`
+- PostgreSQL → `5432`
 
 Archivos:
 
@@ -81,15 +81,15 @@ Archivos:
 /var/lib/postgresql/
 ```
 
-***
+---
 
 ### 5. Seguridad básica
 
-* autenticación por usuario
-* control de acceso por IP
-* cifrado opcional
+- autenticación por usuario
+- control de acceso por IP
+- cifrado opcional
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -97,16 +97,16 @@ Archivos:
 
 Configurar un servidor MariaDB:
 
-* crear base de datos
-* crear usuario
-* restringir accesos
-* validar conexión
+- crear base de datos
+- crear usuario
+- restringir accesos
+- validar conexión
 
-***
+---
 
 # Parte 1: Instalación de MariaDB
 
-***
+---
 
 ## Paso 1: Instalar
 
@@ -115,7 +115,7 @@ sudo apt update
 sudo apt install mariadb-server
 ```
 
-***
+---
 
 ## Paso 2: Ver estado
 
@@ -123,7 +123,7 @@ sudo apt install mariadb-server
 systemctl status mariadb
 ```
 
-***
+---
 
 ## Paso 3: Hardening inicial
 
@@ -133,15 +133,15 @@ sudo mysql_secure_installation
 
 Configura:
 
-* contraseña root
-* eliminar usuarios anónimos
-* desactivar acceso remoto root
+- contraseña root
+- eliminar usuarios anónimos
+- desactivar acceso remoto root
 
-***
+---
 
 # Parte 2: Gestión básica
 
-***
+---
 
 ## Paso 1: Acceder a la base
 
@@ -149,7 +149,7 @@ Configura:
 sudo mysql
 ```
 
-***
+---
 
 ## Paso 2: Crear base de datos
 
@@ -157,7 +157,7 @@ sudo mysql
 CREATE DATABASE app_db;
 ```
 
-***
+---
 
 ## Paso 3: Crear usuario
 
@@ -165,7 +165,7 @@ CREATE DATABASE app_db;
 CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'password_seguro';
 ```
 
-***
+---
 
 ## Paso 4: Asignar permisos
 
@@ -174,7 +174,7 @@ GRANT ALL PRIVILEGES ON app_db.* TO 'app_user'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-***
+---
 
 ## Paso 5: Salir
 
@@ -182,7 +182,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-***
+---
 
 ## Paso 6: Verificar conexión
 
@@ -190,11 +190,11 @@ EXIT;
 mysql -u app_user -p app_db
 ```
 
-***
+---
 
 # Parte 3: Backup y restauración
 
-***
+---
 
 ## Crear backup
 
@@ -202,7 +202,7 @@ mysql -u app_user -p app_db
 mysqldump -u root -p app_db > backup.sql
 ```
 
-***
+---
 
 ## Restaurar backup
 
@@ -210,11 +210,11 @@ mysqldump -u root -p app_db > backup.sql
 mysql -u root -p app_db < backup.sql
 ```
 
-***
+---
 
 # Parte 4: PostgreSQL básico
 
-***
+---
 
 ## Instalación
 
@@ -222,7 +222,7 @@ mysql -u root -p app_db < backup.sql
 sudo apt install postgresql
 ```
 
-***
+---
 
 ## Acceso
 
@@ -230,7 +230,7 @@ sudo apt install postgresql
 sudo -u postgres psql
 ```
 
-***
+---
 
 ## Crear DB y usuario
 
@@ -240,7 +240,7 @@ CREATE USER app_user WITH PASSWORD 'password';
 GRANT ALL PRIVILEGES ON DATABASE app_db TO app_user;
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -252,7 +252,7 @@ ss -tulnp | grep 3306
 
 Verifica que el servicio está activo.
 
-***
+---
 
 ### 2. Acceso denegado
 
@@ -264,11 +264,11 @@ Access denied for user
 
 Revisar:
 
-* usuario
-* contraseña
-* host
+- usuario
+- contraseña
+- host
 
-***
+---
 
 ### 3. Servicio no arranca
 
@@ -276,16 +276,16 @@ Revisar:
 journalctl -u mariadb
 ```
 
-***
+---
 
 ### 4. Base de datos corrupta
 
 Posibles causas:
 
-* apagado abrupto
-* disco lleno
+- apagado abrupto
+- disco lleno
 
-***
+---
 
 ### 5. Conexiones remotas no funcionan
 
@@ -299,7 +299,7 @@ Editar:
 bind-address = 0.0.0.0
 ```
 
-***
+---
 
 ### 6. Saturación de conexiones
 
@@ -307,7 +307,7 @@ bind-address = 0.0.0.0
 SHOW STATUS LIKE 'Threads_connected';
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -315,7 +315,7 @@ SHOW STATUS LIKE 'Threads_connected';
 
 Crear usuarios específicos con permisos mínimos.
 
-***
+---
 
 ### 2. Uso de backups automáticos
 
@@ -323,23 +323,23 @@ Crear usuarios específicos con permisos mínimos.
 mysqldump diario + cron/systemd
 ```
 
-***
+---
 
 ### 3. Seguridad
 
-* limitar acceso por IP
-* firewall activo
-* cifrado SSL si es necesario
+- limitar acceso por IP
+- firewall activo
+- cifrado SSL si es necesario
 
-***
+---
 
 ### 4. Monitorización
 
-* uso de CPU
-* conexiones
-* queries lentas
+- uso de CPU
+- conexiones
+- queries lentas
 
-***
+---
 
 ### 5. Ajustes de rendimiento
 
@@ -349,7 +349,7 @@ Ejemplo en MariaDB:
 innodb_buffer_pool_size=1G
 ```
 
-***
+---
 
 ### 6. Logs
 
@@ -357,20 +357,20 @@ innodb_buffer_pool_size=1G
 /var/log/mysql/error.log
 ```
 
-***
+---
 
 ### 7. Separación de roles
 
-* servidor web ≠ servidor DB (en producción real)
+- servidor web ≠ servidor DB (en producción real)
 
-***
+---
 
 ### 8. Alta disponibilidad
 
-* replicación
-* clustering
+- replicación
+- clustering
 
-***
+---
 
 ## Resumen y Siguiente Paso
 

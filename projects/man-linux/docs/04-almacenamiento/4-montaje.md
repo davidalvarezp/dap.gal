@@ -155,4 +155,5 @@ UUID=1234-ABCD  /mnt/disco_usb  ext4  defaults,nofail  0  0
 ---
 
 ## Resumen del Módulo 4
+
 Has terminado el **Módulo 4: Almacenamiento Estructural y Persistencia**. Has recorrido todo el camino del flujo de datos en Linux: desde entender cómo el Kernel interactúa con bloques de hardware crudos, particionar bajo esquemas modernos GPT, inyectar e interrogar sistemas de archivos ext4/XFS, virtualizar discos elásticos mediante LVM, hasta anclarlos de forma automatizada y segura en el corazón del sistema operativo.

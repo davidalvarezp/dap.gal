@@ -126,8 +126,8 @@ Si ejecutas un df -h, comprobarás con asombro que el almacenamiento ha crecido 
 
 ## Buenas Prácticas
 
-* **Nunca llenes el VG al 100% desde el primer día:** Si tus discos suman 100 GB, no crees un LV de 100 GB. Crea volúmenes ajustados a la necesidad real actual (ej: 20 GB). Dejar espacio libre en el VG te permite reaccionar ante crisis ampliando el volumen que se sature en segundos o crear *snapshots* temporales de seguridad antes de actualizaciones críticas de software.
-* **Nomenclatura Estandarizada:** Utiliza prefijos claros siempre. Nombra tus grupos como vg_[nombre] (ej: vg_sistema, vg_datos) y tus volúmenes lógicos como lv_[servicio] (ej: lv_root, lv_backups). Esto evitará confusiones cuando herede tu infraestructura otro administrador.
+- **Nunca llenes el VG al 100% desde el primer día:** Si tus discos suman 100 GB, no crees un LV de 100 GB. Crea volúmenes ajustados a la necesidad real actual (ej: 20 GB). Dejar espacio libre en el VG te permite reaccionar ante crisis ampliando el volumen que se sature en segundos o crear *snapshots* temporales de seguridad antes de actualizaciones críticas de software.
+- **Nomenclatura Estandarizada:** Utiliza prefijos claros siempre. Nombra tus grupos como vg_[nombre] (ej: vg_sistema, vg_datos) y tus volúmenes lógicos como lv_[servicio] (ej: lv_root, lv_backups). Esto evitará confusiones cuando herede tu infraestructura otro administrador.
 
 ---
 

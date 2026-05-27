@@ -1,6 +1,6 @@
 # 5.2 Deep Dive en systemd: Gestión de Servicios y Arranque Moderno
 
-***
+---
 
 ## Introducción
 
@@ -8,33 +8,33 @@ En sistemas Linux modernos, **systemd** es el núcleo que orquesta el arranque d
 
 Comprender systemd no es opcional en entornos profesionales: es esencial para diagnosticar fallos de arranque, gestionar servicios críticos, automatizar despliegues y aplicar políticas de control avanzadas.
 
-***
+---
 
 ## Objetivos de aprendizaje
 
 Al finalizar este capítulo serás capaz de:
 
-* Entender la arquitectura interna de systemd.
-* Gestionar servicios con `systemctl`.
-* Interpretar unidades (units) y sus tipos.
-* Analizar logs con `journalctl`.
-* Crear y modificar servicios personalizados.
-* Diagnosticar problemas de arranque y dependencias.
+- Entender la arquitectura interna de systemd.
+- Gestionar servicios con `systemctl`.
+- Interpretar unidades (units) y sus tipos.
+- Analizar logs con `journalctl`.
+- Crear y modificar servicios personalizados.
+- Diagnosticar problemas de arranque y dependencias.
 
-***
+---
 
 ## Conceptos Teóricos
 
 ### 1. ¿Qué es systemd?
 
-**systemd** es un **sistema de init** y gestor de servicios que:
+-*systemd** es un **sistema de init** y gestor de servicios que:
 
-* Es el proceso **PID 1**.
-* Inicializa el sistema durante el arranque.
-* Gestiona servicios (daemon), sockets, dispositivos y mounts.
-* Permite ejecución paralela para reducir el tiempo de boot.
+- Es el proceso **PID 1**.
+- Inicializa el sistema durante el arranque.
+- Gestiona servicios (daemon), sockets, dispositivos y mounts.
+- Permite ejecución paralela para reducir el tiempo de boot.
 
-***
+---
 
 ### 2. Tipos de Unidades (Units)
 
@@ -42,18 +42,18 @@ Las unidades son la base de systemd. Cada recurso se define como una *unit file*
 
 Principales tipos:
 
-* **.service** → servicios (nginx, sshd)
-* **.socket** → sockets IPC o network
-* **.target** → agrupaciones lógicas (similar a runlevels)
-* **.mount** → puntos de montaje
-* **.timer** → tareas programadas (sustituto de cron en algunos casos)
+- **.service** → servicios (nginx, sshd)
+- **.socket** → sockets IPC o network
+- **.target** → agrupaciones lógicas (similar a runlevels)
+- **.mount** → puntos de montaje
+- **.timer** → tareas programadas (sustituto de cron en algunos casos)
 
 Ejemplo de ruta estándar:
 
-* `/usr/lib/systemd/system/` → unidades del sistema
-* `/etc/systemd/system/` → overrides del administrador
+- `/usr/lib/systemd/system/` → unidades del sistema
+- `/etc/systemd/system/` → overrides del administrador
 
-***
+---
 
 ### 3. Targets (Runlevels modernos)
 
@@ -71,16 +71,16 @@ Consultar target actual:
 systemctl get-default
 ```
 
-***
+---
 
 ### 4. Ciclo de Vida de un Servicio
 
 Estados típicos:
 
-* **active (running)**
-* **inactive**
-* **failed**
-* **activating**
+- **active (running)**
+- **inactive**
+- **failed**
+- **activating**
 
 Ver estado:
 
@@ -88,15 +88,15 @@ Ver estado:
 systemctl status nginx
 ```
 
-***
+---
 
 ### 5. Dependencias y Orden de Arranque
 
 systemd permite definir relaciones:
 
-* **Requires=** → dependencia fuerte
-* **After=** → orden de arranque
-* **Wants=** → dependencia débil
+- **Requires=** → dependencia fuerte
+- **After=** → orden de arranque
+- **Wants=** → dependencia débil
 
 Ejemplo conceptual:
 
@@ -106,7 +106,7 @@ Requires=network.target
 After=network.target
 ```
 
-***
+---
 
 ## Laboratorio Práctico
 
@@ -114,11 +114,11 @@ After=network.target
 
 Tienes una aplicación propia (`/opt/app/app.sh`) que debe ejecutarse como servicio:
 
-* Debe arrancar automáticamente.
-* Debe reiniciarse si falla.
-* Debe registrar logs correctamente.
+- Debe arrancar automáticamente.
+- Debe reiniciarse si falla.
+- Debe registrar logs correctamente.
 
-***
+---
 
 ### Paso 1: Crear archivo de servicio
 
@@ -143,19 +143,19 @@ User=www-data
 WantedBy=multi-user.target
 ```
 
-***
+---
 
 ### Explicación línea por línea
 
-* **Description** → descripción del servicio.
-* **After=network.target** → espera red disponible.
-* **Type=simple** → proceso principal.
-* **ExecStart** → comando a ejecutar.
-* **Restart=always** → autoreinicio.
-* **User** → usuario de ejecución.
-* **WantedBy** → target donde se habilita.
+- **Description** → descripción del servicio.
+- **After=network.target** → espera red disponible.
+- **Type=simple** → proceso principal.
+- **ExecStart** → comando a ejecutar.
+- **Restart=always** → autoreinicio.
+- **User** → usuario de ejecución.
+- **WantedBy** → target donde se habilita.
 
-***
+---
 
 ### Paso 2: Recargar configuración
 
@@ -164,7 +164,7 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 ```
 
-***
+---
 
 ### Paso 3: Iniciar servicio
 
@@ -172,7 +172,7 @@ sudo systemctl daemon-reload
 sudo systemctl start app
 ```
 
-***
+---
 
 ### Paso 4: Habilitar en arranque
 
@@ -180,7 +180,7 @@ sudo systemctl start app
 sudo systemctl enable app
 ```
 
-***
+---
 
 ### Paso 5: Verificar estado
 
@@ -196,7 +196,7 @@ systemctl status app
    Active: active (running)
 ```
 
-***
+---
 
 ### Paso 6: Ver logs
 
@@ -204,7 +204,7 @@ systemctl status app
 journalctl -u app -f
 ```
 
-***
+---
 
 ## Errores Comunes y Troubleshooting
 
@@ -216,21 +216,21 @@ systemctl status app
 
 Busca:
 
-* errores de permisos
-* rutas incorrectas
-* scripts sin shebang (`#!/bin/bash`)
+- errores de permisos
+- rutas incorrectas
+- scripts sin shebang (`#!/bin/bash`)
 
-***
+---
 
 ### 2. Cambios no aplicados
 
-**Causa:** no recargaste daemon.
+-*Causa:** no recargaste daemon.
 
 ```bash
 sudo systemctl daemon-reload
 ```
 
-***
+---
 
 ### 3. Servicio en estado failed
 
@@ -240,10 +240,10 @@ journalctl -xe
 
 Revisa:
 
-* errores de dependencias
-* variables de entorno faltantes
+- errores de dependencias
+- variables de entorno faltantes
 
-***
+---
 
 ### 4. Permisos incorrectos
 
@@ -253,7 +253,7 @@ Si el servicio usa `User=`:
 chmod +x /opt/app/app.sh
 ```
 
-***
+---
 
 ### 5. Servicio en bucle de reinicio
 
@@ -275,7 +275,7 @@ Restart=on-failure
 RestartSec=5
 ```
 
-***
+---
 
 ## Buenas Prácticas (Nivel Senior)
 
@@ -291,7 +291,7 @@ Esto crea:
 /etc/systemd/system/nginx.service.d/override.conf
 ```
 
-***
+---
 
 ### 2. Centraliza logs con journalctl
 
@@ -299,7 +299,7 @@ Esto crea:
 journalctl -u nginx --since "1 hour ago"
 ```
 
-***
+---
 
 ### 3. Control de recursos (cgroups)
 
@@ -311,7 +311,7 @@ MemoryLimit=500M
 CPUQuota=50%
 ```
 
-***
+---
 
 ### 4. Usa timers en lugar de cron cuando sea posible
 
@@ -321,11 +321,11 @@ systemctl list-timers
 
 Ventajas:
 
-* mejor integración
-* logs automáticos
-* dependencias
+- mejor integración
+- logs automáticos
+- dependencias
 
-***
+---
 
 ### 5. Diagnóstico de arranque
 
@@ -341,19 +341,19 @@ systemd-analyze critical-chain
 
 Cadena crítica de arranque.
 
-***
+---
 
 ### 6. Seguridad en servicios
 
-* No ejecutar como root si no es necesario.
-* Usar:
+- No ejecutar como root si no es necesario.
+- Usar:
 
 ```ini
 NoNewPrivileges=true
 PrivateTmp=true
 ```
 
-***
+---
 
 ### 7. Validación previa
 
@@ -361,7 +361,7 @@ PrivateTmp=true
 systemd-analyze verify /etc/systemd/system/app.service
 ```
 
-***
+---
 
 ## Resumen y Siguiente Paso
 
@@ -371,4 +371,4 @@ Este conocimiento es esencial para gestionar infraestructuras modernas y garanti
 
 El siguiente paso natural es automatizar tareas recurrentes:
 
-➡️ **5.3 Tareas Programadas (Cron y systemd timers)** donde aprenderás a programar ejecuciones periódicas de forma robusta y controlada.
+**5.3 Tareas Programadas (Cron y systemd timers)** donde aprenderás a programar ejecuciones periódicas de forma robusta y controlada.
