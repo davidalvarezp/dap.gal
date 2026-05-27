@@ -1,7 +1,14 @@
 site_name: Blog | dap.gal
 site_description: Articulos y guías sobre administración de sistemas, ciberseguridad, virtualización e infraestructura Linux.
 site_url: https://dap.gal/blog/
-use_directory_urls: false
+#use_directory_urls: false
+
+# Configuración del Repositorio
+repo_name: dap.gal/blog
+repo_url: https://github.com/davidalvarezp/dap.gal/tree/main/projects/blog
+edit_uri: edit/main/docs/
+
+
 
 # IMPORTANTE: dentro de subproyecto
 docs_dir: docs
@@ -59,6 +66,7 @@ markdown_extensions:
 # --------------------------------------------------
 plugins:
   - search
+  - meta
 
   # BLOG
   - blog:
@@ -66,7 +74,7 @@ plugins:
       post_dir: posts
 
       # UI
-      archive: true
+      archive: false
       categories: true
 
       # orden
@@ -94,5 +102,5 @@ extra:
 # NAV (mínima, Material genera el resto)
 # --------------------------------------------------
 nav:
-  - dap.gal: https://dap.gal
+  - dap.gal: https://dap.gal/
   - Blog: index.md
