@@ -1,0 +1,1 @@
+{"config":{"lang":["es"],"separator":"[\\s\\-]+","pipeline":["stopWordFilter"],"fields":{"title":{"boost":1000.0},"text":{"boost":1.0},"tags":{"boost":1000000.0}}},"docs":[{"location":"2026/05/22/hello-world/","title":"Hello world!","text":"<p>...</p>","tags":["World"]},{"location":"category/hello/","title":"Hello","text":""}]}

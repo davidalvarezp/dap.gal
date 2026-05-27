@@ -1,0 +1,26 @@
+{
+    "version": "https://jsonfeed.org/version/1.1",
+    "title": "dap.gal/blog",
+    "home_page_url": "https://dap.gal/blog/",
+    "feed_url": "https://dap.gal/blog/feed_json_created.json",
+    "description": "Blog personal sobre SysAdmin, DevSecOps, ciberseguridad, Linux, automatizaci\u00f3n e infraestructuras modernas.\n",
+    "icon": null,
+    "authors": [],
+    "language": "es",
+    "items": [
+        {
+            "id": "https://dap.gal/blog/2026/05/22/hello-world/",
+            "url": "https://dap.gal/blog/2026/05/22/hello-world/",
+            "title": "Hello world",
+            "content_html": "This is the first post",
+            "image": null,
+            "date_modified": "2026-05-27T14:04:33+00:00",
+            "date_published": "2026-05-22T00:00:00+00:00",
+            "authors": [],
+            "tags": [
+                "Hello",
+                "World"
+            ]
+        }
+    ]
+}
