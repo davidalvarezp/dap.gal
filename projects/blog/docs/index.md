@@ -1,5 +1,5 @@
 ---
-title: Blog | dap.gal
+title: dap.gal/blog | SysAdmin & DevSecOps
 description: Artículos técnicos sobre administración de sistemas Linux, DevOps, ciberseguridad, automatización e infraestructura moderna.
 keywords:
   - devsecops

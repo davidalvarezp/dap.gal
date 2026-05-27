@@ -1,5 +1,6 @@
 ---
 title: Contacto
+canonical_url: https://dap.gal/contacto/
 hide:
   - navigation
   - toc

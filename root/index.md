@@ -1,5 +1,6 @@
 ---
 title: dap.gal | SysAdmin
+canonical_url: https://dap.gal/
 description: Administrador de sistemas especializado en ciberseguridad, virtualización e infraestrutura Linux.
 hide:
   - navigation
