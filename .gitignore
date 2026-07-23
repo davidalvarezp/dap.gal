@@ -59,3 +59,7 @@ Thumbs.db
 projects/site/
 docs-projects/
 *.mkdocs-project/projects/homelab/docs/srv-01/ct-sudofeed/opt/sudofeed/blogger/*.json
+projects/homelab/docs/srv-01/ct-sudofeed/opt/sudofeed/blogger/credentials.json
+projects/homelab/docs/srv-01/ct-sudofeed/opt/sudofeed/blogger/token.json
+projects/homelab/docs/srv-01/ct-sudofeed/opt/sudofeed/blogger/credentials.json
+projects/homelab/docs/srv-01/ct-sudofeed/opt/sudofeed/blogger/token.json
