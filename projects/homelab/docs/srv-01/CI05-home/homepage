@@ -1,0 +1,14 @@
+[Unit]
+Description=Homepage Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/homepage
+Environment=HOMEPAGE_ALLOWED_HOSTS="192.168.1.105,192.168.1.105:3000,home.davidalvarezp.com"
+ExecStart=/usr/bin/pnpm start
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

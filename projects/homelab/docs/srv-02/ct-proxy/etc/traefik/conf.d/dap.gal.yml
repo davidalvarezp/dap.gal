@@ -1,0 +1,89 @@
+http:
+
+  routers:
+
+    public:
+      entryPoints:
+        - web
+      rule: "Host(`dap.gal`) || Host(`www.dap.gal`)"
+      service: svc-whost
+
+    dns:
+      entryPoints:
+        - websecure
+      rule: "Host(`dns.dap.gal`)"
+      service: svc-dns
+      middlewares:
+        - redirect-admin
+      tls:
+        certResolver: cloudflare
+
+    proxy:
+      entryPoints:
+        - websecure
+      rule: "Host(`proxy.dap.gal`)"
+      service: svc-proxy
+      tls:
+        certResolver: cloudflare
+
+    stats:
+      entryPoints:
+        - websecure
+      rule: "Host(`stats.dap.gal`)"
+      service: svc-stats
+      tls:
+        certResolver: cloudflare
+
+    home:
+      entryPoints:
+        - websecure
+      rule: "Host(`home.dap.gal`)"
+      service: svc-home
+      tls:
+        certResolver: cloudflare
+        
+    gpt:
+      entryPoints:
+        - websecure
+      rule: "Host(`gpt.dap.gal`)"
+      service: svc-gpt
+      tls:
+        certResolver: cloudflare
+
+  services:
+    svc-whost:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.40:80"
+
+    svc-dns:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.20"
+
+    svc-proxy:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.31:8888"
+
+    svc-stats:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.32:3000"
+
+    svc-home:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.33:3000"
+
+    svc-gpt:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.43:3000"
+
+  middlewares:
+    redirect-admin:
+      redirectRegex:
+        regex: "^https://dns\\.dap\\.gal/?$"
+        replacement: "https://dns.dap.gal/admin/"
+        permanent: false

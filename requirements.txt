@@ -1,0 +1,6 @@
+mkdocs==1.6.1
+mkdocs-material==9.7.6
+mkdocs-blog-plugin==0.25
+mkdocs-rss-plugin==1.19.0
+pymdown-extensions==10.21.2
+Pillow==10.4.0

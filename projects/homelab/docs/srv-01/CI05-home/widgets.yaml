@@ -1,0 +1,20 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+
+- logo:
+    icon: https://davidalvarezp.com/assets/img/logo.png
+
+- datetime:
+    text_size: 4xl
+    format:
+      timeStyle: short
+
+- resources:
+    cpu: true
+    disk: /
+
+- search:
+    provider: brave
+    target: _blank
+

@@ -1,0 +1,42 @@
+# CI01-DNS - config
+
+Contenido del archivo `/var/lib/lxc/CI01-DNS/config`:
+
+```conf
+# Template used to create this container: /usr/share/lxc/templates/lxc-download
+# Parameters passed to the template: -d debian -r bookworm -a arm64
+# For additional config options, please look at lxc.container.conf(5)
+
+# Uncomment the following line to support nesting containers:
+#lxc.include = /usr/share/lxc/config/nesting.conf
+# (Be aware this has security implications)
+
+
+# Distribution configuration
+lxc.include = /usr/share/lxc/config/common.conf
+lxc.arch = linux64
+
+# Container specific configuration
+#! lxc.apparmor.profile = generated
+#!lxc.apparmor.allow_nesting = 1
+lxc.rootfs.path = dir:/var/lib/lxc/CI01-DNS/rootfs
+lxc.uts.name = CI01-DNS
+
+# Start config
+lxc.start.auto = 1
+lxc.start.order = 0
+lxc.start.delay = 0
+
+# System config
+lxc.cgroup2.cpuset.cpus = 1
+lxc.cgroup2.cpu.weight = 100
+lxc.cgroup2.memory.max = 256M
+lxc.cgroup2.memory.swap.max = 512M
+
+# Network config
+lxc.net.0.type = veth
+lxc.net.0.link = br0
+lxc.net.0.flags = up
+lxc.net.0.ipv4.address = 192.168.1.11/24
+lxc.net.0.ipv4.gateway = 192.168.1.1
+```
