@@ -1,0 +1,29 @@
+/* Layout más compacto */
+.md-content {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Código tipo terminal */
+.md-typeset pre {
+  font-size: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0,255,100,0.15);
+}
+
+/* Títulos estilo cheatsheet */
+.md-typeset h2 {
+  border-left: 3px solid #00c853;
+  padding-left: 10px;
+  margin-top: 2rem;
+}
+
+/* Mejor spacing */
+.md-typeset code {
+  font-size: 0.85rem;
+}
+
+/* Links */
+.md-typeset a {
+  color: #00c853;
+}

@@ -1,0 +1,689 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/srv-02/ct-whost/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CT srv-01-ct-whost: Web Hosting - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ct-srv-01-ct-whost-web-hosting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT srv-01-ct-whost: Web Hosting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-despliegue-del-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Despliegue del Contenedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-preparacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Preparación del Sistema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-estructura-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Estructura de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-servicios-y-cuentas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Servicios y Cuentas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flujo-de-trafico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flujo de Tráfico
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuracion-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuración nginx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuración nginx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcnginxsites-availabledapgal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/nginx/sites-available/dap.gal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-permisos-del-directorio-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Permisos del Directorio Web
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-configuracion-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Configuración SSH
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Configuración SSH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcsshsshd_config-fragmento-relevante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/ssh/sshd_config (fragmento relevante)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-despliegue-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Despliegue de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Monitorización
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ct-srv-01-ct-whost-web-hosting">CT srv-01-ct-whost: Web Hosting</h1>
+<p>Contenedor dedicado a servir el sitio web estático <strong>dap.gal</strong> mediante <strong>nginx</strong>. Recibe el tráfico desde el reverse proxy (Traefik) y permite la subida de ficheros vía <strong>SFTP/SSH</strong> con el usuario <code>dap</code>.</p>
+<hr />
+<h2 id="1-despliegue-del-contenedor">1. Despliegue del Contenedor</h2>
+<p>En el nodo Proxmox del M920x, creamos el contenedor Debian 12:</p>
+<ul>
+<li><strong>CPU</strong> 1 socket</li>
+<li><strong>RAM</strong> 512 MB</li>
+<li><strong>Disco</strong> 8 GB</li>
+<li><strong>Red</strong> 192.168.1.40</li>
+</ul>
+<hr />
+<h2 id="2-preparacion-del-sistema">2. Preparación del Sistema</h2>
+<pre><code class="language-bash"># nginx
+apt update &amp;&amp; apt install -y nginx
+systemctl enable nginx
+systemctl start nginx
+
+# SSH para despliegue de ficheros
+apt install -y openssh-server
+
+# Usuario de despliegue (sin sudo, solo web)
+useradd -m -s /bin/bash dap
+passwd dap
+
+# Directorio SSH del usuario
+mkdir -p /home/dap/.ssh
+chmod 700 /home/dap/.ssh
+</code></pre>
+<hr />
+<h2 id="3-estructura-de-ficheros">3. Estructura de Ficheros</h2>
+<pre><code>/var/www/
+└── dap.gal/                 ← Raíz del sitio web
+    ├── index.html
+    └── ...                  ← Contenido estático del sitio
+
+/etc/nginx/
+├── sites-available/
+│   └── dap.gal              ← Configuración del virtualhost
+└── sites-enabled/
+    └── dap.gal → ...        ← Enlace simbólico al anterior
+
+/home/dap/
+└── .ssh/                    ← Claves SSH para despliegue
+</code></pre>
+<hr />
+<h2 id="4-servicios-y-cuentas">4. Servicios y Cuentas</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Detalle</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>nginx</strong></td>
+<td>systemd service</td>
+<td>Servidor web</td>
+</tr>
+<tr>
+<td><strong>openssh-server</strong></td>
+<td>puerto 22</td>
+<td>Acceso SFTP/SSH para despliegue</td>
+</tr>
+<tr>
+<td><strong>Usuario <code>dap</code></strong></td>
+<td><code>/var/www/dap.gal</code></td>
+<td>Propietario de los ficheros del sitio</td>
+</tr>
+<tr>
+<td><strong>Sitio</strong></td>
+<td>dap.gal / www.dap.gal</td>
+<td>Dominio servido</td>
+</tr>
+<tr>
+<td><strong>Tráfico entrante</strong></td>
+<td>192.168.1.31 (Traefik)</td>
+<td>Único origen de peticiones HTTP</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-flujo-de-trafico">5. Flujo de Tráfico</h2>
+<pre><code>Cloudflare / LAN
+      │
+      │ HTTP → :8080 (internet) o :80 (LAN)
+      ▼
+CT srv-01-ct-proxy (Traefik)
+      │
+      │ HTTP → 192.168.1.40:80
+      ▼
+CT srv-01-ct-whost (nginx)
+      │
+      ▼
+/var/www/dap.gal/index.html
+</code></pre>
+<pre><code>Administrador
+      │
+      │ SFTP/SSH → 192.168.1.40:22 (usuario: dap)
+      ▼
+/var/www/dap.gal/           ← Subida de ficheros del sitio
+</code></pre>
+<hr />
+<h2 id="6-configuracion-nginx">6. Configuración nginx</h2>
+<h3 id="etcnginxsites-availabledapgal"><code>/etc/nginx/sites-available/dap.gal</code></h3>
+<pre><code class="language-nginx">server {
+    listen 80;
+    server_name dap.gal www.dap.gal;
+
+    root /var/www/dap.gal;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    access_log /var/log/nginx/dap.gal.access.log;
+    error_log  /var/log/nginx/dap.gal.error.log;
+}
+</code></pre>
+<pre><code class="language-bash"># Activar el virtualhost y deshabilitar el default
+ln -s /etc/nginx/sites-available/dap.gal /etc/nginx/sites-enabled/
+rm -f /etc/nginx/sites-enabled/default
+
+# Verificar sintaxis y recargar
+nginx -t &amp;&amp; systemctl reload nginx
+</code></pre>
+<hr />
+<h2 id="7-permisos-del-directorio-web">7. Permisos del Directorio Web</h2>
+<pre><code class="language-bash"># Propietario: dap (despliega) | grupo: www-data (nginx lee)
+chown -R dap:www-data /var/www/dap.gal
+
+# Directorios: rwxr-xr-x (nginx puede listar)
+find /var/www/dap.gal -type d -exec chmod 755 {} \;
+
+# Ficheros: rw-r--r-- (nginx puede leer, no ejecutar)
+find /var/www/dap.gal -type f -exec chmod 644 {} \;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Ruta</th>
+<th>Propietario</th>
+<th>Permisos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/var/www/dap.gal/</code> (dirs)</td>
+<td><code>dap:www-data</code></td>
+<td><code>755</code></td>
+</tr>
+<tr>
+<td><code>/var/www/dap.gal/</code> (files)</td>
+<td><code>dap:www-data</code></td>
+<td><code>644</code></td>
+</tr>
+<tr>
+<td><code>/home/dap/.ssh/</code></td>
+<td><code>dap:dap</code></td>
+<td><code>700</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-configuracion-ssh">8. Configuración SSH</h2>
+<h3 id="etcsshsshd_config-fragmento-relevante"><code>/etc/ssh/sshd_config</code> (fragmento relevante)</h3>
+<pre><code>PasswordAuthentication yes       # o no si se usa solo clave pública
+PermitRootLogin no
+AllowUsers dap
+</code></pre>
+<pre><code class="language-bash">systemctl restart ssh
+</code></pre>
+<blockquote>
+<p>Para despliegue con clave pública, añadir la clave pública del cliente en <code>/home/dap/.ssh/authorized_keys</code> con permisos <code>600</code>.</p>
+</blockquote>
+<hr />
+<h2 id="9-despliegue-de-ficheros">9. Despliegue de Ficheros</h2>
+<p>Desde la máquina de desarrollo, subir el sitio por SFTP:</p>
+<pre><code class="language-bash"># Subida con rsync (recomendado)
+rsync -avz --delete ./dist/ dap@192.168.1.40:/var/www/dap.gal/
+
+# O con scp para ficheros sueltos
+scp index.html dap@192.168.1.40:/var/www/dap.gal/
+
+# O con cliente SFTP (FileZilla, Cyberduck, etc.)
+# Host: 192.168.1.40 | Puerto: 22 | Usuario: dap
+</code></pre>
+<hr />
+<h2 id="10-comandos-utiles">10. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del servicio
+systemctl status nginx
+
+# Recargar configuración sin cortar conexiones
+nginx -t &amp;&amp; systemctl reload nginx
+
+# Ver árbol del sitio
+tree /var/www/dap.gal
+
+# Ver logs en tiempo real
+tail -f /var/log/nginx/dap.gal.access.log
+tail -f /var/log/nginx/dap.gal.error.log
+
+# Verificar que nginx escucha en el puerto 80
+ss -tlnp | grep nginx
+
+# Comprobar respuesta local
+curl -H &quot;Host: dap.gal&quot; http://localhost
+</code></pre>
+<hr />
+<h2 id="11-monitorizacion">11. Monitorización</h2>
+<p>Como en el resto de contenedores, el <strong>Node Exporter</strong> envía métricas a Grafana automáticamente.</p>
+<pre><code class="language-bash"># Últimas 20 líneas de cada log
+tail -20 /var/log/nginx/dap.gal.access.log
+tail -20 /var/log/nginx/dap.gal.error.log
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

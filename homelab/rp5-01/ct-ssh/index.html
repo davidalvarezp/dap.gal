@@ -1,0 +1,949 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/rp5-01/ct-ssh/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CT rp5-01-ct-ssh: SSH Bastion - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ct-rp5-01-ct-ssh-ssh-bastion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT rp5-01-ct-ssh: SSH Bastion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-despliegue-del-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Despliegue del Contenedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-preparacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Preparación del Sistema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalacion-de-dependencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalación de Dependencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-estructura-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Estructura de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-servicios-y-cuentas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Servicios y Cuentas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-flujo-de-acceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Flujo de Acceso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-configuracion-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Configuración SSH
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Configuración SSH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcsshsshd_config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/ssh/sshd_config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-configuracion-2fa-google-authenticator-totp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Configuración 2FA (Google Authenticator / TOTP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Configuración 2FA (Google Authenticator / TOTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurar-pam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar PAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-el-secreto-totp-por-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generar el secreto TOTP por usuario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-creacion-del-usuario-bastion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Creación del Usuario Bastión
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-fail2ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Fail2ban
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Fail2ban">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcfail2banjaillocal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/fail2ban/jail.local
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-cortafuegos-ufw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Cortafuegos (UFW)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-acceso-desde-el-exterior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Acceso desde el Exterior
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Acceso desde el Exterior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexion-al-bastion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexión al bastión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saltar-a-otros-cts-desde-el-bastion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saltar a otros CTs desde el bastión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-jump-acceso-directo-en-un-paso-desde-el-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH Jump (acceso directo en un paso desde el cliente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Monitorización
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ct-rp5-01-ct-ssh-ssh-bastion">CT rp5-01-ct-ssh: SSH Bastion</h1>
+<p>Contenedor dedicado a proporcionar acceso remoto seguro al homelab mediante <strong>SSH con autenticación de dos factores (2FA)</strong>. Actúa como único punto de entrada SSH desde internet, aislando el resto de servicios del acceso directo exterior. Usa <strong>Google Authenticator (TOTP)</strong> como segundo factor junto a contraseña.</p>
+<hr />
+<h2 id="1-despliegue-del-contenedor">1. Despliegue del Contenedor</h2>
+<p>En el nodo <strong>Raspberry Pi 5</strong> (<code>rp5-01</code>), creamos el contenedor Debian 12:</p>
+<ul>
+<li><strong>CPU</strong> 1 socket</li>
+<li><strong>RAM</strong> 256 MB</li>
+<li><strong>Disco</strong> 4 GB</li>
+<li><strong>Red</strong> 192.168.1.21</li>
+</ul>
+<hr />
+<h2 id="2-preparacion-del-sistema">2. Preparación del Sistema</h2>
+<pre><code class="language-bash"># Actualización base
+apt update &amp;&amp; apt upgrade -y
+apt install -y curl bash-completion fail2ban
+
+echo &quot;source /etc/bash_completion&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+
+# IP estática via systemd-networkd
+cat &gt; /etc/systemd/network/eth0.network &lt;&lt; 'EOF'
+[Match]
+Name=eth0
+
+[Network]
+DHCP=no
+Address=192.168.1.21/24
+Gateway=192.168.1.1
+DNS=192.168.1.20
+EOF
+
+systemctl enable systemd-networkd
+systemctl restart systemd-networkd
+
+ping -c 2 8.8.8.8
+</code></pre>
+<hr />
+<h2 id="3-instalacion-de-dependencias">3. Instalación de Dependencias</h2>
+<pre><code class="language-bash"># Servidor SSH + módulo PAM para 2FA
+apt install -y openssh-server libpam-google-authenticator
+
+# Métricas del sistema
+apt install -y prometheus-node-exporter
+systemctl enable prometheus-node-exporter
+systemctl start prometheus-node-exporter
+</code></pre>
+<hr />
+<h2 id="4-estructura-de-ficheros">4. Estructura de Ficheros</h2>
+<pre><code>/etc/ssh/
+├── sshd_config              ← Configuración principal del servidor SSH
+└── sshd_config.d/
+    └── bastion.conf         ← Ajustes específicos del bastión
+
+/etc/pam.d/
+└── sshd                     ← Configuración PAM (contraseña + TOTP)
+
+/etc/fail2ban/
+├── jail.local               ← Reglas de bloqueo por intentos fallidos
+└── filter.d/
+    └── sshd.conf            ← Filtro de log para SSH
+
+/home/&lt;usuario&gt;/
+└── .google_authenticator    ← Secreto TOTP por usuario (chmod 400)
+</code></pre>
+<hr />
+<h2 id="5-servicios-y-cuentas">5. Servicios y Cuentas</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Puerto</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>openssh-server</strong></td>
+<td>22 TCP</td>
+<td>Servidor SSH (bastión)</td>
+</tr>
+<tr>
+<td><strong>fail2ban</strong></td>
+<td>—</td>
+<td>Bloqueo automático por fuerza bruta</td>
+</tr>
+<tr>
+<td><strong>prometheus-node-exporter</strong></td>
+<td>9100 TCP</td>
+<td>Métricas del sistema para Grafana</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Usuario</th>
+<th>Acceso</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>root</code></td>
+<td>Deshabilitado</td>
+<td>No permite login directo</td>
+</tr>
+<tr>
+<td><code>bastion</code></td>
+<td>Contraseña + TOTP</td>
+<td>Usuario de acceso remoto</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-flujo-de-acceso">6. Flujo de Acceso</h2>
+<pre><code>Administrador (internet)
+        │
+        │ SSH → router:22 (NAT) → 192.168.1.21:22
+        ▼
+CT rp5-01-ct-ssh (bastión)
+        │
+   1. Contraseña
+   2. Código TOTP (Google Authenticator)
+        │
+        │ Acceso concedido
+        ▼
+SSH interno hacia otros CTs de la red
+        │
+        ├── ssh usuario@192.168.1.31   (proxy)
+        ├── ssh usuario@192.168.1.40   (whost)
+        └── ssh usuario@192.168.1.XX   (resto)
+</code></pre>
+<blockquote>
+<p>El router debe reenviar el puerto 22 (o un puerto externo no estándar) a <code>192.168.1.21:22</code>.</p>
+</blockquote>
+<hr />
+<h2 id="7-configuracion-ssh">7. Configuración SSH</h2>
+<h3 id="etcsshsshd_config"><code>/etc/ssh/sshd_config</code></h3>
+<pre><code># Protocolo y puerto
+Port 22
+Protocol 2
+
+# Autenticación
+PermitRootLogin no
+MaxAuthTries 3
+LoginGraceTime 30
+
+# Método de autenticación: contraseña + PAM (2FA)
+PasswordAuthentication yes
+ChallengeResponseAuthentication yes
+UsePAM yes
+AuthenticationMethods keyboard-interactive
+
+# Desactivar métodos no usados
+PubkeyAuthentication no
+PermitEmptyPasswords no
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+# Restricciones de acceso
+AllowUsers bastion
+MaxSessions 3
+
+# Keepalive
+ClientAliveInterval 120
+ClientAliveCountMax 2
+
+# Logging
+LogLevel VERBOSE
+SyslogFacility AUTH
+
+# Deshabilitar forwarding innecesario
+X11Forwarding no
+AllowTcpForwarding yes    # necesario para saltar a otros CTs
+AllowAgentForwarding no
+PermitTunnel no
+</code></pre>
+<pre><code class="language-bash"># Verificar sintaxis y reiniciar
+sshd -t &amp;&amp; systemctl restart ssh
+</code></pre>
+<hr />
+<h2 id="8-configuracion-2fa-google-authenticator-totp">8. Configuración 2FA (Google Authenticator / TOTP)</h2>
+<h3 id="configurar-pam">Configurar PAM</h3>
+<p>Editar <code>/etc/pam.d/sshd</code>, añadir al principio del fichero:</p>
+<pre><code># 2FA TOTP (antes de la autenticación de contraseña)
+auth required pam_google_authenticator.so nullok
+
+# Contraseña del sistema
+@include common-auth
+</code></pre>
+<p>Comentar o eliminar la línea <code>@include common-password</code> si aparece duplicada.</p>
+<h3 id="generar-el-secreto-totp-por-usuario">Generar el secreto TOTP por usuario</h3>
+<p>Ejecutar como cada usuario que necesite acceso:</p>
+<pre><code class="language-bash"># Como usuario bastion
+su - bastion
+google-authenticator
+</code></pre>
+<p>Responder a las preguntas del asistente:</p>
+<pre><code>Do you want authentication tokens to be time-based? → y
+Do you want me to update your &quot;~/.google_authenticator&quot; file? → y
+Do you want to disallow multiple uses of the same token? → y
+By default, tokens are good for 30 seconds [...] Do you want to enable rate-limiting? → y
+</code></pre>
+<p>El asistente muestra:
+- <strong>QR Code</strong> → escanear con Google Authenticator, Aegis, o similar
+- <strong>Secret key</strong> → guardar en lugar seguro (KeePass, Bitwarden…)
+- <strong>Emergency scratch codes</strong> → guardar en lugar seguro</p>
+<pre><code class="language-bash"># Asegurar permisos del fichero de secreto
+chmod 400 /home/bastion/.google_authenticator
+</code></pre>
+<hr />
+<h2 id="9-creacion-del-usuario-bastion">9. Creación del Usuario Bastión</h2>
+<pre><code class="language-bash"># Crear usuario sin sudo
+useradd -m -s /bin/bash bastion
+passwd bastion
+
+# Opcional: permitir saltar a otros CTs con su propia clave
+mkdir -p /home/bastion/.ssh
+chmod 700 /home/bastion/.ssh
+chown bastion:bastion /home/bastion/.ssh
+</code></pre>
+<hr />
+<h2 id="10-fail2ban">10. Fail2ban</h2>
+<h3 id="etcfail2banjaillocal"><code>/etc/fail2ban/jail.local</code></h3>
+<pre><code class="language-ini">[DEFAULT]
+bantime  = 1h
+findtime = 10m
+maxretry = 5
+ignoreip = 127.0.0.1/8 192.168.1.0/24
+
+[sshd]
+enabled  = true
+port     = ssh
+logpath  = /var/log/auth.log
+maxretry = 3
+bantime  = 24h
+</code></pre>
+<pre><code class="language-bash">systemctl enable fail2ban
+systemctl start fail2ban
+</code></pre>
+<hr />
+<h2 id="11-cortafuegos-ufw">11. Cortafuegos (UFW)</h2>
+<pre><code class="language-bash">ufw default deny incoming
+ufw default deny outgoing
+
+# SSH entrante desde internet
+ufw allow in 22/tcp
+
+# DNS
+ufw allow out 53/udp
+ufw allow out 53/tcp
+
+# NTP
+ufw allow out 123/udp
+
+# SSH saliente hacia la red interna (saltar a otros CTs)
+ufw allow out to 192.168.1.0/24 port 22 proto tcp
+
+# Node Exporter (métricas hacia Prometheus)
+ufw allow in from 192.168.1.32 to any port 9100 proto tcp
+
+ufw --force enable
+ufw status verbose
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Dirección</th>
+<th>Puerto</th>
+<th>Origen / Destino</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IN</td>
+<td>22</td>
+<td>cualquiera</td>
+<td>SSH externo</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>53</td>
+<td>cualquiera</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>123</td>
+<td>cualquiera</td>
+<td>NTP</td>
+</tr>
+<tr>
+<td>OUT</td>
+<td>22</td>
+<td>192.168.1.0/24</td>
+<td>Salto a CTs internos</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>9100</td>
+<td>192.168.1.32 (Prometheus)</td>
+<td>Métricas</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-comandos-utiles">12. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del servidor SSH
+systemctl status ssh
+
+# Ver intentos de login (éxitos y fallos)
+journalctl -u ssh -f
+grep &quot;Accepted\|Failed&quot; /var/log/auth.log
+
+# IPs baneadas por fail2ban
+fail2ban-client status sshd
+
+# Desbanear una IP manualmente
+fail2ban-client set sshd unbanip &lt;IP&gt;
+
+# Verificar configuración SSH sin reiniciar
+sshd -t
+
+# Ver conexiones SSH activas
+ss -tnp | grep :22
+who
+
+# Estado Node Exporter
+systemctl status prometheus-node-exporter
+curl -s http://localhost:9100/metrics | grep node_load
+</code></pre>
+<hr />
+<h2 id="13-acceso-desde-el-exterior">13. Acceso desde el Exterior</h2>
+<h3 id="conexion-al-bastion">Conexión al bastión</h3>
+<pre><code class="language-bash">ssh bastion@&lt;IP-publica-o-DDNS&gt;
+# 1. Solicita contraseña
+# 2. Solicita código TOTP (6 dígitos de la app)
+</code></pre>
+<h3 id="saltar-a-otros-cts-desde-el-bastion">Saltar a otros CTs desde el bastión</h3>
+<pre><code class="language-bash"># Desde dentro del bastión
+ssh usuario@192.168.1.31   # proxy
+ssh usuario@192.168.1.40   # whost
+ssh root@192.168.1.20      # dns
+</code></pre>
+<h3 id="ssh-jump-acceso-directo-en-un-paso-desde-el-cliente">SSH Jump (acceso directo en un paso desde el cliente)</h3>
+<pre><code class="language-bash">ssh -J bastion@&lt;IP-publica&gt; usuario@192.168.1.31
+</code></pre>
+<p>Configuración en <code>~/.ssh/config</code> del cliente:</p>
+<pre><code>Host bastion
+    HostName &lt;IP-publica-o-DDNS&gt;
+    User bastion
+    Port 22
+
+Host proxy
+    HostName 192.168.1.31
+    User usuario
+    ProxyJump bastion
+
+Host whost
+    HostName 192.168.1.40
+    User dap
+    ProxyJump bastion
+</code></pre>
+<hr />
+<h2 id="14-monitorizacion">14. Monitorización</h2>
+<p>Node Exporter expone métricas en <code>http://192.168.1.21:9100/metrics</code>.<br />
+Prometheus las recoge automáticamente y Grafana las visualiza en el dashboard del homelab.</p>
+<pre><code class="language-bash"># Últimas líneas del log de autenticación
+tail -20 /var/log/auth.log
+
+# Resumen de intentos fallidos
+grep &quot;Failed password&quot; /var/log/auth.log | awk '{print $11}' | sort | uniq -c | sort -rn | head -10
+
+# Estado de fail2ban
+fail2ban-client status sshd
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
