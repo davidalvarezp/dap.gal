@@ -1,0 +1,12 @@
+site_name: Mi Homelab
+site_url: https://dap.gal/homelab/
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - tags
+
+nav:
+  - Inicio: index.md

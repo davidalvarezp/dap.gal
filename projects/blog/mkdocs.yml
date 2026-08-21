@@ -1,0 +1,117 @@
+site_name: dap.gal/blog
+site_description: Articulos y guías sobre administración de sistemas, ciberseguridad, virtualización e infraestructura Linux.
+site_url: https://dap.gal/blog/
+#use_directory_urls: false
+site_description: >
+  Blog personal sobre SysAdmin, DevSecOps, ciberseguridad, Linux,
+  automatización e infraestructuras modernas.
+
+# Configuración del Repositorio
+repo_name: dap.gal/blog
+repo_url: https://github.com/davidalvarezp/dap.gal/tree/main/projects/blog
+edit_uri: edit/main/docs/
+
+
+
+# IMPORTANTE: dentro de subproyecto
+docs_dir: docs
+
+# --------------------------------------------------
+# THEME
+# --------------------------------------------------
+theme:
+  name: material
+  language: es
+  logo: https://dap.gal/assets/img/logo.webp
+  favicon: https://dap.gal/assets/img/favicon.ico
+  font:
+    text: JetBrains Mono
+  palette:
+    scheme: slate
+    primary: black
+    accent: green
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - toc.integrate
+    - content.action.edit
+    - content.action.view
+
+
+extra_css:
+  - assets/css/extra.css
+
+
+# --------------------------------------------------
+# MARKDOWN
+# --------------------------------------------------
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+
+  - toc:
+      permalink: true
+
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# --------------------------------------------------
+# PLUGINS
+# --------------------------------------------------
+plugins:
+  - search
+  - meta
+
+  # BLOG
+  - blog:
+      blog_dir: .
+      post_dir: posts
+
+      # UI
+      archive: false
+      categories: true
+
+      # orden
+      pagination: true
+
+  # RSS
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+
+      categories:
+        - categories
+        - tags
+
+      pretty_print: true
+
+# --------------------------------------------------
+# EXTRA
+# --------------------------------------------------
+extra:
+  generator: false
+
+# --------------------------------------------------
+# NAV (mínima, Material genera el resto)
+# --------------------------------------------------
+nav:
+  - dap.gal: https://dap.gal/
+  - Blog: index.md

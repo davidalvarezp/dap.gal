@@ -1,0 +1,12 @@
+:root {
+  --md-primary-fg-color: #00c853;
+  --md-accent-fg-color: #00b0ff;
+}
+
+.md-typeset h1, .md-typeset h2 {
+  font-weight: 700;
+}
+
+.md-header {
+  backdrop-filter: blur(10px);
+}

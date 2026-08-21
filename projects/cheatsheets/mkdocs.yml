@@ -1,0 +1,100 @@
+site_name: Cheatsheets | dap.gal
+site_description: Cheatsheets prácticas para administración de sistemas, DevOps, ciberseguridad y Linux.
+site_url: https://dap.gal/cheatsheets/
+
+docs_dir: docs
+
+# --------------------------------------------------
+# THEME
+# --------------------------------------------------
+theme:
+  name: material
+  language: es
+  logo: https://dap.gal/assets/img/logo.webp
+  favicon: https://dap.gal/assets/img/favicon.ico
+
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+  palette:
+
+    - scheme: slate
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+
+    - scheme: default
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+
+
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - toc.integrate
+
+# --------------------------------------------------
+# NAV
+# --------------------------------------------------
+nav:
+  - dap.gal: https://dap.gal/
+  - Inicio: index.md
+  - Linux: linux.md
+  - Bash: bash.md
+#  - Redes: networking.md
+#  - Git: git.md
+#  - Docker: docker.md
+#  - Kubernetes: kubernetes.md
+#  - DevOps: devops.md
+#  - Seguridad: security.md
+#  - Troubleshooting: troubleshooting.md
+
+# --------------------------------------------------
+# MARKDOWN
+# --------------------------------------------------
+markdown_extensions:
+  - admonition
+  - attr_list
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# --------------------------------------------------
+# PLUGINS
+# --------------------------------------------------
+plugins:
+  - search
+  - meta
+
+# --------------------------------------------------
+# EXTRA CSS
+# --------------------------------------------------
+extra_css:
+  - assets/css/extra.css
+
+# --------------------------------------------------
+# EXTRA
+# --------------------------------------------------
+extra:
+  generator: false
+
+# --------------------------------------------------
+# COPYRIGHT
+# --------------------------------------------------
+copyright: >
+  © 2026 [dap](https://dap.gal) - Cheatsheets

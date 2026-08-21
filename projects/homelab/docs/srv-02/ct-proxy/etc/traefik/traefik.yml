@@ -1,0 +1,51 @@
+log:
+  level: INFO
+  filePath: /var/log/traefik/traefik.log
+
+accessLog:
+  filePath: /var/log/traefik/access.log
+
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: ":8080"
+    forwardedHeaders:
+      trustedIPs:
+        - "192.168.1.39"
+  websecure:
+    address: ":443"
+    forwardedHeaders:
+      trustedIPs:
+        - "192.168.1.0/24"
+  lan:
+    address: ":80"
+    forwardedHeaders:
+      trustedIPs:
+        - "192.168.1.0/24"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  ssh:
+    address: ":2222"
+  traefik:
+    address: ":8888"
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: mail@dap.gal
+      storage: /etc/traefik/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+
+providers:
+  file:
+    directory: /etc/traefik/conf.d
+    watch: true
