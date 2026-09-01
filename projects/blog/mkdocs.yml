@@ -132,8 +132,8 @@ plugins:
       archive_name: Archivo
 
       # Authors
-      authors: true
-      authors_profiles: true
+      #authors: true
+      #authors_profiles: true
 
       # Don't show huge metadata blocks in excerpts
       post_excerpt_max_categories: 2
