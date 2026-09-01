@@ -1,0 +1,86 @@
+site_name: dap.gal | Tools
+site_description: Herramientas gratuitas y local-first para SysAdmins, desarrolladores y profesionales de ciberseguridad.
+site_author: David Álvarez Pampillón
+site_url: https://dap.gal/tools/
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: es
+  logo: https://dap.gal/assets/img/logo.webp
+  favicon: https://dap.gal/assets/img/favicon.ico
+  font:
+    text: JetBrains Mono
+  palette:
+    scheme: slate
+    primary: black
+    accent: green
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - navigation.indexes
+    - navigation.path
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+  - meta
+  - tags
+
+extra_javascript:
+  - assets/js/tools.js
+
+extra_css:
+  - assets/css/extra.css
+
+extra:
+  generator: false
+  analytics:
+    provider: google
+    property: G-MXJTP7C62L
+  social:
+    - icon: simple/x
+      link: https://x.com/sudodap
+    - icon: simple/youtube
+      link: https://youtube.com/@davidalvarezp
+    - icon: simple/twitch
+      link: https://twitch.tv/sudodap
+    - icon: simple/telegram
+      link: https://t.me/sudodap
+    - icon: simple/instagram
+      link: https://instagram.com/davidalvarezzp
+    - icon: simple/discord
+      link: https://discord.gg/x7JFKT2n4X
+
+nav:
+  - Herramientas:
+      - index.md
+      - Sistema:
+          - system/index.md
+          - Hash Generator: system/hash-generator/index.md
+          - Metadata Viewer: system/metadata-viewer/index.md
+      - Seguridad:
+          - security/index.md
+          - Password Generator: security/password-generator/index.md
