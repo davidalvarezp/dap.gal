@@ -1,6 +1,7 @@
 # docs/posts/.meta.yml
 
-authors: "dap"
+authors:
+  - dap
 
 categories:
   - SysAdmin
