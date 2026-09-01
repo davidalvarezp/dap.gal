@@ -59,7 +59,6 @@ theme:
     - content.code.annotate
 
     - content.action.edit
-    - content.action.view
 
     - toc.integrate
 
