@@ -37,9 +37,6 @@ hide:
       <code>$ whereami</code> → esta web está alojada en mi homelab.<br>
       Cookies solo si aceptas. Cero cookies de terceros por defecto.
     </p>
-    <p class="dap-footer__copy">
-      © Desde 2020 <a href="https://dap.gal">David Álvarez Pampillón</a>
-    </p>
     <p class="dap-footer__legal">
       <a href="/p/privacidad/">Privacidad</a> ·
       <a href="/p/legal/">Aviso legal</a> ·
