@@ -47,8 +47,8 @@ theme:
         name: Modo claro
 
   features:
-    - navigation.instant
-    - navigation.instant.progress
+#    - navigation.instant
+#    - navigation.instant.progress
     - navigation.tabs
     - navigation.top
 
@@ -59,6 +59,8 @@ theme:
     - content.code.annotate
 
     - content.action.edit
+#    - content.action.view
+
 
     - toc.integrate
 
