@@ -1,0 +1,707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/srv-02/ct-llm/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CT srv-02-ct-llm: Servidor LLM Local - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ct-srv-02-ct-llm-servidor-llm-local" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT srv-02-ct-llm: Servidor LLM Local
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-despliegue-del-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Despliegue del Contenedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-preparacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Preparación del Sistema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalacion-de-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalación de Ollama
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-modelos-instalados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Modelos Instalados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-estructura-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Estructura de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-servicios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Servicios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-flujo-de-uso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Flujo de Uso
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-configuracion-de-red-systemd-networkd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Configuración de Red (systemd-networkd)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-exposicion-de-la-api-en-la-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Exposición de la API en la Red
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Monitorización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#estado-de-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estado de Ollama
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-lo-que-falta-documentar-configurar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Lo que falta documentar / configurar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Lo que falta documentar / configurar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pendiente-de-completar-en-este-documento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendiente de completar en este documento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pendiente-de-configurar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendiente de configurar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ct-srv-02-ct-llm-servidor-llm-local">CT srv-02-ct-llm: Servidor LLM Local</h1>
+<p>Contenedor dedicado a ejecutar modelos de lenguaje local mediante <strong>Ollama</strong>, exponiendo una API REST para el resto de servicios del homelab. Actúa como backend LLM centralizado, desacoplado de los bots y automatizaciones que lo consumen.</p>
+<hr />
+<h2 id="1-despliegue-del-contenedor">1. Despliegue del Contenedor</h2>
+<p>En el nodo <strong>srv-02</strong> (Lenovo M920x Tiny), creamos el contenedor Debian 12:</p>
+<ul>
+<li><strong>CPU</strong> <em>(completar — recomendado: 4+ cores)</em></li>
+<li><strong>RAM</strong> <em>(completar — recomendado: 8+ GB según modelos)</em></li>
+<li><strong>Disco</strong> 20 GB (rootfs ampliado con <code>pct resize</code>)</li>
+<li><strong>Red</strong> 192.168.1.XX <em>(completar)</em></li>
+</ul>
+<blockquote>
+<p>El disco fue redimensionado a 20 GB desde el host con <code>pct resize 198 rootfs 20G</code>.</p>
+</blockquote>
+<hr />
+<h2 id="2-preparacion-del-sistema">2. Preparación del Sistema</h2>
+<pre><code class="language-bash"># Actualización base
+apt update &amp;&amp; apt full-upgrade -y
+
+# Dependencias
+apt install -y curl bash-completion
+echo &quot;source /etc/bash_completion&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<hr />
+<h2 id="3-instalacion-de-ollama">3. Instalación de Ollama</h2>
+<pre><code class="language-bash"># Instalación oficial (no pasa por apt, instala el binario directamente)
+curl -fsSL https://ollama.com/install.sh | sh
+
+systemctl enable ollama
+systemctl start ollama
+
+# Verificar que el servicio está activo
+systemctl status ollama
+
+# Verificar que la API responde
+curl http://localhost:11434/api/version
+</code></pre>
+<hr />
+<h2 id="4-modelos-instalados">4. Modelos Instalados</h2>
+<pre><code class="language-bash"># Ver modelos disponibles localmente
+ollama list
+
+# Descargar modelos
+ollama pull *(completar — ej. qwen2.5:7b, llama3.2:3b, mistral:7b)*
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Tamaño aprox.</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(completar)</em></td>
+<td><em>(completar)</em></td>
+<td><em>(completar)</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-estructura-de-ficheros">5. Estructura de Ficheros</h2>
+<pre><code>/usr/local/bin/
+└── ollama                   ← Binario principal
+
+/etc/systemd/system/
+└── ollama.service           ← Servicio systemd (generado por el instalador)
+
+/root/.ollama/               ← (o /usr/share/ollama/.ollama/ según versión)
+└── models/                  ← Modelos descargados
+</code></pre>
+<pre><code class="language-bash"># Localizar dónde están los modelos
+ollama list
+find / -name &quot;*.gguf&quot; 2&gt;/dev/null | head -5
+</code></pre>
+<hr />
+<h2 id="6-servicios">6. Servicios</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Puerto</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ollama</strong></td>
+<td>11434 TCP</td>
+<td>API REST para inferencia LLM</td>
+</tr>
+<tr>
+<td><strong>openssh-server</strong></td>
+<td>22 TCP</td>
+<td>Acceso administrativo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-flujo-de-uso">7. Flujo de Uso</h2>
+<pre><code>Servicios del homelab
+        │
+        │ HTTP POST → 192.168.1.XX:11434/api/generate
+        ▼
+CT srv-02-ct-llm (Ollama)
+        │
+        ▼
+Modelo LLM local (sin salida a internet)
+        │
+        ▼
+Respuesta JSON → servicio solicitante
+</code></pre>
+<blockquote>
+<p>Ejemplo: <code>srv-01-ct-sudofeed</code> puede apuntar su <code>OLLAMA_HOST</code> a este CT en lugar de usar su Ollama local.</p>
+</blockquote>
+<hr />
+<h2 id="8-configuracion-de-red-systemd-networkd">8. Configuración de Red (systemd-networkd)</h2>
+<pre><code class="language-bash"># Ver configuración actual
+cat /etc/systemd/network/*.network
+
+# Verificar IP asignada
+ip a show eth0
+</code></pre>
+<hr />
+<h2 id="9-exposicion-de-la-api-en-la-red">9. Exposición de la API en la Red</h2>
+<p>Por defecto Ollama escucha solo en <code>localhost</code>. Para que otros CTs puedan consumirlo:</p>
+<pre><code class="language-bash"># Editar el servicio para escuchar en todas las interfaces
+systemctl edit ollama
+</code></pre>
+<p>Añadir en el fichero override:</p>
+<pre><code class="language-ini">[Service]
+Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;
+</code></pre>
+<pre><code class="language-bash">systemctl daemon-reload
+systemctl restart ollama
+
+# Verificar que escucha en la red
+ss -tlnp | grep 11434
+</code></pre>
+<hr />
+<h2 id="10-monitorizacion">10. Monitorización</h2>
+<blockquote>
+<p><strong>Node Exporter no está instalado</strong> — pendiente de configurar.</p>
+</blockquote>
+<pre><code class="language-bash"># Instalar Node Exporter
+apt install -y prometheus-node-exporter
+systemctl enable prometheus-node-exporter
+systemctl start prometheus-node-exporter
+</code></pre>
+<p>Expone métricas en <code>http://192.168.1.XX:9100/metrics</code> para Grafana.</p>
+<h3 id="estado-de-ollama">Estado de Ollama</h3>
+<pre><code class="language-bash"># Verificar que la API responde
+curl http://localhost:11434/api/version
+
+# Ver modelos cargados en memoria
+curl http://localhost:11434/api/ps
+
+# Uso de recursos durante inferencia
+top
+</code></pre>
+<hr />
+<h2 id="11-comandos-utiles">11. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del servicio
+systemctl status ollama
+
+# Logs en tiempo real
+journalctl -u ollama -f
+
+# Listar modelos disponibles
+ollama list
+
+# Descargar un modelo
+ollama pull &lt;modelo&gt;
+
+# Eliminar un modelo
+ollama rm &lt;modelo&gt;
+
+# Prueba rápida de inferencia por consola
+ollama run &lt;modelo&gt; &quot;Hola, ¿funcionas correctamente?&quot;
+
+# Prueba de la API REST
+curl http://localhost:11434/api/generate -d '{
+  &quot;model&quot;: &quot;&lt;modelo&gt;&quot;,
+  &quot;prompt&quot;: &quot;Responde solo: OK&quot;,
+  &quot;stream&quot;: false
+}'
+
+# Ver cuánta RAM consume el modelo cargado
+curl http://localhost:11434/api/ps
+
+# Uso de disco de los modelos
+du -sh ~/.ollama/models/ 2&gt;/dev/null || du -sh /usr/share/ollama/.ollama/models/
+
+# Reiniciar servicio
+systemctl restart ollama
+</code></pre>
+<hr />
+<h2 id="12-lo-que-falta-documentar-configurar">12. Lo que falta documentar / configurar</h2>
+<h3 id="pendiente-de-completar-en-este-documento">Pendiente de completar en este documento</h3>
+<ul>
+<li><strong>IP del CT</strong> — no visible en la salida; completar en sección 1 y sección 9</li>
+<li><strong>ID del CT</strong> — presumiblemente 198 (único CT conocido en srv-02)</li>
+<li><strong>Modelos instalados</strong> — ejecutar <code>ollama list</code> y completar la tabla de la sección 4</li>
+<li><strong>Directorio de modelos</strong> — varía según versión de Ollama; verificar con <code>find</code></li>
+</ul>
+<h3 id="pendiente-de-configurar">Pendiente de configurar</h3>
+<ul>
+<li><strong>Node Exporter</strong> — no instalado; sin métricas del CT en Grafana</li>
+<li><strong><code>OLLAMA_HOST=0.0.0.0</code></strong> — sin esto, la API solo responde en localhost y otros CTs no pueden consumirla</li>
+<li><strong>Límite de memoria</strong> — sin configurar <code>OLLAMA_MAX_LOADED_MODELS</code> ni <code>OLLAMA_NUM_PARALLEL</code>; con RAM limitada puede ser necesario</li>
+<li><strong>UFW</strong> — sin reglas de cortafuegos; cualquier CT de la red puede llamar a la API</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

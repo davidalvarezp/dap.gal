@@ -1,0 +1,931 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/rp5-01/ct-vpn/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CT rp5-01-ct-vpn: VPN WireGuard - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ct-rp5-01-ct-vpn-vpn-wireguard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT rp5-01-ct-vpn: VPN WireGuard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Arquitectura
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-despliegue-del-contenedor-en-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Despliegue del Contenedor en Proxmox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Despliegue del Contenedor en Proxmox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-el-ct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear el CT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-especial-del-ct-obligatoria-para-wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuración especial del CT (obligatoria para WireGuard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-preparacion-del-sistema-dentro-del-ct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Preparación del Sistema (dentro del CT)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-estructura-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Estructura de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-generacion-de-claves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Generación de Claves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuracion-del-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuración del Servidor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuración del Servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcwireguardwg0conf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/wireguard/wg0.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-configuracion-de-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Configuración de Clientes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Configuración de Clientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#laptop-etcwireguardclienteslaptopconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Laptop — /etc/wireguard/clientes/laptop.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#movil-etcwireguardclientesmovilconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Móvil — /etc/wireguard/clientes/movil.conf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-qr-para-el-movil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generar QR para el móvil
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-instalar-wireguard-en-el-laptop-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Instalar WireGuard en el Laptop (Linux)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-router-port-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Router — Port Forwarding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-cortafuegos-ufw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Cortafuegos (UFW)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Monitorización
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-anadir-un-nuevo-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Añadir un Nuevo Cliente
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-tabla-de-clientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Tabla de Clientes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ct-rp5-01-ct-vpn-vpn-wireguard">CT rp5-01-ct-vpn: VPN WireGuard</h1>
+<p>Contenedor dedicado a proporcionar acceso remoto seguro a la red del homelab mediante <strong>WireGuard</strong>. Permite conectarse desde el portátil, el móvil o cualquier otro dispositivo como si estuvieras en casa, con acceso completo a todos los servicios internos y con DNS resuelto por Pi-hole.</p>
+<hr />
+<h2 id="1-arquitectura">1. Arquitectura</h2>
+<pre><code>Dispositivo externo (laptop / móvil)
+          │
+          │ WireGuard UDP → &lt;IP-pública&gt;:51820
+          ▼
+Router doméstico (NAT/port forward → 192.168.1.22:51820)
+          │
+          ▼
+CT rp5-01-ct-vpn — WireGuard server (192.168.1.22)
+          │
+          │ Túnel: 10.8.0.0/24
+          │
+          ├── Acceso a toda la LAN (192.168.1.0/24)
+          └── DNS → Pi-hole (192.168.1.20)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Red</th>
+<th>Rango</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LAN homelab</td>
+<td>192.168.1.0/24</td>
+<td>Red local</td>
+</tr>
+<tr>
+<td>VPN WireGuard</td>
+<td>10.8.0.0/24</td>
+<td>Túnel entre cliente y servidor</td>
+</tr>
+<tr>
+<td>Servidor VPN</td>
+<td>10.8.0.1</td>
+<td>IP del servidor dentro del túnel</td>
+</tr>
+<tr>
+<td>Clientes</td>
+<td>10.8.0.2 — 10.8.0.254</td>
+<td>IPs asignadas a cada dispositivo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-despliegue-del-contenedor-en-proxmox">2. Despliegue del Contenedor en Proxmox</h2>
+<h3 id="crear-el-ct">Crear el CT</h3>
+<p>En la UI de Proxmox (<code>rp5-01</code>), crear un contenedor Debian 12 ARM64 con:</p>
+<ul>
+<li><strong>CPU</strong> 1 socket</li>
+<li><strong>RAM</strong> 256 MB</li>
+<li><strong>Disco</strong> 2 GB</li>
+<li><strong>Red</strong> 192.168.1.22</li>
+</ul>
+<h3 id="configuracion-especial-del-ct-obligatoria-para-wireguard">Configuración especial del CT (obligatoria para WireGuard)</h3>
+<p>WireGuard necesita acceso al módulo de red del kernel del host. Editar la configuración del CT desde <code>rp5-01</code>:</p>
+<pre><code class="language-bash"># En el HOST rp5-01 (no en el CT)
+nano /etc/pve/lxc/&lt;CTID&gt;.conf
+</code></pre>
+<p>Añadir al final:</p>
+<pre><code>lxc.cgroup2.devices.allow: c 10:200 rwm
+lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file 0 0
+features: nesting=1
+</code></pre>
+<p>Verificar que el módulo WireGuard está cargado en el host:</p>
+<pre><code class="language-bash"># En el HOST rp5-01
+modprobe wireguard
+echo &quot;wireguard&quot; &gt;&gt; /etc/modules
+lsmod | grep wireguard
+</code></pre>
+<hr />
+<h2 id="3-preparacion-del-sistema-dentro-del-ct">3. Preparación del Sistema (dentro del CT)</h2>
+<pre><code class="language-bash"># Actualización base
+apt update &amp;&amp; apt upgrade -y
+apt install -y wireguard wireguard-tools curl iptables
+
+# Habilitar reenvío de paquetes IP (necesario para enrutar tráfico LAN)
+echo &quot;net.ipv4.ip_forward=1&quot; &gt;&gt; /etc/sysctl.conf
+sysctl -p
+
+# Verificar
+sysctl net.ipv4.ip_forward
+# Debe devolver: net.ipv4.ip_forward = 1
+</code></pre>
+<hr />
+<h2 id="4-estructura-de-ficheros">4. Estructura de Ficheros</h2>
+<pre><code>/etc/wireguard/
+├── wg0.conf             ← Configuración del servidor WireGuard
+├── server_private.key   ← Clave privada del servidor (chmod 600)
+├── server_public.key    ← Clave pública del servidor
+└── clientes/            ← Configuraciones de cada cliente
+    ├── laptop.conf
+    └── movil.conf
+</code></pre>
+<hr />
+<h2 id="5-generacion-de-claves">5. Generación de Claves</h2>
+<pre><code class="language-bash">mkdir -p /etc/wireguard/clientes
+cd /etc/wireguard
+
+# Par de claves del SERVIDOR
+wg genkey | tee server_private.key | wg pubkey &gt; server_public.key
+chmod 600 server_private.key
+
+# Par de claves del cliente: LAPTOP
+wg genkey | tee clientes/laptop_private.key | wg pubkey &gt; clientes/laptop_public.key
+
+# Par de claves del cliente: MÓVIL
+wg genkey | tee clientes/movil_private.key | wg pubkey &gt; clientes/movil_public.key
+
+# Ver las claves generadas
+echo &quot;=== SERVIDOR ===&quot; &amp;&amp; cat server_public.key
+echo &quot;=== LAPTOP ===&quot; &amp;&amp; cat clientes/laptop_public.key
+echo &quot;=== MÓVIL ===&quot; &amp;&amp; cat clientes/movil_public.key
+</code></pre>
+<hr />
+<h2 id="6-configuracion-del-servidor">6. Configuración del Servidor</h2>
+<h3 id="etcwireguardwg0conf"><code>/etc/wireguard/wg0.conf</code></h3>
+<pre><code class="language-ini">[Interface]
+Address    = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = &lt;contenido de server_private.key&gt;
+
+# Enrutar tráfico de clientes hacia la LAN
+# IMPORTANTE: cada PostUp/PostDown debe ir en una sola línea — WireGuard no soporta \ para continuar línea
+PostUp   = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+# ── LAPTOP ───────────────────────────────────────────────────
+[Peer]
+PublicKey  = &lt;contenido de clientes/laptop_public.key&gt;
+AllowedIPs = 10.8.0.2/32
+
+# ── MÓVIL ────────────────────────────────────────────────────
+[Peer]
+PublicKey  = &lt;contenido de clientes/movil_public.key&gt;
+AllowedIPs = 10.8.0.3/32
+</code></pre>
+<pre><code class="language-bash">chmod 600 /etc/wireguard/wg0.conf
+
+# Habilitar inicio automático y arrancar
+systemctl enable wg-quick@wg0
+systemctl start wg-quick@wg0
+
+# Verificar estado (el estado normal es &quot;active (exited)&quot;, no &quot;running&quot;)
+systemctl status wg-quick@wg0
+wg show
+
+# IMPORTANTE: no usar wg-quick up/down directamente una vez gestionado por systemd
+# Si se levanta manualmente primero, bajar antes de que systemd lo arranque:
+#   wg-quick down wg0 &amp;&amp; systemctl start wg-quick@wg0
+# En adelante usar siempre: systemctl start/stop/restart wg-quick@wg0
+</code></pre>
+<hr />
+<h2 id="7-configuracion-de-clientes">7. Configuración de Clientes</h2>
+<h3 id="laptop-etcwireguardclienteslaptopconf">Laptop — <code>/etc/wireguard/clientes/laptop.conf</code></h3>
+<pre><code class="language-ini">[Interface]
+PrivateKey = &lt;contenido de clientes/laptop_private.key&gt;
+Address    = 10.8.0.2/32
+DNS        = 192.168.1.20        # Pi-hole del homelab
+
+[Peer]
+PublicKey  = &lt;contenido de server_public.key&gt;
+Endpoint   = &lt;IP-PÚBLICA-O-DDNS&gt;:51820
+AllowedIPs = 0.0.0.0/0           # Todo el tráfico por el túnel (full tunnel)
+             # Alternativa para solo acceder a la LAN (split tunnel):
+             # AllowedIPs = 192.168.1.0/24, 10.8.0.0/24
+PersistentKeepalive = 25
+</code></pre>
+<h3 id="movil-etcwireguardclientesmovilconf">Móvil — <code>/etc/wireguard/clientes/movil.conf</code></h3>
+<pre><code class="language-ini">[Interface]
+PrivateKey = &lt;contenido de clientes/movil_private.key&gt;
+Address    = 10.8.0.3/32
+DNS        = 192.168.1.20
+
+[Peer]
+PublicKey  = &lt;contenido de server_public.key&gt;
+Endpoint   = &lt;IP-PÚBLICA-O-DDNS&gt;:51820
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+</code></pre>
+<h3 id="generar-qr-para-el-movil">Generar QR para el móvil</h3>
+<pre><code class="language-bash">apt install -y qrencode
+
+# Muestra el QR directamente en la terminal
+qrencode -t ansiutf8 &lt; /etc/wireguard/clientes/movil.conf
+</code></pre>
+<blockquote>
+<p>Escanear con la app <strong>WireGuard</strong> (iOS / Android).</p>
+</blockquote>
+<hr />
+<h2 id="8-instalar-wireguard-en-el-laptop-linux">8. Instalar WireGuard en el Laptop (Linux)</h2>
+<pre><code class="language-bash"># En el laptop (Debian/Ubuntu)
+apt install -y wireguard
+
+# Copiar el fichero de configuración
+scp root@192.168.1.22:/etc/wireguard/clientes/laptop.conf \
+    /etc/wireguard/wg0.conf
+
+chmod 600 /etc/wireguard/wg0.conf
+
+# Conectar
+wg-quick up wg0
+
+# Desconectar
+wg-quick down wg0
+
+# Conexión automática al arranque (opcional)
+systemctl enable wg-quick@wg0
+</code></pre>
+<hr />
+<h2 id="9-router-port-forwarding">9. Router — Port Forwarding</h2>
+<p>En la interfaz del router, crear una regla de reenvío de puertos:</p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protocolo</strong></td>
+<td>UDP</td>
+</tr>
+<tr>
+<td><strong>Puerto externo</strong></td>
+<td>51820</td>
+</tr>
+<tr>
+<td><strong>IP destino</strong></td>
+<td>192.168.1.22</td>
+</tr>
+<tr>
+<td><strong>Puerto destino</strong></td>
+<td>51820</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Si tienes IP pública dinámica, configurar un cliente DDNS en el router (DuckDNS, No-IP, etc.) y usar ese hostname como <code>Endpoint</code> en los ficheros de cliente.</p>
+</blockquote>
+<hr />
+<h2 id="10-cortafuegos-ufw">10. Cortafuegos (UFW)</h2>
+<pre><code class="language-bash">ufw default deny incoming
+ufw default deny outgoing
+
+# WireGuard (entrada desde internet)
+ufw allow in 51820/udp
+
+# DNS hacia Pi-hole
+ufw allow out to 192.168.1.20 port 53 proto udp
+ufw allow out to 192.168.1.20 port 53 proto tcp
+
+# NTP
+ufw allow out 123/udp
+
+# Tráfico de clientes VPN hacia la LAN
+ufw allow out to 192.168.1.0/24
+
+# SSH administrativo desde la LAN
+ufw allow in from 192.168.1.0/24 to any port 22 proto tcp
+
+# Node Exporter (desde Prometheus)
+ufw allow in from 192.168.1.32 to any port 9100 proto tcp
+
+ufw --force enable
+ufw status verbose
+</code></pre>
+<hr />
+<h2 id="11-monitorizacion">11. Monitorización</h2>
+<pre><code class="language-bash">apt install -y prometheus-node-exporter
+systemctl enable prometheus-node-exporter
+systemctl start prometheus-node-exporter
+</code></pre>
+<p>Expone métricas en <code>http://192.168.1.22:9100/metrics</code>.</p>
+<hr />
+<h2 id="12-anadir-un-nuevo-cliente">12. Añadir un Nuevo Cliente</h2>
+<pre><code class="language-bash"># 1. Generar claves
+cd /etc/wireguard
+wg genkey | tee clientes/nuevo_private.key | wg pubkey &gt; clientes/nuevo_public.key
+
+# 2. Añadir el peer al servidor (sin reiniciar el servicio)
+wg set wg0 peer &lt;nuevo_public_key&gt; allowed-ips 10.8.0.X/32
+
+# 3. Guardar el cambio en wg0.conf
+wg-quick save wg0
+
+# 4. Crear el fichero de configuración del cliente
+cat &gt; /etc/wireguard/clientes/nuevo.conf &lt;&lt; EOF
+[Interface]
+PrivateKey = &lt;nuevo_private_key&gt;
+Address    = 10.8.0.X/32
+DNS        = 192.168.1.20
+
+[Peer]
+PublicKey  = $(cat server_public.key)
+Endpoint   = &lt;IP-PÚBLICA&gt;:51820
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+EOF
+
+# 5. Generar QR si es móvil
+qrencode -t ansiutf8 &lt; /etc/wireguard/clientes/nuevo.conf
+</code></pre>
+<hr />
+<h2 id="13-comandos-utiles">13. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del túnel y peers conectados
+wg show
+
+# Ver tráfico por peer
+wg show wg0 transfer
+
+# Ver último handshake de cada cliente (si está conectado)
+wg show wg0 latest-handshakes
+
+# Reiniciar WireGuard
+systemctl restart wg-quick@wg0
+
+# Subir / bajar el túnel manualmente
+wg-quick up wg0
+wg-quick down wg0
+
+# Ver logs
+journalctl -u wg-quick@wg0 -f
+
+# Verificar enrutamiento
+ip route show table main
+iptables -t nat -L -n -v
+
+# Test de conectividad desde un cliente conectado
+ping 192.168.1.1        # router
+ping 192.168.1.20       # Pi-hole
+curl http://192.168.1.31:8888/api/overview   # Traefik dashboard
+</code></pre>
+<hr />
+<h2 id="14-tabla-de-clientes">14. Tabla de Clientes</h2>
+<table>
+<thead>
+<tr>
+<th>Cliente</th>
+<th>IP VPN</th>
+<th>Clave pública</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servidor</td>
+<td>10.8.0.1</td>
+<td><em>(server_public.key)</em></td>
+<td>CT rp5-01-ct-vpn</td>
+</tr>
+<tr>
+<td>Laptop</td>
+<td>10.8.0.2</td>
+<td><em>(laptop_public.key)</em></td>
+<td>Portátil principal</td>
+</tr>
+<tr>
+<td>Móvil</td>
+<td>10.8.0.3</td>
+<td><em>(movil_public.key)</em></td>
+<td>Teléfono</td>
+</tr>
+<tr>
+<td><em>(añadir)</em></td>
+<td>10.8.0.4</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,44 @@
+{
+    "version": "https://jsonfeed.org/version/1.1",
+    "title": "dap.gal/blog",
+    "home_page_url": "https://dap.gal/blog/",
+    "feed_url": "https://dap.gal/blog/feed_json_created.json",
+    "description": "Blog t\u00e9cnico sobre administraci\u00f3n de sistemas, Linux, ciberseguridad, DevSecOps, virtualizaci\u00f3n, automatizaci\u00f3n e infraestructura.\n",
+    "icon": null,
+    "authors": [],
+    "language": "es",
+    "items": [
+        {
+            "id": "https://dap.gal/blog/2026/06/26/hardening-linux/",
+            "url": "https://dap.gal/blog/2026/06/26/hardening-linux/",
+            "title": "Gu\u00eda Avanzada de Hardening en Linux para SysAdmins",
+            "content_html": "  Gu\u00eda pr\u00e1ctica de hardening de servidores Linux: SSH, kernel, filesystem, red, systemd, contenedores y monitorizaci\u00f3n.",
+            "image": "https://dap.gal/blog/assets/images/social/2026/06/26/hardening-linux.png",
+            "date_modified": "2026-09-01T07:54:01+00:00",
+            "date_published": "2026-06-26T00:00:00+00:00",
+            "authors": [
+                {
+                    "name": "dap"
+                }
+            ],
+            "tags": [
+                "Auditor\u00eda",
+                "Ciberseguridad",
+                "Contenedores",
+                "CyberSec",
+                "DevSecOps",
+                "DevSecOps",
+                "Hardening",
+                "Infra",
+                "Infraestructura",
+                "Kernel",
+                "Linux",
+                "Linux",
+                "Seguridad",
+                "SysAdmin",
+                "Sysadmin",
+                "VirtCloud"
+            ]
+        }
+    ]
+}

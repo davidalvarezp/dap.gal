@@ -1,0 +1,803 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/srv-02/ct-proxy/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CT srv-01-ct-proxy: Reverse Proxy - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ct-srv-01-ct-proxy-reverse-proxy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CT srv-01-ct-proxy: Reverse Proxy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-despliegue-del-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Despliegue del Contenedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-preparacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Preparación del Sistema
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-estructura-de-ficheros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Estructura de Ficheros
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-servicios-y-cuentas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Servicios y Cuentas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-flujo-de-enrutamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flujo de Enrutamiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-configuracion-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Configuración Principal
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Configuración Principal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etctraefiktraefikyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/traefik/traefik.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etctraefikenvcloudflareenv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/traefik/env/cloudflare.env
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-rutas-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Rutas HTTP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Rutas HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etctraefikconfddapgalyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/traefik/conf.d/dap.gal.yml
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-servicio-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Servicio systemd
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Servicio systemd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcsystemdsystemtraefikservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/systemd/system/traefik.service
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Monitorización
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ct-srv-01-ct-proxy-reverse-proxy">CT srv-01-ct-proxy: Reverse Proxy</h1>
+<p>Contenedor dedicado a enrutar el tráfico entrante (internet y LAN) hacia los servicios internos del homelab mediante <strong>Traefik v3.3.4</strong>, con soporte para certificados SSL automáticos vía <strong>Let's Encrypt + Cloudflare DNS</strong>.</p>
+<hr />
+<h2 id="1-despliegue-del-contenedor">1. Despliegue del Contenedor</h2>
+<p>En el nodo Proxmox del M920x, creamos el contenedor Debian 12:</p>
+<ul>
+<li><strong>CPU</strong> 1 socket</li>
+<li><strong>RAM</strong> 512 MB</li>
+<li><strong>Disco</strong> 8 GB</li>
+<li><strong>Red</strong> 192.168.1.31</li>
+</ul>
+<hr />
+<h2 id="2-preparacion-del-sistema">2. Preparación del Sistema</h2>
+<pre><code class="language-bash"># Actualización base
+apt update &amp;&amp; apt upgrade -y &amp;&amp; apt install -y curl wget jq
+
+# Descargar e instalar Traefik v3.3.4
+wget -q https://github.com/traefik/traefik/releases/download/v3.3.4/traefik_v3.3.4_linux_amd64.tar.gz \
+    -O /tmp/traefik.tar.gz
+tar -xzf /tmp/traefik.tar.gz -C /tmp
+install -m 755 /tmp/traefik /usr/local/bin/traefik
+rm -f /tmp/traefik.tar.gz /tmp/traefik
+
+# Verificar instalación
+traefik version
+
+# Usuario de sistema sin shell
+useradd -r -s /usr/sbin/nologin traefik
+
+# Directorios de configuración y logs
+mkdir -p /etc/traefik/conf.d
+mkdir -p /etc/traefik/env
+mkdir -p /var/log/traefik
+chown -R traefik:traefik /etc/traefik /var/log/traefik
+
+# Permiso para abrir puertos bajos (80) sin root
+setcap 'cap_net_bind_service=+ep' /usr/local/bin/traefik
+
+# Fichero ACME para certificados SSL
+touch /etc/traefik/acme.json
+chmod 600 /etc/traefik/acme.json
+</code></pre>
+<hr />
+<h2 id="3-estructura-de-ficheros">3. Estructura de Ficheros</h2>
+<pre><code>/etc/traefik/
+├── traefik.yml              ← Configuración principal
+├── acme.json                ← Almacén de certificados Let's Encrypt (chmod 600)
+├── conf.d/
+│   └── dap.gal.yml          ← Rutas HTTP (internet + LAN)
+└── env/
+    └── cloudflare.env       ← Token API de Cloudflare (chmod 600)
+
+/var/log/traefik/
+├── traefik.log              ← Log del servicio
+└── access.log               ← Log de accesos HTTP
+</code></pre>
+<hr />
+<h2 id="4-servicios-y-cuentas">4. Servicios y Cuentas</h2>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Detalle</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Traefik</strong></td>
+<td>v3.3.4</td>
+<td>Reverse proxy y gestor de rutas</td>
+</tr>
+<tr>
+<td><strong>Dashboard</strong></td>
+<td>http://proxy.dap.gal</td>
+<td>Panel de control de Traefik</td>
+</tr>
+<tr>
+<td><strong>Let's Encrypt</strong></td>
+<td>ACME via DNS</td>
+<td>Certificados SSL automáticos</td>
+</tr>
+<tr>
+<td><strong>Cloudflare</strong></td>
+<td>DNS Challenge</td>
+<td>Proveedor DNS para validación ACME</td>
+</tr>
+<tr>
+<td><strong>Dominio público</strong></td>
+<td>dap.gal</td>
+<td>Dominio principal del homelab</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-flujo-de-enrutamiento">5. Flujo de Enrutamiento</h2>
+<pre><code>Internet
+    │
+    │ :8080 (entrypoint: web)
+    ▼
+Traefik (192.168.1.31)
+    │
+    ├── dap.gal / www.dap.gal ──────→ CT Hosting (192.168.1.40:80)
+    │
+    │ :80 (entrypoint: lan)
+    ▼
+Traefik (solo red local)
+    │
+    ├── dns.dap.gal   ──────────────→ Pi-hole    (192.168.1.20:80)
+    ├── proxy.dap.gal ──────────────→ Dashboard  (192.168.1.31:8888)
+    ├── stats.dap.gal ──────────────→ Grafana    (192.168.1.32:3000)
+    └── home.dap.gal  ──────────────→ Homepage   (192.168.1.33:80)
+</code></pre>
+<blockquote>
+<p>El router/NAT reenvía el puerto 8080 externo a <code>192.168.1.31:8080</code>.<br />
+El tráfico LAN entra directamente por el puerto 80.</p>
+</blockquote>
+<hr />
+<h2 id="6-configuracion-principal">6. Configuración Principal</h2>
+<h3 id="etctraefiktraefikyml"><code>/etc/traefik/traefik.yml</code></h3>
+<pre><code class="language-yaml">log:
+  level: INFO
+  filePath: /var/log/traefik/traefik.log
+
+accessLog:
+  filePath: /var/log/traefik/access.log
+
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: &quot;:8080&quot;
+    forwardedHeaders:
+      trustedIPs:
+        - &quot;192.168.1.39&quot;
+  websecure:
+    address: &quot;:443&quot;
+    forwardedHeaders:
+      trustedIPs:
+        - &quot;192.168.1.0/24&quot;
+  lan:
+    address: &quot;:80&quot;
+    forwardedHeaders:
+      trustedIPs:
+        - &quot;192.168.1.0/24&quot;
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  ssh:
+    address: &quot;:2222&quot;
+  traefik:
+    address: &quot;:8888&quot;
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: mail@dap.gal
+      storage: /etc/traefik/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - &quot;1.1.1.1:53&quot;
+
+providers:
+  file:
+    directory: /etc/traefik/conf.d
+    watch: true
+</code></pre>
+<h3 id="etctraefikenvcloudflareenv"><code>/etc/traefik/env/cloudflare.env</code></h3>
+<pre><code class="language-env">CF_DNS_API_TOKEN=tu_token_api_cloudflare
+</code></pre>
+<blockquote>
+<p>Permisos: <code>chmod 600 /etc/traefik/env/cloudflare.env</code></p>
+</blockquote>
+<hr />
+<h2 id="7-rutas-http">7. Rutas HTTP</h2>
+<h3 id="etctraefikconfddapgalyml"><code>/etc/traefik/conf.d/dap.gal.yml</code></h3>
+<pre><code class="language-yaml">http:
+
+  routers:
+
+    public:
+      entryPoints:
+        - web
+      rule: &quot;Host(`dap.gal`) || Host(`www.dap.gal`)&quot;
+      service: svc-whost
+
+    dns:
+      entryPoints:
+        - websecure
+      rule: &quot;Host(`dns.dap.gal`)&quot;
+      service: svc-dns
+      middlewares:
+        - redirect-admin
+      tls:
+        certResolver: cloudflare
+
+    proxy:
+      entryPoints:
+        - websecure
+      rule: &quot;Host(`proxy.dap.gal`)&quot;
+      service: svc-proxy
+      tls:
+        certResolver: cloudflare
+
+    stats:
+      entryPoints:
+        - websecure
+      rule: &quot;Host(`stats.dap.gal`)&quot;
+      service: svc-stats
+      tls:
+        certResolver: cloudflare
+
+    home:
+      entryPoints:
+        - websecure
+      rule: &quot;Host(`home.dap.gal`)&quot;
+      service: svc-home
+      tls:
+        certResolver: cloudflare
+
+  services:
+    svc-whost:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.40:80&quot;
+
+    svc-dns:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.20&quot;
+
+    svc-proxy:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.31:8888&quot;
+
+    svc-stats:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.32:3000&quot;
+
+    svc-home:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.33:3000&quot;
+
+  middlewares:
+    redirect-admin:
+      redirectRegex:
+        regex: &quot;^https://dns\\.dap\\.gal/?$&quot;
+        replacement: &quot;https://dns.dap.gal/admin/&quot;
+        permanent: false
+</code></pre>
+<hr />
+<h2 id="8-servicio-systemd">8. Servicio systemd</h2>
+<h3 id="etcsystemdsystemtraefikservice"><code>/etc/systemd/system/traefik.service</code></h3>
+<pre><code class="language-ini">[Unit]
+Description=Traefik
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/traefik/env/cloudflare.env
+ExecStart=/usr/local/bin/traefik --configFile=/etc/traefik/traefik.yml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<pre><code class="language-bash">systemctl daemon-reload
+systemctl enable traefik
+systemctl start traefik
+</code></pre>
+<hr />
+<h2 id="9-comandos-utiles">9. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del servicio
+systemctl status traefik
+
+# Reiniciar (necesario tras cambios en traefik.yml;
+# conf.d/ se recarga automáticamente)
+systemctl restart traefik
+
+# Ver rutas activas via API
+curl -s http://localhost:8888/api/http/routers | jq '.[].rule'
+
+# Ver servicios activos
+curl -s http://localhost:8888/api/http/services | jq '.[].name'
+
+# Verificar estado general
+curl -s http://localhost:8888/api/overview | jq .
+
+# Ver logs en tiempo real
+tail -f /var/log/traefik/traefik.log
+tail -f /var/log/traefik/access.log
+
+# Comprobar que Traefik escucha en los puertos correctos
+ss -tlnp | grep traefik
+
+# Verificar certificados ACME
+cat /etc/traefik/acme.json | jq '.cloudflare.Certificates[].domain'
+</code></pre>
+<hr />
+<h2 id="10-monitorizacion">10. Monitorización</h2>
+<p>Como en el resto de contenedores, el <strong>Node Exporter</strong> envía métricas a Grafana automáticamente.</p>
+<pre><code class="language-bash"># Últimas 20 líneas de cada log
+tail -20 /var/log/traefik/traefik.log
+tail -20 /var/log/traefik/access.log
+</code></pre>
+<blockquote>
+<p>El dashboard de Traefik es accesible en LAN en <code>http://proxy.dap.gal</code>.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

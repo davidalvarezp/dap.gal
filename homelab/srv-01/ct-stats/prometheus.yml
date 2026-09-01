@@ -1,0 +1,148 @@
+# Sample config for Prometheus.
+
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: 'example'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['localhost:9093']
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    scrape_timeout: 5s
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['localhost:9090']
+
+  #----------HOMELAB----------#
+
+  - job_name: 'homelab'
+    # If prometheus-node-exporter is installed, grab stats about the local
+    # machine by default.
+    scrape_interval: 10s
+    static_configs:
+
+  #----------#
+  #--HOSTS:
+  #----------#
+      - targets: ['192.168.1.10:9100']
+        labels:
+          host: 'rp5-01'
+          role: 'bm'
+          instance: 'rp5-01'
+
+      - targets: ['192.168.1.11:9100']
+        labels:
+          host: 'srv-01'
+          role: 'bm'
+          instance: 'srv-01'
+
+      - targets: ['192.168.1.12:9100']
+        labels:
+          host: 'srv-02'
+          role: 'bm'
+          instance: 'srv-02'
+
+  #------------#
+  #----rp5-01:
+  #------------#
+      - targets: ['192.168.1.20:9100']
+        labels:
+          host: 'rp5-01'
+          role: 'ct'
+          instance: 'ct-dns'
+
+      - targets: ['192.168.1.21:9100']
+        labels:
+          host: 'rp5-01'
+          role: 'ct'
+          instance: 'ct-ssh'
+
+      - targets: ['192.168.1.22:9100']
+        labels:
+          host: 'rp5-01'
+          role: 'ct'
+          instance: 'ct-vpn'
+
+  #------------#
+  #----srv-01:
+  #------------#
+      - targets: ['192.168.1.31:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-proxy'
+
+      - targets: ['192.168.1.32:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-stats'
+
+      - targets: ['192.168.1.33:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-home'
+
+      - targets: ['192.168.1.34:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-passwd'
+
+      - targets: ['192.168.1.39:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-tunnel'
+
+      - targets: ['192.168.1.40:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-whost'
+
+      - targets: ['192.168.1.43:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-webgpt'
+
+      - targets: ['192.168.1.50:9100']
+        labels:
+          host: 'srv-01'
+          role: 'ct'
+          instance: 'ct-sudofeed'
+
+  #------------#
+  #----srv-02:
+  #------------#
+      - targets: ['192.168.1.98:9100']
+        labels:
+          host: 'srv-02'
+          role: 'ct'
+          instance: 'ct-llm'

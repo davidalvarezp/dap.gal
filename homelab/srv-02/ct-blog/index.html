@@ -1,0 +1,1827 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/srv-02/ct-blog/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Guía Profesional: Blog Técnico con Ghost en Debian 13 (LXC Proxmox) - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guia-profesional-blog-tecnico-con-ghost-en-debian-13-lxc-proxmox" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Guía Profesional: Blog Técnico con Ghost en Debian 13 (LXC Proxmox)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#indice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Índice
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparar-el-contenedor-lxc-en-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Preparar el contenedor LXC en Proxmox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Preparar el contenedor LXC en Proxmox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-descargar-la-plantilla-de-debian-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Descargar la plantilla de Debian 13
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-crear-el-contenedor-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Crear el contenedor LXC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-arrancar-y-conectarse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Arrancar y conectarse
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sistema-base-debian-13-hardening-minimo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sistema base: Debian 13 hardening mínimo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Sistema base: Debian 13 hardening mínimo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-actualizar-el-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Actualizar el sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-crear-usuario-no-root-para-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Crear usuario no-root para Ghost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-configurar-ufw-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Configurar UFW (firewall)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-configurar-fail2ban-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Configurar Fail2ban básico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-instalar-nodejs-via-nvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Instalar Node.js (vía nvm)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-instalar-y-configurar-mysql-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Instalar y configurar MySQL 8
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Instalar y configurar MySQL 8">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-crear-base-de-datos-y-usuario-para-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Crear base de datos y usuario para Ghost
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-instalar-nginx-proxy-interno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Instalar Nginx (proxy interno)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-instalar-ghost-cli-y-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Instalar Ghost CLI y Ghost
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Instalar Ghost CLI y Ghost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-instalar-ghost-cli-globalmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Instalar Ghost CLI globalmente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-crear-el-directorio-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Crear el directorio de instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-instalar-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Instalar Ghost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-verificar-que-ghost-esta-corriendo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Verificar que Ghost está corriendo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-configuracion-de-produccion-de-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Configuración de producción de Ghost
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Configuración de producción de Ghost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-editar-configuracion-si-necesitas-cambios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Editar configuración si necesitas cambios
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-integrar-con-tu-reverse-proxy-externo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Integrar con tu reverse proxy externo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Integrar con tu reverse proxy externo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-ver-la-configuracion-de-nginx-que-genero-ghost-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Ver la configuración de Nginx que generó Ghost CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-configuracion-en-tu-reverse-proxy-externo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Configuración en tu reverse proxy externo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-decirle-a-ghost-que-esta-detras-de-un-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Decirle a Ghost que está detrás de un proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-ssl-seguridad-y-cabeceras-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. SSL, seguridad y cabeceras HTTP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. SSL, seguridad y cabeceras HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-cabeceras-de-seguridad-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Cabeceras de seguridad HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-verificar-la-seguridad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Verificar la seguridad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-backups-automaticos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Backups automáticos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Backups automáticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-backup-de-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Backup de MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-snapshot-de-proxmox-desde-el-host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Snapshot de Proxmox (desde el host)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mantenimiento-y-actualizacion-de-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Mantenimiento y actualización de Ghost
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Mantenimiento y actualización de Ghost">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-comandos-esenciales-de-ghost-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 Comandos esenciales de Ghost CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-actualizar-ghost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Actualizar Ghost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-actualizar-el-sistema-operativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.3 Actualizar el sistema operativo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-estructura-del-blog-tecnico-primeros-pasos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Estructura del blog técnico: primeros pasos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Estructura del blog técnico: primeros pasos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-acceder-al-panel-de-administracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 Acceder al panel de administración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-estructura-de-contenido-recomendada-para-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Estructura de contenido recomendada para técnicos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-markdown-y-syntax-highlighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 Markdown y syntax highlighting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-configurar-la-pagina-sobre-mi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 Configurar la página "Sobre mí"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-temas-recomendados-para-blogs-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Temas recomendados para blogs técnicos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Temas recomendados para blogs técnicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gratuitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gratuitos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-pago-valen-la-pena" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        De pago (valen la pena)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalar-un-tema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalar un tema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dark-mode-para-casper-hack-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dark mode para Casper (hack rápido)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-integraciones-utiles-para-sysadmincybersec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Integraciones útiles para sysadmin/cybersec
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Integraciones útiles para sysadmin/cybersec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-umami-analytics-sin-cookies-auto-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Umami (Analytics sin cookies, auto-hosted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-algolia-search-busqueda-potente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 Algolia Search (búsqueda potente)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-webhooks-para-notificaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 Webhooks para notificaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-codigo-de-bloques-con-copy-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 Código de bloques con copy button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-rss-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 RSS Feed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-troubleshooting-frecuente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Troubleshooting frecuente
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Troubleshooting frecuente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ghost-no-arranca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ghost no arranca
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-502-bad-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error 502 Bad Gateway
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-de-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error de permisos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-no-conecta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MySQL no conecta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ghost-lento-al-arrancar-en-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ghost lento al arrancar en LXC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#las-imagenes-no-cargan-o-urls-incorrectas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las imágenes no cargan o URLs incorrectas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-email-no-funciona-magic-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El email no funciona (magic links)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checklist-final-de-puesta-en-produccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checklist final de puesta en producción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recursos-adicionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos adicionales
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guia-profesional-blog-tecnico-con-ghost-en-debian-13-lxc-proxmox">Guía Profesional: Blog Técnico con Ghost en Debian 13 (LXC Proxmox)</h1>
+<blockquote>
+<p><strong>Stack:</strong> Proxmox VE → LXC Debian 13 → Ghost CMS → MySQL 8 → Nginx → Reverse Proxy externo
+<strong>Nivel:</strong> Desde cero, paso a paso, con explicaciones de qué hace cada cosa y por qué.</p>
+</blockquote>
+<hr />
+<h2 id="indice">Índice</h2>
+<ol>
+<li><a href="#1-preparar-el-contenedor-lxc-en-proxmox">Preparar el contenedor LXC en Proxmox</a></li>
+<li><a href="#2-sistema-base-debian-13-hardening-mínimo">Sistema base: Debian 13 hardening mínimo</a></li>
+<li><a href="#3-instalar-nodejs-vía-nvm">Instalar Node.js (vía nvm)</a></li>
+<li><a href="#4-instalar-y-configurar-mysql-8">Instalar y configurar MySQL 8</a></li>
+<li><a href="#5-instalar-nginx-proxy-interno">Instalar Nginx (proxy interno)</a></li>
+<li><a href="#6-instalar-ghost-cli-y-ghost">Instalar Ghost CLI y Ghost</a></li>
+<li><a href="#7-configuración-de-producción-de-ghost">Configuración de producción de Ghost</a></li>
+<li><a href="#8-integrar-con-tu-reverse-proxy-externo">Integrar con tu reverse proxy externo</a></li>
+<li><a href="#9-ssl-seguridad-y-cabeceras-http">SSL, seguridad y cabeceras HTTP</a></li>
+<li><a href="#10-backups-automáticos">Backups automáticos</a></li>
+<li><a href="#11-mantenimiento-y-actualización-de-ghost">Mantenimiento y actualización de Ghost</a></li>
+<li><a href="#12-estructura-del-blog-técnico-primeros-pasos">Estructura del blog técnico: primeros pasos</a></li>
+<li><a href="#13-temas-recomendados-para-blogs-técnicos">Temas recomendados para blogs técnicos</a></li>
+<li><a href="#14-integraciones-útiles-para-sysadmincybersec">Integraciones útiles para sysadmin/cybersec</a></li>
+<li><a href="#15-troubleshooting-frecuente">Troubleshooting frecuente</a></li>
+</ol>
+<hr />
+<h2 id="1-preparar-el-contenedor-lxc-en-proxmox">1. Preparar el contenedor LXC en Proxmox</h2>
+<h3 id="11-descargar-la-plantilla-de-debian-13">1.1 Descargar la plantilla de Debian 13</h3>
+<p>En el shell de Proxmox (nodo):</p>
+<pre><code class="language-bash"># Actualizar la lista de plantillas disponibles
+pveam update
+
+# Buscar Debian 13 (bookworm/trixie según versión)
+pveam available | grep debian
+
+# Descargar la plantilla (ajusta el storage según tu setup)
+pveam download local debian-13-standard_13.0-1_amd64.tar.zst
+</code></pre>
+<h3 id="12-crear-el-contenedor-lxc">1.2 Crear el contenedor LXC</h3>
+<p>Desde la GUI de Proxmox o por CLI:</p>
+<pre><code class="language-bash"># Por CLI (ajusta los valores a tu entorno)
+pct create 200 local:vztmpl/debian-13-standard_13.0-1_amd64.tar.zst \
+  --hostname ghost-blog \
+  --memory 2048 \
+  --swap 512 \
+  --cores 2 \
+  --rootfs local-lvm:20 \
+  --net0 name=eth0,bridge=vmbr0,ip=192.168.1.200/24,gw=192.168.1.1 \
+  --nameserver 1.1.1.1 \
+  --unprivileged 1 \
+  --features nesting=1 \
+  --password 'TuPasswordSegura123!'
+</code></pre>
+<blockquote>
+<p><strong>¿Por qué estos parámetros?</strong>
+- <code>--unprivileged 1</code>: El contenedor corre sin privilegios de root del host. Más seguro.
+- <code>--features nesting=1</code>: Necesario si quieres correr Docker dentro (opcional, aquí no lo usaremos).
+- <code>--memory 2048</code>: Ghost + MySQL + Nginx mínimo recomendado. Con 1GB funciona, pero con picos puede fallar.</p>
+</blockquote>
+<h3 id="13-arrancar-y-conectarse">1.3 Arrancar y conectarse</h3>
+<pre><code class="language-bash">pct start 200
+pct enter 200
+</code></pre>
+<hr />
+<h2 id="2-sistema-base-debian-13-hardening-minimo">2. Sistema base: Debian 13 hardening mínimo</h2>
+<h3 id="21-actualizar-el-sistema">2.1 Actualizar el sistema</h3>
+<pre><code class="language-bash">apt update &amp;&amp; apt upgrade -y
+apt install -y curl wget git unzip nano sudo ufw fail2ban logrotate
+</code></pre>
+<h3 id="22-crear-usuario-no-root-para-ghost">2.2 Crear usuario no-root para Ghost</h3>
+<p>Ghost <strong>no puede correr como root</strong>. La CLI lo bloquea por seguridad.</p>
+<pre><code class="language-bash"># Crear usuario dedicado
+adduser ghost-admin
+# Contraseña segura cuando te la pida
+
+# Añadirlo a sudo (para instalar dependencias)
+usermod -aG sudo ghost-admin
+
+# Cambiar a ese usuario para el resto de la instalación
+su - ghost-admin
+</code></pre>
+<h3 id="23-configurar-ufw-firewall">2.3 Configurar UFW (firewall)</h3>
+<pre><code class="language-bash"># Como root o con sudo
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp      # SSH
+sudo ufw allow 80/tcp      # HTTP (necesario para Ghost y Nginx)
+sudo ufw allow 443/tcp     # HTTPS
+sudo ufw enable
+sudo ufw status
+</code></pre>
+<blockquote>
+<p><strong>Nota:</strong> Si tu reverse proxy externo está en otra máquina de la misma red, puedes restringir el 80/443 solo a esa IP:
+<code>sudo ufw allow from 192.168.1.x to any port 80</code></p>
+</blockquote>
+<h3 id="24-configurar-fail2ban-basico">2.4 Configurar Fail2ban básico</h3>
+<pre><code class="language-bash">sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# Editar configuración básica
+sudo nano /etc/fail2ban/jail.local
+</code></pre>
+<p>Busca y ajusta en <code>[DEFAULT]</code>:</p>
+<pre><code class="language-ini">bantime  = 1h
+findtime  = 10m
+maxretry = 5
+</code></pre>
+<pre><code class="language-bash">sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
+</code></pre>
+<hr />
+<h2 id="3-instalar-nodejs-via-nvm">3. Instalar Node.js (vía nvm)</h2>
+<p>Ghost requiere Node.js. La versión compatible con Ghost 5.x es <strong>Node 18.x o 20.x LTS</strong>.</p>
+<blockquote>
+<p><strong>¿Por qué nvm?</strong> Porque Ghost CLI es muy estricta con versiones. Si en el futuro necesitas cambiar, nvm te lo pone fácil sin romper el sistema.</p>
+</blockquote>
+<pre><code class="language-bash"># Como ghost-admin
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# Recargar el shell
+source ~/.bashrc
+# o cerrar y volver a entrar: exit → su - ghost-admin
+
+# Verificar que nvm funciona
+nvm --version
+
+# Instalar Node 20 LTS (compatible con Ghost 5.x)
+nvm install 20
+nvm use 20
+nvm alias default 20
+
+# Verificar
+node --version   # debe mostrar v20.x.x
+npm --version
+</code></pre>
+<hr />
+<h2 id="4-instalar-y-configurar-mysql-8">4. Instalar y configurar MySQL 8</h2>
+<p>Ghost soporta MySQL y SQLite. <strong>Para producción, usa MySQL.</strong> SQLite es solo para desarrollo.</p>
+<pre><code class="language-bash">sudo apt install -y mysql-server
+
+# Arrancar y habilitar
+sudo systemctl enable mysql
+sudo systemctl start mysql
+
+# Securización inicial (responde a las preguntas)
+sudo mysql_secure_installation
+</code></pre>
+<p>En <code>mysql_secure_installation</code>:
+- <strong>Validate password component</strong>: Sí (nivel MEDIUM como mínimo)
+- <strong>Remove anonymous users</strong>: Sí
+- <strong>Disallow root login remotely</strong>: Sí
+- <strong>Remove test database</strong>: Sí
+- <strong>Reload privilege tables</strong>: Sí</p>
+<h3 id="41-crear-base-de-datos-y-usuario-para-ghost">4.1 Crear base de datos y usuario para Ghost</h3>
+<pre><code class="language-bash">sudo mysql -u root -p
+</code></pre>
+<pre><code class="language-sql">-- Crear la base de datos
+CREATE DATABASE ghostdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Crear usuario dedicado (NO uses root para Ghost)
+CREATE USER 'ghostuser'@'localhost' IDENTIFIED BY 'TuPasswordDB_MuySegura!';
+
+-- Dar permisos solo sobre la DB de Ghost
+GRANT ALL PRIVILEGES ON ghostdb.* TO 'ghostuser'@'localhost';
+
+-- Aplicar cambios
+FLUSH PRIVILEGES;
+
+-- Verificar
+SHOW DATABASES;
+EXIT;
+</code></pre>
+<blockquote>
+<p><strong>Seguridad:</strong> El usuario <code>ghostuser</code> solo tiene acceso a <code>ghostdb</code> y solo desde localhost. Si alguien compromete Ghost, no puede tocar otras bases de datos.</p>
+</blockquote>
+<hr />
+<h2 id="5-instalar-nginx-proxy-interno">5. Instalar Nginx (proxy interno)</h2>
+<p>Ghost corre en el puerto 2368. Nginx actúa de proxy local hacia ese puerto y es lo que Ghost CLI configura automáticamente.</p>
+<pre><code class="language-bash">sudo apt install -y nginx
+
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+# Verificar que funciona
+curl -I http://localhost
+# Debes ver: HTTP/1.1 200 OK
+</code></pre>
+<hr />
+<h2 id="6-instalar-ghost-cli-y-ghost">6. Instalar Ghost CLI y Ghost</h2>
+<h3 id="61-instalar-ghost-cli-globalmente">6.1 Instalar Ghost CLI globalmente</h3>
+<pre><code class="language-bash"># Como ghost-admin (con nvm activo)
+npm install -g ghost-cli
+
+# Verificar
+ghost --version
+</code></pre>
+<h3 id="62-crear-el-directorio-de-instalacion">6.2 Crear el directorio de instalación</h3>
+<pre><code class="language-bash"># Ghost CLI es muy exigente: el directorio debe estar vacío y ser propiedad del usuario
+sudo mkdir -p /var/www/ghost
+sudo chown ghost-admin:ghost-admin /var/www/ghost
+sudo chmod 755 /var/www/ghost
+
+cd /var/www/ghost
+</code></pre>
+<h3 id="63-instalar-ghost">6.3 Instalar Ghost</h3>
+<pre><code class="language-bash">ghost install
+</code></pre>
+<p>La CLI te hará una serie de preguntas. Aquí las respuestas correctas:</p>
+<pre><code>? Enter your blog URL: https://tublog.tudominio.com
+? Enter your MySQL hostname: localhost
+? Enter your MySQL username: ghostuser
+? Enter your MySQL password: [la que pusiste antes]
+? Enter your Ghost database name: ghostdb
+? Do you wish to set up Nginx? Yes
+? Do you wish to set up SSL? No
+  (TU REVERSE PROXY YA GESTIONA EL SSL)
+? Do you wish to set up Systemd? Yes
+? Do you want to start Ghost? Yes
+</code></pre>
+<blockquote>
+<p><strong>¡Importante!</strong> Cuando te pregunte por SSL di <strong>No</strong>. Tu reverse proxy externo ya maneja los certificados. Si dices Sí, Ghost intentará usar Certbot y fallará (o creará conflictos).</p>
+</blockquote>
+<h3 id="64-verificar-que-ghost-esta-corriendo">6.4 Verificar que Ghost está corriendo</h3>
+<pre><code class="language-bash">ghost status
+# Debe mostrar: ✔ Ghost is running
+
+# También puedes ver el proceso
+ps aux | grep ghost
+
+# Y el log en tiempo real
+ghost log
+</code></pre>
+<hr />
+<h2 id="7-configuracion-de-produccion-de-ghost">7. Configuración de producción de Ghost</h2>
+<p>El archivo de configuración principal está en:</p>
+<pre><code class="language-bash">cat /var/www/ghost/config.production.json
+</code></pre>
+<p>Debería verse así (ajusta según tu setup):</p>
+<pre><code class="language-json">{
+  &quot;url&quot;: &quot;https://tublog.tudominio.com&quot;,
+  &quot;server&quot;: {
+    &quot;port&quot;: 2368,
+    &quot;host&quot;: &quot;127.0.0.1&quot;
+  },
+  &quot;database&quot;: {
+    &quot;client&quot;: &quot;mysql8&quot;,
+    &quot;connection&quot;: {
+      &quot;host&quot;: &quot;localhost&quot;,
+      &quot;port&quot;: 3306,
+      &quot;user&quot;: &quot;ghostuser&quot;,
+      &quot;password&quot;: &quot;TuPasswordDB_MuySegura!&quot;,
+      &quot;database&quot;: &quot;ghostdb&quot;
+    }
+  },
+  &quot;mail&quot;: {
+    &quot;transport&quot;: &quot;SMTP&quot;,
+    &quot;options&quot;: {
+      &quot;service&quot;: &quot;Mailgun&quot;,
+      &quot;host&quot;: &quot;smtp.mailgun.org&quot;,
+      &quot;port&quot;: 587,
+      &quot;auth&quot;: {
+        &quot;user&quot;: &quot;postmaster@mg.tudominio.com&quot;,
+        &quot;pass&quot;: &quot;tu_api_key_mailgun&quot;
+      }
+    }
+  },
+  &quot;logging&quot;: {
+    &quot;transports&quot;: [&quot;file&quot;, &quot;stdout&quot;]
+  },
+  &quot;process&quot;: &quot;systemd&quot;,
+  &quot;paths&quot;: {
+    &quot;contentPath&quot;: &quot;/var/www/ghost/content&quot;
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>Email:</strong> Para que funcionen los magic links de login, newsletters y notificaciones, necesitas SMTP. Mailgun tiene un tier gratuito generoso. Sendgrid y Brevo también funcionan.</p>
+</blockquote>
+<h3 id="71-editar-configuracion-si-necesitas-cambios">7.1 Editar configuración si necesitas cambios</h3>
+<pre><code class="language-bash"># Editar directamente (luego reiniciar Ghost)
+nano /var/www/ghost/config.production.json
+ghost restart
+</code></pre>
+<p>O usando la CLI:</p>
+<pre><code class="language-bash">ghost config url https://tublog.tudominio.com
+ghost restart
+</code></pre>
+<hr />
+<h2 id="8-integrar-con-tu-reverse-proxy-externo">8. Integrar con tu reverse proxy externo</h2>
+<p>Ghost CLI ya configuró un Nginx local en <code>/etc/nginx/sites-available/</code>. Este Nginx escucha en el puerto 80 del contenedor y hace proxy al puerto 2368 donde corre Ghost.</p>
+<p>Tu stack completo es:</p>
+<pre><code>Internet → Reverse Proxy (Nginx/Traefik/Caddy externo con SSL) 
+        → http://192.168.1.200:80 (Nginx interno del contenedor)
+        → http://127.0.0.1:2368 (Ghost)
+</code></pre>
+<h3 id="81-ver-la-configuracion-de-nginx-que-genero-ghost-cli">8.1 Ver la configuración de Nginx que generó Ghost CLI</h3>
+<pre><code class="language-bash">cat /etc/nginx/sites-available/tublog.tudominio.com
+</code></pre>
+<h3 id="82-configuracion-en-tu-reverse-proxy-externo">8.2 Configuración en tu reverse proxy externo</h3>
+<p><strong>Si usas Nginx Proxy Manager (NPM):</strong></p>
+<ol>
+<li>Añade un nuevo Proxy Host</li>
+<li><strong>Domain Names:</strong> <code>tublog.tudominio.com</code></li>
+<li><strong>Scheme:</strong> <code>http</code></li>
+<li><strong>Forward Hostname/IP:</strong> <code>192.168.1.200</code> (IP del contenedor)</li>
+<li><strong>Forward Port:</strong> <code>80</code></li>
+<li>Activa: <strong>Block Common Exploits</strong>, <strong>Websockets Support</strong></li>
+<li>En la pestaña SSL: selecciona tu certificado o pide uno nuevo con Let's Encrypt</li>
+</ol>
+<p><strong>Cabeceras importantes que debe pasar el reverse proxy:</strong></p>
+<pre><code class="language-nginx">proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header Host $host;
+</code></pre>
+<p>En NPM estas se añaden en la pestaña <strong>Advanced</strong> si no las pone automáticamente.</p>
+<p><strong>Si usas Traefik:</strong></p>
+<pre><code class="language-yaml"># docker-compose labels o traefik.yml
+http:
+  routers:
+    ghost:
+      rule: &quot;Host(`tublog.tudominio.com`)&quot;
+      entrypoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+      service: ghost
+
+  services:
+    ghost:
+      loadBalancer:
+        servers:
+          - url: &quot;http://192.168.1.200:80&quot;
+</code></pre>
+<p><strong>Si usas Caddy:</strong></p>
+<pre><code>tublog.tudominio.com {
+    reverse_proxy 192.168.1.200:80
+}
+</code></pre>
+<h3 id="83-decirle-a-ghost-que-esta-detras-de-un-proxy">8.3 Decirle a Ghost que está detrás de un proxy</h3>
+<pre><code class="language-bash"># Editar config
+nano /var/www/ghost/config.production.json
+</code></pre>
+<p>Añade/verifica que <code>url</code> es el dominio público con HTTPS:</p>
+<pre><code class="language-json">&quot;url&quot;: &quot;https://tublog.tudominio.com&quot;
+</code></pre>
+<p>Y opcionalmente, si tienes problemas con IPs:</p>
+<pre><code class="language-json">&quot;server&quot;: {
+  &quot;port&quot;: 2368,
+  &quot;host&quot;: &quot;127.0.0.1&quot;
+},
+&quot;trustedProxies&quot;: [&quot;loopback&quot;, &quot;linklocal&quot;, &quot;uniquelocal&quot;]
+</code></pre>
+<pre><code class="language-bash">ghost restart
+</code></pre>
+<hr />
+<h2 id="9-ssl-seguridad-y-cabeceras-http">9. SSL, seguridad y cabeceras HTTP</h2>
+<h3 id="91-cabeceras-de-seguridad-http">9.1 Cabeceras de seguridad HTTP</h3>
+<p>Añade en tu reverse proxy externo (o en el Nginx del contenedor):</p>
+<pre><code class="language-nginx"># Evita clickjacking
+add_header X-Frame-Options &quot;SAMEORIGIN&quot; always;
+
+# Evita que el navegador &quot;adivine&quot; el content-type
+add_header X-Content-Type-Options &quot;nosniff&quot; always;
+
+# Referrer policy
+add_header Referrer-Policy &quot;strict-origin-when-cross-origin&quot; always;
+
+# Permissions policy
+add_header Permissions-Policy &quot;geolocation=(), microphone=(), camera=()&quot; always;
+
+# HSTS (solo si estás 100% seguro de usar HTTPS siempre)
+add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains&quot; always;
+
+# Content Security Policy (ajústalo a tu tema de Ghost)
+add_header Content-Security-Policy &quot;default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;&quot; always;
+</code></pre>
+<blockquote>
+<p><strong>Nota:</strong> El CSP necesita ajuste fino según el tema que uses. Empieza sin él y añádelo cuando el blog esté funcionando bien.</p>
+</blockquote>
+<h3 id="92-verificar-la-seguridad">9.2 Verificar la seguridad</h3>
+<p>Cuando el blog esté en marcha, analízalo con:</p>
+<ul>
+<li><strong>https://securityheaders.com</strong> → Cabeceras HTTP</li>
+<li><strong>https://www.ssllabs.com/ssltest/</strong> → Calidad del certificado SSL</li>
+<li><strong>https://observatory.mozilla.org</strong> → Análisis completo</li>
+</ul>
+<hr />
+<h2 id="10-backups-automaticos">10. Backups automáticos</h2>
+<h3 id="101-backup-de-mysql">10.1 Backup de MySQL</h3>
+<pre><code class="language-bash"># Crear script de backup
+sudo nano /opt/backup-ghost.sh
+</code></pre>
+<pre><code class="language-bash">#!/bin/bash
+
+# Configuración
+DB_USER=&quot;ghostuser&quot;
+DB_PASS=&quot;TuPasswordDB_MuySegura!&quot;
+DB_NAME=&quot;ghostdb&quot;
+BACKUP_DIR=&quot;/opt/backups/ghost&quot;
+GHOST_CONTENT=&quot;/var/www/ghost/content&quot;
+DATE=$(date +%Y%m%d_%H%M%S)
+RETENTION_DAYS=30
+
+# Crear directorio si no existe
+mkdir -p &quot;$BACKUP_DIR&quot;
+
+# Backup de la base de datos
+mysqldump -u&quot;$DB_USER&quot; -p&quot;$DB_PASS&quot; &quot;$DB_NAME&quot; | gzip &gt; &quot;$BACKUP_DIR/db_$DATE.sql.gz&quot;
+
+# Backup del contenido (imágenes, temas, etc.)
+tar -czf &quot;$BACKUP_DIR/content_$DATE.tar.gz&quot; -C &quot;$(dirname $GHOST_CONTENT)&quot; &quot;$(basename $GHOST_CONTENT)&quot;
+
+# Backup de la configuración
+cp /var/www/ghost/config.production.json &quot;$BACKUP_DIR/config_$DATE.json&quot;
+
+# Limpiar backups viejos
+find &quot;$BACKUP_DIR&quot; -type f -mtime +$RETENTION_DAYS -delete
+
+echo &quot;[$DATE] Backup completado en $BACKUP_DIR&quot;
+</code></pre>
+<pre><code class="language-bash">sudo chmod +x /opt/backup-ghost.sh
+sudo mkdir -p /opt/backups/ghost
+
+# Probar manualmente
+sudo /opt/backup-ghost.sh
+
+# Programar con cron (todos los días a las 3am)
+sudo crontab -e
+</code></pre>
+<p>Añadir:</p>
+<pre><code class="language-cron">0 3 * * * /opt/backup-ghost.sh &gt;&gt; /var/log/ghost-backup.log 2&gt;&amp;1
+</code></pre>
+<h3 id="102-snapshot-de-proxmox-desde-el-host">10.2 Snapshot de Proxmox (desde el host)</h3>
+<p>La forma más segura: snapshot del contenedor completo antes de actualizaciones.</p>
+<pre><code class="language-bash"># En el nodo de Proxmox (no dentro del contenedor)
+pct snapshot 200 pre-update-$(date +%Y%m%d) --description &quot;Antes de actualizar Ghost&quot;
+
+# Listar snapshots
+pct listsnapshot 200
+
+# Restaurar si algo sale mal
+pct rollback 200 pre-update-20241201
+</code></pre>
+<hr />
+<h2 id="11-mantenimiento-y-actualizacion-de-ghost">11. Mantenimiento y actualización de Ghost</h2>
+<h3 id="111-comandos-esenciales-de-ghost-cli">11.1 Comandos esenciales de Ghost CLI</h3>
+<pre><code class="language-bash"># Estado
+ghost status
+
+# Arrancar / Parar / Reiniciar
+ghost start
+ghost stop
+ghost restart
+
+# Ver logs en tiempo real
+ghost log
+ghost log -f   # follow (como tail -f)
+
+# Ver configuración actual
+ghost config
+
+# Ver versión instalada
+ghost version
+</code></pre>
+<h3 id="112-actualizar-ghost">11.2 Actualizar Ghost</h3>
+<pre><code class="language-bash"># SIEMPRE hacer backup/snapshot antes
+pct snapshot 200 pre-update-$(date +%Y%m%d)  # desde el host Proxmox
+
+# Dentro del contenedor, como ghost-admin
+cd /var/www/ghost
+ghost update
+
+# Si algo falla, rollback
+ghost update --rollback
+
+# Para actualizar a una versión específica
+ghost update --version 5.x.x
+</code></pre>
+<h3 id="113-actualizar-el-sistema-operativo">11.3 Actualizar el sistema operativo</h3>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt upgrade -y
+
+# Limpiar paquetes innecesarios
+sudo apt autoremove -y
+sudo apt autoclean
+</code></pre>
+<hr />
+<h2 id="12-estructura-del-blog-tecnico-primeros-pasos">12. Estructura del blog técnico: primeros pasos</h2>
+<h3 id="121-acceder-al-panel-de-administracion">12.1 Acceder al panel de administración</h3>
+<p>Una vez todo funcionando:</p>
+<pre><code>https://tublog.tudominio.com/ghost
+</code></pre>
+<p>Crea tu cuenta de administrador (primera visita).</p>
+<h3 id="122-estructura-de-contenido-recomendada-para-tecnicos">12.2 Estructura de contenido recomendada para técnicos</h3>
+<p><strong>Tags (etiquetas) sugeridas:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#homelab</code></td>
+<td>Proyectos de laboratorio personal</td>
+</tr>
+<tr>
+<td><code>#proxmox</code></td>
+<td>Todo sobre Proxmox VE</td>
+</tr>
+<tr>
+<td><code>#docker</code></td>
+<td>Contenedores y compose</td>
+</tr>
+<tr>
+<td><code>#linux</code></td>
+<td>Sysadmin general</td>
+</tr>
+<tr>
+<td><code>#networking</code></td>
+<td>Redes, VLANs, pfSense...</td>
+</tr>
+<tr>
+<td><code>#cybersec</code></td>
+<td>Ciberseguridad ofensiva/defensiva</td>
+</tr>
+<tr>
+<td><code>#ctf</code></td>
+<td>Write-ups de CTFs</td>
+</tr>
+<tr>
+<td><code>#monitoring</code></td>
+<td>Grafana, Prometheus, alertas</td>
+</tr>
+<tr>
+<td><code>#automation</code></td>
+<td>Ansible, scripts, CI/CD</td>
+</tr>
+<tr>
+<td><code>#writeup</code></td>
+<td>Análisis técnicos en profundidad</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estructura de navegación sugerida:</strong></p>
+<pre><code>Inicio | Homelab | Ciberseguridad | CTF Write-ups | Sobre mí
+</code></pre>
+<p>En Ghost Admin → Design → Navigation.</p>
+<h3 id="123-markdown-y-syntax-highlighting">12.3 Markdown y syntax highlighting</h3>
+<p>Ghost usa un editor de tarjetas (cards). Para código técnico:</p>
+<ul>
+<li>Usa la <strong>Code Card</strong> (bloque de código con syntax highlight automático)</li>
+<li>Para posts técnicos largos, considera escribir en Markdown con la opción de importar</li>
+</ul>
+<p><strong>Shortcut útil:</strong> <code>/</code> en el editor abre el menú de cards.</p>
+<h3 id="124-configurar-la-pagina-sobre-mi">12.4 Configurar la página "Sobre mí"</h3>
+<p>Settings → General → Publication cover
+Crea una página estática: New Page → "Sobre mí" → marca como página en la navegación.</p>
+<hr />
+<h2 id="13-temas-recomendados-para-blogs-tecnicos">13. Temas recomendados para blogs técnicos</h2>
+<h3 id="gratuitos">Gratuitos</h3>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Descripción</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Casper</strong></td>
+<td>Default de Ghost, limpio y minimalista</td>
+<td>Incluido</td>
+</tr>
+<tr>
+<td><strong>Edition</strong></td>
+<td>Enfocado a newsletters técnicas</td>
+<td>Ghost marketplace</td>
+</tr>
+<tr>
+<td><strong>Attila</strong></td>
+<td>Oscuro, ideal para contenido técnico</td>
+<td>GitHub</td>
+</tr>
+<tr>
+<td><strong>Massively</strong></td>
+<td>Imagen hero grande, buena tipografía</td>
+<td>Ghost marketplace</td>
+</tr>
+</tbody>
+</table>
+<h3 id="de-pago-valen-la-pena">De pago (valen la pena)</h3>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Precio</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dope</strong></td>
+<td>~$49</td>
+<td>Oscuro, moderno, perfecto para tech</td>
+</tr>
+<tr>
+<td><strong>Tinker</strong></td>
+<td>~$49</td>
+<td>Diseñado específicamente para blogs de devs</td>
+</tr>
+<tr>
+<td><strong>Orca</strong></td>
+<td>~$39</td>
+<td>Minimalista, enfocado en lectura</td>
+</tr>
+</tbody>
+</table>
+<h3 id="instalar-un-tema">Instalar un tema</h3>
+<pre><code class="language-bash"># Descargar el .zip del tema
+# En Ghost Admin → Design → Change theme → Upload theme
+
+# O por CLI
+cd /var/www/ghost/content/themes
+unzip tu-tema.zip
+ghost restart
+</code></pre>
+<h3 id="dark-mode-para-casper-hack-rapido">Dark mode para Casper (hack rápido)</h3>
+<p>Si usas Casper por defecto, añade en Ghost Admin → Design → Code Injection → Site Header:</p>
+<pre><code class="language-html">&lt;style&gt;
+:root {
+  --color-primary: #00d4ff;
+}
+&lt;/style&gt;
+</code></pre>
+<hr />
+<h2 id="14-integraciones-utiles-para-sysadmincybersec">14. Integraciones útiles para sysadmin/cybersec</h2>
+<h3 id="141-umami-analytics-sin-cookies-auto-hosted">14.1 Umami (Analytics sin cookies, auto-hosted)</h3>
+<p>Mejor que Google Analytics. Puedes hostearlo en otro contenedor.</p>
+<pre><code class="language-bash"># En Ghost Admin → Settings → Code Injection → Site Header
+&lt;script async defer data-website-id=&quot;TU-ID&quot; src=&quot;https://analytics.tudominio.com/script.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="142-algolia-search-busqueda-potente">14.2 Algolia Search (búsqueda potente)</h3>
+<p>Ghost tiene búsqueda nativa desde v5.x. Si quieres más control:</p>
+<pre><code class="language-bash">ghost config --all | grep search
+</code></pre>
+<h3 id="143-webhooks-para-notificaciones">14.3 Webhooks para notificaciones</h3>
+<p>Ghost puede enviar webhooks cuando publicas un post:</p>
+<p>Settings → Integrations → Add custom integration</p>
+<p>Úsalo para:
+- Enviar notificación a tu Discord/Slack personal
+- Trigger en n8n para automatizar la distribución
+- Notificar a un bot de Telegram</p>
+<p><strong>Ejemplo: Notificación a Discord cuando publicas</strong></p>
+<p>En n8n o directamente:</p>
+<pre><code class="language-bash">curl -X POST &quot;https://discord.com/api/webhooks/TU_WEBHOOK&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;content&quot;: &quot;🚀 Nuevo post publicado en el blog!&quot;}'
+</code></pre>
+<h3 id="144-codigo-de-bloques-con-copy-button">14.4 Código de bloques con copy button</h3>
+<p>Añade esto en Code Injection → Site Footer:</p>
+<pre><code class="language-html">&lt;script&gt;
+document.querySelectorAll('pre code').forEach(block =&gt; {
+  const btn = document.createElement('button');
+  btn.textContent = 'Copy';
+  btn.style.cssText = 'position:absolute;top:5px;right:5px;padding:2px 8px;font-size:12px;cursor:pointer;';
+  block.parentElement.style.position = 'relative';
+  block.parentElement.appendChild(btn);
+  btn.addEventListener('click', () =&gt; {
+    navigator.clipboard.writeText(block.textContent);
+    btn.textContent = '✓ Copied!';
+    setTimeout(() =&gt; btn.textContent = 'Copy', 2000);
+  });
+});
+&lt;/script&gt;
+</code></pre>
+<h3 id="145-rss-feed">14.5 RSS Feed</h3>
+<p>Ghost genera RSS automáticamente:</p>
+<pre><code>https://tublog.tudominio.com/rss/
+https://tublog.tudominio.com/tag/homelab/rss/  ← por tag
+</code></pre>
+<p>Compártelo con tu comunidad y subscríbete con Feedly/Miniflux.</p>
+<hr />
+<h2 id="15-troubleshooting-frecuente">15. Troubleshooting frecuente</h2>
+<h3 id="ghost-no-arranca">Ghost no arranca</h3>
+<pre><code class="language-bash">ghost log          # Ver el error específico
+ghost doctor       # Diagnóstico automático de Ghost CLI
+systemctl status ghost_tublog-tudominio-com   # Estado del servicio systemd
+journalctl -u ghost_* -f   # Logs de systemd
+</code></pre>
+<h3 id="error-502-bad-gateway">Error 502 Bad Gateway</h3>
+<pre><code class="language-bash"># Verificar que Ghost está corriendo en el puerto 2368
+ss -tlnp | grep 2368
+
+# Verificar Nginx local
+nginx -t
+systemctl status nginx
+
+# Verificar conectividad
+curl -I http://localhost
+curl -I http://127.0.0.1:2368
+</code></pre>
+<h3 id="error-de-permisos">Error de permisos</h3>
+<pre><code class="language-bash"># Ghost debe ser propietario de su directorio
+sudo chown -R ghost-admin:ghost-admin /var/www/ghost
+</code></pre>
+<h3 id="mysql-no-conecta">MySQL no conecta</h3>
+<pre><code class="language-bash"># Verificar que MySQL corre
+systemctl status mysql
+
+# Probar credenciales manualmente
+mysql -u ghostuser -p ghostdb
+
+# Ver si escucha
+ss -tlnp | grep 3306
+</code></pre>
+<h3 id="ghost-lento-al-arrancar-en-lxc">Ghost lento al arrancar en LXC</h3>
+<p>Añade en Proxmox → CT Options → Start/Shutdown → Start delay: 30 segundos. Ghost necesita que MySQL esté completamente listo antes de arrancar.</p>
+<h3 id="las-imagenes-no-cargan-o-urls-incorrectas">Las imágenes no cargan o URLs incorrectas</h3>
+<pre><code class="language-bash"># Verificar que la URL en config es correcta (con https://)
+ghost config url
+# Si no, corregir:
+ghost config url https://tublog.tudominio.com
+ghost restart
+</code></pre>
+<h3 id="el-email-no-funciona-magic-links">El email no funciona (magic links)</h3>
+<pre><code class="language-bash"># Test de email desde Ghost CLI
+ghost config | grep mail
+
+# Puedes probar con el SMTP de Gmail (menos recomendado para producción)
+# o usar Brevo/Mailgun con su SMTP gratuito
+</code></pre>
+<hr />
+<h2 id="checklist-final-de-puesta-en-produccion">Checklist final de puesta en producción</h2>
+<pre><code>[ ] Contenedor LXC arranca con Proxmox
+[ ] Ghost corriendo: ghost status → running
+[ ] MySQL operativo con usuario dedicado
+[ ] Nginx local respondiendo en puerto 80
+[ ] Reverse proxy externo enrutando correctamente
+[ ] HTTPS funcionando en el dominio público
+[ ] Panel de admin accesible en /ghost
+[ ] Email SMTP configurado y probado
+[ ] Backup automático configurado y probado
+[ ] UFW activo con reglas mínimas
+[ ] Fail2ban activo
+[ ] Snapshot de Proxmox del estado inicial
+[ ] Cabeceras de seguridad en el reverse proxy
+[ ] Analytics configurado (Umami u otro)
+[ ] DNS apuntando al reverse proxy
+</code></pre>
+<hr />
+<h2 id="recursos-adicionales">Recursos adicionales</h2>
+<ul>
+<li><strong>Documentación oficial Ghost:</strong> https://ghost.org/docs/</li>
+<li><strong>Ghost Forum (comunidad activa):</strong> https://forum.ghost.org</li>
+<li><strong>Ghost CLI Reference:</strong> https://ghost.org/docs/ghost-cli/</li>
+<li><strong>Ghost Themes Marketplace:</strong> https://ghost.org/marketplace/</li>
+<li><strong>Proxmox LXC Wiki:</strong> https://pve.proxmox.com/wiki/Linux_Container</li>
+</ul>
+<hr />
+<p><em>Guía generada para stack: Proxmox VE + LXC Debian 13 + Ghost 5.x + MySQL 8 + Nginx</em>
+<em>Última revisión: Mayo 2026</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,266 @@
+/* ==========================================================
+   DAP.GAL BLOG
+   Technical / Editorial Design
+   ========================================================== */
+
+:root {
+  --dap-green: #00c853;
+  --dap-green-soft: rgba(0, 200, 83, 0.12);
+  --dap-border: rgba(255, 255, 255, 0.08);
+  --dap-radius: 14px;
+}
+
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY
+   ---------------------------------------------------------- */
+
+.md-typeset {
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.md-typeset p {
+  max-width: 72ch;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.md-typeset h1 {
+  font-size: 2.35rem;
+  line-height: 1.15;
+}
+
+.md-typeset h2 {
+  margin-top: 2.5rem;
+}
+
+
+/* ----------------------------------------------------------
+   CONTENT WIDTH
+   ---------------------------------------------------------- */
+
+.md-content {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+
+/* ----------------------------------------------------------
+   LINKS
+   ---------------------------------------------------------- */
+
+.md-typeset a {
+  color: var(--dap-green);
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+}
+
+
+/* ----------------------------------------------------------
+   BLOG EXCERPTS
+   ---------------------------------------------------------- */
+
+.md-post--excerpt {
+  position: relative;
+
+  margin: 0 0 1.5rem;
+  padding: 1.5rem 1.6rem;
+
+  border: 1px solid var(--dap-border);
+  border-radius: var(--dap-radius);
+
+  background: rgba(255, 255, 255, 0.025);
+
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.md-post--excerpt:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(0, 200, 83, 0.35);
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+/* ----------------------------------------------------------
+   POST TITLE
+   ---------------------------------------------------------- */
+
+.md-post--excerpt h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
+
+  font-size: 1.45rem;
+  line-height: 1.25;
+}
+
+.md-post--excerpt h2 a {
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+}
+
+.md-post--excerpt h2 a:hover {
+  color: var(--dap-green);
+}
+
+
+/* ----------------------------------------------------------
+   POST METADATA
+   ---------------------------------------------------------- */
+
+.md-post__meta {
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+.md-post__meta ul {
+  margin-top: 0;
+}
+
+
+/* ----------------------------------------------------------
+   EXCERPT CONTENT
+   ---------------------------------------------------------- */
+
+.md-post--excerpt .md-post__content {
+  margin-top: 0.8rem;
+
+  font-size: 0.92rem;
+  line-height: 1.7;
+
+  opacity: 0.82;
+}
+
+.md-post--excerpt .md-post__content p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* Don't let the excerpt become a mini article */
+
+.md-post--excerpt .md-post__content h1,
+.md-post--excerpt .md-post__content h2,
+.md-post--excerpt .md-post__content h3,
+.md-post--excerpt .md-post__content h4,
+.md-post--excerpt .md-post__content ul,
+.md-post--excerpt .md-post__content ol {
+  display: none;
+}
+
+
+/* ----------------------------------------------------------
+   POST IMAGES
+   ---------------------------------------------------------- */
+
+.md-post--excerpt img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+
+  margin: 0 0 1rem;
+
+  border-radius: 10px;
+}
+
+
+/* ----------------------------------------------------------
+   CODE
+   ---------------------------------------------------------- */
+
+.highlight pre {
+  border: 1px solid rgba(0, 200, 83, 0.16);
+  border-radius: 10px;
+}
+
+
+/* ----------------------------------------------------------
+   HORIZONTAL RULE
+   ---------------------------------------------------------- */
+
+hr {
+  height: 1px;
+  margin: 2rem 0;
+
+  border: 0;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* ----------------------------------------------------------
+   TAGS / CATEGORIES
+   ---------------------------------------------------------- */
+
+.md-post__meta a {
+  color: var(--dap-green);
+}
+
+
+/* ----------------------------------------------------------
+   MOBILE
+   ---------------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+
+  .md-content {
+    max-width: 100%;
+  }
+
+  .md-typeset {
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .md-typeset h1 {
+    font-size: 1.9rem;
+  }
+
+  .md-typeset h2 {
+    font-size: 1.35rem;
+  }
+
+  .md-post--excerpt {
+    padding: 1.15rem;
+    margin-bottom: 1rem;
+
+    border-radius: 11px;
+  }
+
+  .md-post--excerpt h2 {
+    font-size: 1.2rem;
+  }
+
+  .md-post--excerpt .md-post__content {
+    font-size: 0.88rem;
+  }
+
+}
+
+
+/* ----------------------------------------------------------
+   VERY SMALL DEVICES
+   ---------------------------------------------------------- */
+
+@media screen and (max-width: 420px) {
+
+  .md-post--excerpt {
+    padding: 1rem;
+  }
+
+  .md-typeset h1 {
+    font-size: 1.65rem;
+  }
+
+}

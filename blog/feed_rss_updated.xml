@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="rss.xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    
+    <title>dap.gal/blog</title>
+    <description>Blog técnico sobre administración de sistemas, Linux, ciberseguridad, DevSecOps, virtualización, automatización e infraestructura.
+</description>
+    <link>https://dap.gal/blog/</link>
+    <atom:link href="https://dap.gal/blog/feed_rss_updated.xml" rel="self" type="application/rss+xml" />
+
+    
+    
+    <docs>https://github.com/davidalvarezp/dap.gal/tree/main/projects/blog</docs>
+    <language>es</language>
+
+    
+    <pubDate>Tue, 01 Sep 2026 07:55:02 -0000</pubDate>
+    <lastBuildDate>Tue, 01 Sep 2026 07:55:02 -0000</lastBuildDate>
+    <ttl>1440</ttl>
+
+    
+    <generator>MkDocs RSS plugin - v1.19.0</generator>
+
+    
+    
+    <image>
+      <url>None</url>
+      <title>dap.gal/blog</title>
+      <link>https://dap.gal/blog/</link>
+    </image>
+    
+
+    
+    
+    <item>
+      <title>Guía Avanzada de Hardening en Linux para SysAdmins</title>
+      
+      
+        
+      <author>dap</author>
+        
+      
+      
+      
+        
+      <category>Auditoría</category>
+        
+      <category>Ciberseguridad</category>
+        
+      <category>Contenedores</category>
+        
+      <category>CyberSec</category>
+        
+      <category>DevSecOps</category>
+        
+      <category>DevSecOps</category>
+        
+      <category>Hardening</category>
+        
+      <category>Infra</category>
+        
+      <category>Infraestructura</category>
+        
+      <category>Kernel</category>
+        
+      <category>Linux</category>
+        
+      <category>Linux</category>
+        
+      <category>Seguridad</category>
+        
+      <category>SysAdmin</category>
+        
+      <category>Sysadmin</category>
+        
+      <category>VirtCloud</category>
+        
+      
+      <description>  Guía práctica de hardening de servidores Linux: SSH, kernel, filesystem, red, systemd, contenedores y monitorización.</description>
+      <link>https://dap.gal/blog/2026/06/26/hardening-linux/</link>
+      <pubDate>Tue, 01 Sep 2026 07:54:01 +0000</pubDate>
+      <source url="https://dap.gal/blog/feed_rss_updated.xml">dap.gal/blog</source>
+      
+      <guid isPermaLink="true">https://dap.gal/blog/2026/06/26/hardening-linux/</guid>
+      
+      <enclosure url="https://dap.gal/blog/assets/images/social/2026/06/26/hardening-linux.png" type="image/png" length="None" />
+      
+    </item>
+    
+  </channel>
+</rss>

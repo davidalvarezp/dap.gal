@@ -1,0 +1,911 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/srv-01/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Host srv-01: Proxmox VE — Lenovo M920x (Nodo Principal) - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#host-srv-01-proxmox-ve-lenovo-m920x-nodo-principal" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Host srv-01: Proxmox VE — Lenovo M920x (Nodo Principal)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Hardware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sistema-operativo-y-proxmox-ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Sistema Operativo y Proxmox VE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Sistema Operativo y Proxmox VE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repositorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-configuracion-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Configuración de Red
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Configuración de Red">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcnetworkinterfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/network/interfaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etchosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/hosts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ntp-chrony" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. NTP (Chrony)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-creacion-del-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Creación del Clúster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-modulo-fuse-para-contenedores-con-ollama-nesting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Módulo FUSE (para contenedores con Ollama / nesting)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-configuracion-de-contenedores-especiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Configuración de Contenedores Especiales
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Configuración de Contenedores Especiales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ct-143-nesting-habilitado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CT 143 — Nesting habilitado
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-hardening-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Hardening SSH
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-monitorizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Monitorización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Monitorización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node-exporter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node Exporter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#glances-monitorizacion-interactiva-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Glances (monitorización interactiva local)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-contenedores-alojados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Contenedores Alojados
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-almacenamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Almacenamiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-backups-vzdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Backups (vzdump)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-comandos-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Comandos Útiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-acceso-a-la-ui-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Acceso a la UI de Proxmox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-lo-que-falta-documentar-configurar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Lo que falta documentar / configurar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Lo que falta documentar / configurar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pendiente-de-documentar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendiente de documentar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pendiente-de-configurar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pendiente de configurar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="host-srv-01-proxmox-ve-lenovo-m920x-nodo-principal">Host srv-01: Proxmox VE — Lenovo M920x (Nodo Principal)</h1>
+<p>Nodo principal del clúster Proxmox, ejecutado sobre un <strong>Lenovo ThinkStation M920x Tiny</strong> con arquitectura <strong>x86_64</strong>. Usa Proxmox VE oficial sobre <strong>Debian 13 Trixie</strong> con repositorio <code>pve-no-subscription</code>. Es el nodo que creó el clúster al que se unió posteriormente <code>rp5-01</code>.</p>
+<hr />
+<h2 id="1-hardware">1. Hardware</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Máquina</strong></td>
+<td>Lenovo ThinkStation M920x Tiny</td>
+</tr>
+<tr>
+<td><strong>Arquitectura</strong></td>
+<td>x86_64</td>
+</tr>
+<tr>
+<td><strong>CPU</strong></td>
+<td><em>(completar — ej. Intel Core i7-8700T)</em></td>
+</tr>
+<tr>
+<td><strong>RAM</strong></td>
+<td><em>(completar — ej. 32 GB DDR4)</em></td>
+</tr>
+<tr>
+<td><strong>Almacenamiento</strong></td>
+<td><em>(completar — ej. 512 GB NVMe + HDD)</em></td>
+</tr>
+<tr>
+<td><strong>Red</strong></td>
+<td>Ethernet (ej. enp1s0)</td>
+</tr>
+<tr>
+<td><strong>IP de gestión</strong></td>
+<td>192.168.1.11</td>
+</tr>
+<tr>
+<td><strong>Nodo en clúster</strong></td>
+<td><code>srv-01</code></td>
+</tr>
+<tr>
+<td><strong>Kernel</strong></td>
+<td>7.0.2-2-pve (PMX, 2026-05-08)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-sistema-operativo-y-proxmox-ve">2. Sistema Operativo y Proxmox VE</h2>
+<p>Proxmox VE instalado desde ISO oficial sobre <strong>Debian 13 Trixie</strong>, con repositorio gratuito <code>pve-no-subscription</code> (sin licencia de pago).</p>
+<h3 id="repositorio">Repositorio</h3>
+<pre><code class="language-bash"># Eliminar el repo enterprise (requiere suscripción)
+rm /etc/apt/sources.list.d/pve-enterprise.list
+
+# Añadir repositorio gratuito
+cat &gt; /etc/apt/sources.list.d/pve-no-subscription.list &lt;&lt; 'EOF'
+deb http://download.proxmox.com/debian/pve trixie pve-no-subscription
+EOF
+
+# Actualizar sistema completo
+apt update &amp;&amp; apt dist-upgrade -y
+</code></pre>
+<blockquote>
+<p>El repositorio <code>pve-no-subscription</code> es funcional y recibe actualizaciones de seguridad. La única diferencia respecto al Enterprise es la ausencia de SLA y soporte comercial.</p>
+</blockquote>
+<hr />
+<h2 id="3-configuracion-de-red">3. Configuración de Red</h2>
+<h3 id="etcnetworkinterfaces"><code>/etc/network/interfaces</code></h3>
+<pre><code>auto lo
+iface lo inet loopback
+
+auto enp1s0
+iface enp1s0 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+    address 192.168.1.11/24
+    gateway 192.168.1.1
+    dns-nameservers 192.168.1.20
+    bridge-ports enp1s0
+    bridge-stp off
+    bridge-fd 0
+</code></pre>
+<blockquote>
+<p><code>vmbr0</code> es el bridge al que se conectan todos los contenedores y VMs. El nombre del interfaz físico puede variar (<code>enp1s0</code>, <code>eth0</code>, etc.) — verificar con <code>ip link show</code>.</p>
+</blockquote>
+<h3 id="etchosts"><code>/etc/hosts</code></h3>
+<pre><code>127.0.0.1       localhost
+192.168.1.11    srv-01.dap.gal srv-01
+</code></pre>
+<hr />
+<h2 id="4-ntp-chrony">4. NTP (Chrony)</h2>
+<pre><code class="language-bash">apt install -y chrony
+systemctl enable chrony
+systemctl start chrony
+
+# Verificar sincronización
+chronyc tracking
+chronyc sources
+</code></pre>
+<hr />
+<h2 id="5-creacion-del-cluster">5. Creación del Clúster</h2>
+<p><code>srv-01</code> es el nodo que inicializó el clúster. <code>rp5-01</code> se unió posteriormente.</p>
+<pre><code class="language-bash"># Crear el clúster (ejecutar una sola vez en el nodo principal)
+pvecm create homelab
+
+# Verificar estado
+pvecm status
+pvecm nodes
+</code></pre>
+<pre><code># Salida esperada de pvecm nodes:
+Membership information
+──────────────────────
+Nodeid  Votes  Name
+     1      1  srv-01   (192.168.1.11)
+     2      1  rp5-01   (192.168.1.XX)
+</code></pre>
+<hr />
+<h2 id="6-modulo-fuse-para-contenedores-con-ollama-nesting">6. Módulo FUSE (para contenedores con Ollama / nesting)</h2>
+<pre><code class="language-bash"># Cargar el módulo fuse inmediatamente
+modprobe fuse
+
+# Persistir en reinicios
+echo &quot;fuse&quot; &gt;&gt; /etc/modules
+</code></pre>
+<blockquote>
+<p>Necesario para el CT 143 (y cualquier otro que use <code>nesting=1</code> o montajes FUSE internos, como Ollama).</p>
+</blockquote>
+<hr />
+<h2 id="7-configuracion-de-contenedores-especiales">7. Configuración de Contenedores Especiales</h2>
+<h3 id="ct-143-nesting-habilitado">CT 143 — Nesting habilitado</h3>
+<pre><code class="language-bash"># Habilitar nesting (necesario para contenedores que corren Docker u Ollama)
+pct set 143 --features nesting=1
+pct restart 143
+</code></pre>
+<p>Edición manual del fichero de configuración si es necesario:</p>
+<pre><code class="language-bash">nano /etc/pve/lxc/143.conf
+</code></pre>
+<hr />
+<h2 id="8-hardening-ssh">8. Hardening SSH</h2>
+<pre><code class="language-bash">cat &gt;&gt; /etc/ssh/sshd_config &lt;&lt; 'EOF'
+PermitRootLogin prohibit-password
+PasswordAuthentication no
+MaxAuthTries 3
+EOF
+
+systemctl reload sshd
+</code></pre>
+<blockquote>
+<p>El acceso directo a este nodo desde fuera de la LAN debe hacerse saltando por el bastión <code>rp5-01-ct-ssh</code> (192.168.1.21).</p>
+</blockquote>
+<hr />
+<h2 id="9-monitorizacion">9. Monitorización</h2>
+<h3 id="node-exporter">Node Exporter</h3>
+<pre><code class="language-bash">apt install -y prometheus-node-exporter
+systemctl enable prometheus-node-exporter
+systemctl start prometheus-node-exporter
+</code></pre>
+<p>Expone métricas del host en <code>http://192.168.1.11:9100/metrics</code>.</p>
+<h3 id="glances-monitorizacion-interactiva-local">Glances (monitorización interactiva local)</h3>
+<pre><code class="language-bash">apt install -y glances
+
+# Uso interactivo
+glances
+
+# Modo servidor web (opcional)
+glances -w   # http://192.168.1.11:61208
+</code></pre>
+<hr />
+<h2 id="10-contenedores-alojados">10. Contenedores Alojados</h2>
+<table>
+<thead>
+<tr>
+<th>CT ID</th>
+<th>Nombre</th>
+<th>IP</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1XX</td>
+<td>srv-01-ct-proxy</td>
+<td>192.168.1.31</td>
+<td>Traefik — Reverse proxy</td>
+</tr>
+<tr>
+<td>1XX</td>
+<td>srv-01-ct-tunnel</td>
+<td>192.168.1.XX</td>
+<td>Cloudflare Tunnel</td>
+</tr>
+<tr>
+<td>1XX</td>
+<td>srv-01-ct-whost</td>
+<td>192.168.1.40</td>
+<td>nginx — Web hosting dap.gal</td>
+</tr>
+<tr>
+<td>143</td>
+<td>srv-01-ct-sudofeed</td>
+<td>192.168.1.98</td>
+<td>Bot publicación automatizada</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-almacenamiento">11. Almacenamiento</h2>
+<pre><code class="language-bash"># Ver dispositivos físicos
+lsblk
+fdisk -l
+
+# Ver uso actual
+df -h
+
+# Ver pools configurados en Proxmox
+pvesm status
+</code></pre>
+<p>Configuración de almacenamiento en <code>/etc/pve/storage.cfg</code> (gestionada desde la UI del clúster).</p>
+<hr />
+<h2 id="12-backups-vzdump">12. Backups (vzdump)</h2>
+<p>Configurar desde <strong>Datacenter → Backup</strong> en la UI, o manualmente:</p>
+<pre><code class="language-bash"># Backup manual de un CT (comprimido, a almacenamiento local)
+vzdump &lt;CTID&gt; --compress zstd --storage local
+
+# Backup de todos los CTs del nodo
+vzdump --all --compress zstd --storage local
+</code></pre>
+<blockquote>
+<p>Recomendado: programar backup nocturno semanal desde la UI de Proxmox.</p>
+</blockquote>
+<hr />
+<h2 id="13-comandos-utiles">13. Comandos Útiles</h2>
+<pre><code class="language-bash"># Estado del clúster
+pvecm status
+pvecm nodes
+
+# Listar todos los CTs del nodo
+pct list
+
+# Arrancar / parar / reiniciar un CT
+pct start &lt;CTID&gt;
+pct stop &lt;CTID&gt;
+pct restart &lt;CTID&gt;
+
+# Entrar a la consola de un CT
+pct enter &lt;CTID&gt;
+
+# Estado de servicios Proxmox
+systemctl list-units 'pve*' 'corosync*'
+
+# Ver configuración de un CT
+cat /etc/pve/lxc/&lt;CTID&gt;.conf
+
+# Logs del clúster
+journalctl -u pve-cluster -n 50 --no-pager
+journalctl -u corosync -n 50 --no-pager
+
+# Sincronización NTP
+chronyc tracking
+
+# Uso de recursos
+top
+glances
+
+# Node Exporter
+curl -s http://localhost:9100/metrics | grep node_load
+</code></pre>
+<hr />
+<h2 id="14-acceso-a-la-ui-de-proxmox">14. Acceso a la UI de Proxmox</h2>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>https://192.168.1.11:8006</code></td>
+<td>Interfaz web principal (este nodo)</td>
+</tr>
+<tr>
+<td><code>https://192.168.1.XX:8006</code></td>
+<td>Nodo rp5-01 (vista del mismo clúster)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Credenciales: usuario <code>root</code>, autenticación PAM. Accesible solo desde la LAN.</p>
+</blockquote>
+<hr />
+<h2 id="15-lo-que-falta-documentar-configurar">15. Lo que falta documentar / configurar</h2>
+<h3 id="pendiente-de-documentar">Pendiente de documentar</h3>
+<ul>
+<li><strong>Especificaciones exactas de hardware</strong> (CPU, RAM, disco) del M920x</li>
+<li><strong>IP del nodo rp5-01</strong> y los IDs de CT de todos los contenedores</li>
+<li><strong>Interfaz de red física</strong> (<code>enp1s0</code> u otro — verificar con <code>ip link show</code>)</li>
+<li><strong>CT 143</strong> — confirmar a qué servicio corresponde (presumiblemente <code>srv-01-ct-sudofeed</code>)</li>
+</ul>
+<h3 id="pendiente-de-configurar">Pendiente de configurar</h3>
+<ul>
+<li><strong>Backups automáticos</strong> — no hay ningún schedule configurado; riesgo de pérdida de datos ante fallo de disco</li>
+<li><strong>Alertas de monitorización</strong> — Grafana no tiene alertas configuradas si Proxmox o un CT cae</li>
+<li><strong>Firewall de Proxmox</strong> — el firewall a nivel de datacenter/nodo está desactivado; toda la seguridad recae en UFW dentro de cada CT</li>
+<li><strong>Actualizaciones automáticas</strong> — no hay <code>unattended-upgrades</code> ni cron de <code>apt upgrade</code> en el host</li>
+<li><strong>SMART monitoring</strong> — no hay monitorización del estado de los discos físicos (<code>smartmontools</code>)</li>
+<li><strong>Notificaciones</strong> — sin alertas por email ni Telegram si un servicio cae o el disco llega al límite</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,211 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+#####################################################
+# Bare Metal Stats
+#####################################################
+
+- BareMetal:
+
+    - BM01-PI5:
+        icon: raspberry-pi.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="BM00-host", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="BM00-host", job="homelab"} / node_memory_MemTotal_bytes{instance="BM00-host", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+    - BM02-SER:
+        icon: proxmox.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="BM02-ser", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="BM02-ser", job="homelab"} / node_memory_MemTotal_bytes{instance="BM02-ser", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+#####################################################
+# Containers Stats
+#####################################################
+
+- Containers Infrastructure:
+    - CI01-DNS:
+        icon: pi-hole.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CI01-dns", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CI01-dns", job="homelab"} / node_memory_MemTotal_bytes{instance="CI01-dns", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+    - CI02-PROXY:
+        icon: traefik.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CI02-proxy", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CI02-proxy", job="homelab"} / node_memory_MemTotal_bytes{instance="CI02-proxy", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+    - CI03-STATS:
+        icon: grafana.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CI03-stats", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CI03-stats", job="homelab"} / node_memory_MemTotal_bytes{instance="CI03-stats", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+    - CI04-VPN:
+        icon: wireguard.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CI04-vpn", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CI04-vpn", job="homelab"} / node_memory_MemTotal_bytes{instance="CI04-vpn", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+    - CI05-HOME:
+        icon: homepage.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CI05-home", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CI05-home", job="homelab"} / node_memory_MemTotal_bytes{instance="CI05-home", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+
+- Containers Services:
+
+    - CS01-NAS:
+        icon: openmediavault.png
+        widget:
+          type: prometheusmetric
+          url: http://192.168.1.103:9090
+          refreshInterval: 10000 # optional - in milliseconds, defaults to 10s
+          metrics:
+            - label: CPU
+              query: 100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="CS01-nas", job="homelab"}[5m])))
+              format:
+                type: number # Cambiado de percent a number para controlar el sufijo
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+            - label: RAM
+              query: clamp_min((1 - (node_memory_MemAvailable_bytes{instance="CS01-nas", job="homelab"} / node_memory_MemTotal_bytes{instance="CS01-nas", job="homelab"})) * 100, 0)
+              format:
+                type: number
+                suffix: "%"
+                options:
+                  maximumFractionDigits: 1
+#####################################################
+# Services Status
+#####################################################
+
+- Status:
+    - Grafana:
+        icon: grafana.png
+        href: https://stats.davidalvarezp.com/d/adm5jwq/homelab
+        widget:
+          type: grafana
+          version: 2
+          alerts: grafana
+          url: https://stats.davidalvarezp.com/
+          username: homepage
+          password: homepage-widget
+    - Prometheus:
+        icon: prometheus.png
+        widget:
+          type: prometheus
+          url: http://192.168.1.103:9090

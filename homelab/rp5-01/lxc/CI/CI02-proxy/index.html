@@ -1,0 +1,598 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://dap.gal/homelab/rp5-01/lxc/CI/CI02-proxy/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>CI Proxy: Nginx Reverse Proxy - Mi Homelab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ci-proxy-nginx-reverse-proxy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Mi Homelab" class="md-header__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mi Homelab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CI Proxy: Nginx Reverse Proxy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Mi Homelab" class="md-nav__button md-logo" aria-label="Mi Homelab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mi Homelab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#arquitectura-de-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arquitectura de Red
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arquitectura de Red">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-capa-de-gestion-subdominios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Capa de Gestión (Subdominios)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-capa-publica-path-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Capa Pública (Path-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-despliegue-del-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Despliegue del Contenedor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-instalacion-y-configuracion-de-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Instalación y Configuración de Traefik
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Instalación y Configuración de Traefik">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparacion-del-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Preparación del Sistema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-instalacion-de-traefik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Instalación de Traefik
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-estructura-de-directorios-y-permisos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Estructura de Directorios y Permisos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-configuracion-estatica-traefikyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Configuración Estática (traefik.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-configuracion-dinamica-confdrulesyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Configuración Dinámica (conf.d/rules.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-variables-de-entorno-cloudflare-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Variables de Entorno (Cloudflare API)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-lanzamiento-y-verificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Lanzamiento y Verificación
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ci-proxy-nginx-reverse-proxy">CI Proxy: Nginx Reverse Proxy</h1>
+<p>En segundo lugar creé el contenedor proxy (Nginx Reverse Proxy), para extablecer que dirección IP va asociada a cada dominio.</p>
+<h2 id="arquitectura-de-red">Arquitectura de Red</h2>
+<h3 id="1-capa-de-gestion-subdominios">1. Capa de Gestión (Subdominios)</h3>
+<p>Acceso directo a las herramientas de administración.
+* <strong>DNS:</strong> <code>dns.dap.gal</code> (Pi-hole)
+* <strong>Proxy:</strong> <code>proxy.dap.gal</code> (Traefik Dashboard)
+* <strong>Métricas:</strong> <code>stats.dap.gal</code> (Grafana)
+* <strong>VPN:</strong> <code>vpn.dap.gal</code> (WireGuard Web UI)
+* <strong>Dashboard:</strong> <code>home.dap.gal</code> (Homepage)</p>
+<h3 id="2-capa-publica-path-based">2. Capa Pública (Path-based)</h3>
+<p>Servicios expuestos al exterior.
+* <strong>Landing Page:</strong> <code>dap.gal/</code>
+* <strong>Blog:</strong> <code>dap.gal/blog</code> (Ghost)</p>
+<h2 id="1-despliegue-del-contenedor">1. Despliegue del Contenedor</h2>
+<p>Desde el host:</p>
+<pre><code class="language-bash">sudo lxc-copy -n CB01-deb12 -N CI02-PROXY
+
+# Editar config
+sudo nano /var/lib/lxc/CI02-PROXY/config 
+
+# Iniciar
+sudo lxc-start -n CI02-PROXY
+sudo lxc-attach -n CI02-PROXY
+
+# Configuramos DNS
+rm /etc/resolv.conf
+echo &quot;nameserver 192.168.1.11&quot; &gt; /etc/resolv.conf
+echo &quot;nameserver 8.8.8.8&quot; &gt;&gt; /etc/resolv.conf
+
+</code></pre>
+<h2 id="2-instalacion-y-configuracion-de-traefik">2. Instalación y Configuración de Traefik</h2>
+<h3 id="1-preparacion-del-sistema">1. Preparación del Sistema</h3>
+<p>Actualizamos repositorios e instalamos las dependencias básicas necesarias.</p>
+<pre><code class="language-bash">apt update &amp;&amp; apt upgrade -y
+apt install -y curl wget debian-archive-keyring lsb-release gnupg2
+</code></pre>
+<h3 id="2-instalacion-de-traefik">2. Instalación de Traefik</h3>
+<p>Descargamos el binario oficial (método recomendado para LXC para evitar sobrecarga de Docker).</p>
+<pre><code class="language-bash"># Obtener la última versión de la página de lanzamientos de GitHub
+wget https://github.com/traefik/traefik/releases/download/v3.0.0/traefik_v3.0.0_linux_arm64.tar.gz # Ajusta si es amd64
+tar -zxvf traefik_v3.0.0_linux_arm64.tar.gz
+mv traefik /usr/local/bin/
+chmod +x /usr/local/bin/traefik
+</code></pre>
+<h2 id="3-estructura-de-directorios-y-permisos">3. Estructura de Directorios y Permisos</h2>
+<p>Creamos el entorno de configuración profesional.</p>
+<pre><code class="language-bash">mkdir -p /etc/traefik/conf.d
+mkdir -p /etc/traefik/acme
+touch /etc/traefik/traefik.yml
+touch /etc/traefik/acme/acme.json
+chmod 600 /etc/traefik/acme/acme.json # Requisito de seguridad para SSL
+</code></pre>
+<h2 id="4-configuracion-estatica-traefikyml">4. Configuración Estática (<code>traefik.yml</code>)</h2>
+<p>Este archivo define los <strong>EntryPoints</strong> (puertos) y el <strong>Certificate Resolver</strong> para Cloudflare.</p>
+<p><code>nano /etc/traefik/traefik.yml</code></p>
+<pre><code class="language-yaml">api:
+  dashboard: true
+  insecure: false
+
+entryPoints:
+  web:
+    address: &quot;:80&quot;
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: &quot;:443&quot;
+
+providers:
+  file:
+    directory: /etc/traefik/conf.d
+    watch: true
+
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: tu-email@ejemplo.com
+      storage: /etc/traefik/acme/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - &quot;1.1.1.1:53&quot;
+          - &quot;8.8.8.8:53&quot;
+</code></pre>
+<h2 id="5-configuracion-dinamica-confdrulesyml">5. Configuración Dinámica (<code>conf.d/rules.yml</code>)</h2>
+<p>Aquí es donde ocurre la magia del enrutado que definimos.</p>
+<p><code>nano /etc/traefik/conf.d/rules.yml</code></p>
+<p>Copiar el contenido de <a href="rules/">rules</a></p>
+<h2 id="6-variables-de-entorno-cloudflare-api">6. Variables de Entorno (Cloudflare API)</h2>
+<p>Traefik necesita tu Token de Cloudflare para validar el DNS Challenge. Lo configuramos en el servicio de Systemd.</p>
+<p><code>nano /etc/systemd/system/traefik.service</code></p>
+<pre><code class="language-ini">[Unit]
+Description=Traefik
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment=CF_DNS_API_TOKEN=TU_TOKEN_DE_CLOUDFLARE_AQUI
+ExecStart=/usr/local/bin/traefik --configFile=/etc/traefik/traefik.yml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h2 id="7-lanzamiento-y-verificacion">7. Lanzamiento y Verificación</h2>
+<p>Habilitamos el servicio y comprobamos que todo esté en orden.</p>
+<pre><code class="language-bash">systemctl daemon-reload
+systemctl enable traefik
+systemctl start traefik
+
+# Ver logs en tiempo real por si falla algo
+journalctl -u traefik -f
+</code></pre>
+<hr />
+<ol>
+<li>Configuración de Reglas Básicas
+Bash</li>
+</ol>
+<h1 id="1-denegar-todo-el-trafico-entrante-por-defecto-seguridad">1. Denegar todo el tráfico entrante por defecto (Seguridad)</h1>
+<p>ufw default deny incoming</p>
+<h1 id="2-permitir-todo-el-trafico-saliente-para-que-traefik-llegue-a-los-otros-lxc">2. Permitir todo el tráfico saliente (Para que Traefik llegue a los otros LXC)</h1>
+<p>ufw default allow outgoing</p>
+<h1 id="3-permitir-ssh-importante-si-no-te-echaras-a-ti-mismo-del-contenedor">3. Permitir SSH (¡IMPORTANTE! Si no, te echarás a ti mismo del contenedor)</h1>
+<p>ufw allow ssh</p>
+<h1 id="4-puertos-web-estandar-entrada-desde-el-exterior">4. Puertos Web Estándar (Entrada desde el exterior)</h1>
+<p>ufw allow 80/tcp
+ufw allow 443/tcp</p>
+<h1 id="5-puerto-del-dashboard-de-traefik-uso-interno">5. Puerto del Dashboard de Traefik (Uso interno)</h1>
+<h1 id="aunque-lo-sacamos-por-proxydapgal-443-el-binario-escucha-internamente-aqui">Aunque lo sacamos por proxy.dap.gal (443), el binario escucha internamente aquí</h1>
+<p>ufw allow 8080/tcp</p>
+<hr />
+<h2 id="6-integracion-con-monitoreo">6. Integración con Monitoreo</h2>
+<p>Como ya tienes el <strong>Node Exporter</strong> en la base, Grafana ya verá la CPU.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
