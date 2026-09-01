@@ -4,6 +4,8 @@ slug: "hardening-linux"
 date: 2026-06-26
 lastmod: 2026-07-16
 draft: false
+author: "dap"
+authorLink: "https://dap.gal"
 description: "  Guía práctica de hardening de servidores Linux: SSH, kernel, filesystem, red, systemd, contenedores y monitorización."
 images: [hardening_linux_avanzado.webp]
 resources:
