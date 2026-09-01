@@ -61,7 +61,7 @@ theme:
     - content.action.edit
     - content.action.view
 
-    #- toc.integrate
+    - toc.integrate
 
 
 # --------------------------------------------------
