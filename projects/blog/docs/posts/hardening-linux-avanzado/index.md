@@ -1,12 +1,12 @@
 ---
-title: "Guía Avanzada de Hardening en Linux"
-slug: "hardening-linux-avanzado"
+title: "Guía Avanzada de Hardening en Linux para SysAdmins"
+slug: "hardening-linux"
 date: 2026-06-26
 lastmod: 2026-07-16
 draft: false
 author: "dap"
 authorLink: "https://dap.gal"
-description: "Guía técnica avanzada para sysadmins y profesionales de ciberseguridad sobre hardening en Linux: kernel, red, cifrado, contenedores, auditoría, automatización y buenas prácticas."
+description: "  Guía práctica de hardening de servidores Linux: SSH, kernel, filesystem, red, systemd, contenedores y monitorización."
 images: [hardening_linux_avanzado.webp]
 resources:
 - name: "hardening-linux-avanzado"
@@ -27,6 +27,10 @@ tags: [
 categories: [
 "CyberSec",
 "SysAdmin",
+"DevSecOps",
+"Linux",
+"VirtCloud",
+"Infra",
 ]
 
 lightgallery: true

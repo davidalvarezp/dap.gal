@@ -1,6 +1,7 @@
 ---
 title: dap.gal/blog
-description: Artículos técnicos sobre administración de sistemas Linux, DevOps, ciberseguridad, automatización e infraestructura moderna.
+description: Blog técnico sobre administración de sistemas, Linux, ciberseguridad,DevSecOps, virtualización, automatización e infraestructura.
+
 keywords:
   - devsecops
   - ciberseguridad

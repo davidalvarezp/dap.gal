@@ -1,10 +1,9 @@
 site_name: dap.gal/blog
-site_description: Articulos y guías sobre administración de sistemas, ciberseguridad, virtualización e infraestructura Linux.
 site_url: https://dap.gal/blog/
 #use_directory_urls: false
 site_description: >
-  Blog personal sobre SysAdmin, DevSecOps, ciberseguridad, Linux,
-  automatización e infraestructuras modernas.
+  Blog técnico sobre administración de sistemas, Linux, ciberseguridad,
+  DevSecOps, virtualización, automatización e infraestructura.
 
 # Configuración del Repositorio
 repo_name: dap.gal/blog
@@ -19,31 +18,55 @@ docs_dir: docs
 # --------------------------------------------------
 # THEME
 # --------------------------------------------------
+
 theme:
   name: material
   language: es
+
   logo: https://dap.gal/assets/img/logo.webp
   favicon: https://dap.gal/assets/img/favicon.ico
+
   font:
     text: JetBrains Mono
+
   palette:
-    scheme: slate
-    primary: black
-    accent: green
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+
   features:
     - navigation.instant
     - navigation.instant.progress
     - navigation.tabs
     - navigation.top
-    - navigation.sections
+
     - search.highlight
     - search.suggest
+
     - content.code.copy
     - content.code.annotate
-    - toc.integrate
+
     - content.action.edit
     - content.action.view
 
+    - toc.follow
+
+
+# --------------------------------------------------
+# CSS
+# --------------------------------------------------
 
 extra_css:
   - assets/css/extra.css
@@ -52,13 +75,16 @@ extra_css:
 # --------------------------------------------------
 # MARKDOWN
 # --------------------------------------------------
+
 markdown_extensions:
+
   - admonition
   - attr_list
   - md_in_html
 
   - toc:
       permalink: true
+      toc_depth: 3
 
   - pymdownx.details
   - pymdownx.superfences
@@ -72,6 +98,7 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
+
 # --------------------------------------------------
 # PLUGINS
 # --------------------------------------------------
@@ -84,14 +111,39 @@ plugins:
       blog_dir: .
       post_dir: posts
 
-      # UI
-      archive: false
-      categories: true
+      # Excerpts
+      post_excerpt: required
+      post_excerpt_separator: <!-- more -->
 
-      # orden
+      # Reading time
+      post_readtime: true
+      post_readtime_words_per_minute: 200
+
+      # Index
       pagination: true
+      pagination_per_page: 6
 
+      # Organization
+      categories: true
+      categories_pagination_per_page: 10
+
+      # Keep archive available for SEO/discovery
+      archive: true
+      archive_name: Archivo
+
+      # Authors
+      authors: true
+      authors_profiles: true
+
+      # Don't show huge metadata blocks in excerpts
+      post_excerpt_max_categories: 2
+      post_excerpt_max_authors: 1
+
+
+  # ------------------------------------------------
   # RSS
+  # ------------------------------------------------
+
   - rss:
       match_path: posts/.*
       date_from_meta:
@@ -103,15 +155,30 @@ plugins:
 
       pretty_print: true
 
+
+  # ------------------------------------------------
+  # SOCIAL CARDS
+  # ------------------------------------------------
+
+  - social
+
+
 # --------------------------------------------------
 # EXTRA
 # --------------------------------------------------
 extra:
   generator: false
 
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/davidalvarezp/
+      name: GitHub
+
+
 # --------------------------------------------------
-# NAV (mínima, Material genera el resto)
+# NAV
 # --------------------------------------------------
+
 nav:
   - dap.gal: https://dap.gal/
   - Blog: index.md
