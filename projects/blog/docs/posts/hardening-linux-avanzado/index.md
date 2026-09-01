@@ -39,6 +39,14 @@ lightgallery: true
 
 # Guía Avanzada de Hardening en Linux para SysAdmins
 
+El hardening de Linux es un proceso continuo de reducción de la superficie de ataque y fortalecimiento de los controles de seguridad de un sistema. En entornos de producción, no basta con proteger únicamente el acceso SSH o configurar un firewall: es necesario abordar de forma integral el sistema operativo, el kernel, los servicios, el filesystem, la red, la criptografía y los mecanismos de control de acceso.
+
+<!-- more -->
+
+En esta guía se recopilan técnicas y buenas prácticas avanzadas orientadas a SysAdmins, profesionales de ciberseguridad y equipos DevSecOps. Se abordan desde la minimización del sistema y el principio de mínimo privilegio hasta el sandboxing con systemd, SELinux/AppArmor, protección del kernel, cifrado con LUKS2, seguridad de contenedores y virtualización, auditoría, monitorización y automatización mediante herramientas como Ansible.
+
+El objetivo no es aplicar una configuración rígida y olvidarse de ella, sino establecer una estrategia de defense-in-depth que pueda mantenerse, auditarse y automatizarse a lo largo del ciclo de vida de la infraestructura.
+
 
 ## Índice
 

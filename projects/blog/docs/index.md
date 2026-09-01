@@ -1,5 +1,5 @@
 ---
-title: dap.gal/blog
+title: Blog
 description: Blog técnico sobre administración de sistemas, Linux, ciberseguridad,DevSecOps, virtualización, automatización e infraestructura.
 
 keywords:

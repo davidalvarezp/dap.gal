@@ -1,5 +1,11 @@
 authors:
+
   dap:
     name: David Álvarez Pampillón
-    description: Creator
-    avatar: https://dap.gal/assets/img/avatar.webp
+    description: >
+      SysAdmin y entusiasta de Linux, infraestructura,
+      ciberseguridad y automatización.
+
+    avatar: https://github.com/davidalvarezp.png
+
+    url: https://dap.gal/
